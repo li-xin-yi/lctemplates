@@ -4,3 +4,5 @@ linkify-it-py==1.0.1
 sphinx-panels==0.5.2
 sphinx-copybutton==0.3.1
 sphinxext-opengraph==0.4.2
+alabaster==0.7.12
+Jinja2==3.0.1
