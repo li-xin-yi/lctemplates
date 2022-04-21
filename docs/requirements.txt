@@ -1,0 +1,6 @@
+sphinx==3.5.4
+myst-parser==0.14.0
+linkify-it-py==1.0.1
+sphinx-panels==0.5.2
+sphinx-copybutton==0.3.1
+sphinxext-opengraph==0.4.2
