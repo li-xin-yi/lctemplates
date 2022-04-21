@@ -54,3 +54,5 @@ html_static_path = ['_static']
 extensions = ['myst_parser','sphinx_panels','sphinx.ext.viewcode','sphinx_copybutton']
 
 myst_enable_extensions = ["linkify","dollarmath", "amsmath"]
+
+master_doc = 'index'
