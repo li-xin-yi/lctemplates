@@ -48,8 +48,8 @@ In the while loop, we shrink the range by keeping `right` as an infeasible value
 ![](https://assets.leetcode.com/uploads/2020/08/11/q3v1.jpg)
 
 - `check(k)`: Given a probable distance `k`, we can check if `k` is feasible by placing balls in order from the leftmost allowed positions while keeping each ball *at least* `k` units away from the previous one. If `m` balls can be used up before or at the rightmost allowed positions, `m` balls can have a min distance >= `k`; Otherwise, `k` is too large.
-- Lower bound: Obviously, two balls can't be put together in one single position. The min distance should >= 1.
-- Upper bound: Suppose all `m` balls "distribute" evenly from the leftmost to the rightmost positions, the distance between two **adjacent** balls is $\lfloor (P_{n-1} - P_0)/(m-1) \rfloor$. However, probably, not all positions in that "distribution" are allowed $P_i$ points, so the actual upper bound must <= this value. We add 1 to it just to make sure we have a determined **infeasible** upper bound as $\lfloor (P_{n-1} - P_0)/(m-1) \rfloor + 1$.
+- **Lower bound**: Obviously, two balls can't be put together in one single position. The min distance should >= 1.
+- **Upper bound**: Suppose all `m` balls "distribute" evenly from the leftmost to the rightmost positions, the distance between two **adjacent** balls is $\lfloor (P_{n-1} - P_0)/(m-1) \rfloor$. However, probably, not all positions in that "distribution" are allowed $P_i$ points, so the actual upper bound must <= this value. We add 1 to it just to make sure we have a determined **infeasible** upper bound as $\lfloor (P_{n-1} - P_0)/(m-1) \rfloor + 1$.
 
 Now, let's apply the template:
 
@@ -79,6 +79,11 @@ class Solution:
                 right = mid
         return left - 1
 ```
+
+### Min Problem
+
+[LC1870 Minimum Speed to Arrive on Time](https://leetcode.com/problems/minimum-speed-to-arrive-on-time/): In this problem, the condition function is very clear:
+- `check(k)`: check if $\sum_{i=0}^{n-2}{\lceil dist_i/k \rceil} + dist_{n-1}/k \le hour$ holds for a given `k`.
 
 
 ## Read More
