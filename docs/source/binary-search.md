@@ -37,6 +37,10 @@ In the while loop, we shrink the range by keeping `right` as an infeasible value
 -  Replace `return left` with `return left-1` when you are looking for the largest value that can pass `check()` (i.e., max problem)
 - Time Complexity: $O(cost(check)\cdot\log(right-left))$
 
+````{note}
+You may also see some code use `mid = left + (right-left)//2` or `mid = right - (right-left)//2` instead of `mid = (left+right)//2` in some other templates or codes. The concern of *integer overflow* problem drives people to update `mid` carefully. However, the issue rarely occurs for Python3 solutions in LeetCode, at least I never fail for it. Perhaps it is because I always keep very cautious about finding the initial `[left, right)` as tightly as I can. But it's not neccessary for competitive programming. To submit code as soon as possible, you may have to start binary search from a very wide but **legal** range instead of wasting time analyzing the lower/upper bound. So please take care and use `mid = left + (right-left)//2` if you don't want to consider too much about the initial range.
+````
+
 ---
 
 ## Usage Examples
@@ -80,11 +84,43 @@ class Solution:
         return left - 1
 ```
 
+
+
 ### Min Problem
 
 [LC1870 Minimum Speed to Arrive on Time](https://leetcode.com/problems/minimum-speed-to-arrive-on-time/): In this problem, the condition function is very clear:
 - `check(k)`: check if $\sum_{i=0}^{n-2}{\lceil dist_i/k \rceil} + dist_{n-1}/k \le hour$ holds for a given `k`.
 
+The most challenging component of this problem is to determine the *corner case* in which no feasible speed works. First, except for the last one, all `dist[i]` must take at least one hour to finish, so it is impossible to commute in time <= `n-1` hour. Then, look at the last one, if we increase the speed to some value approaching $+\infty$, the remaining time cost will also be $\to 0$. So we just need to check if `hour<=n-1`, and by the way, we also get a upper bound:
+- If the bottleneck is due to some largest `dist[i]` within `i<n-1`, as the min time to finish it is 1 hour,  the speed, `dist[i]` hour is sufficient for the situation.
+- If the bottleneck is caused by the last trip, `dist[-1]`, the time limit may be tighter because the time limit for the last trip could be a float < 1 as `hour-(n-1)`.
+Hence, the upper bound can be written as $\lceil \max(dist)/\min(1,hour-n+1) \rceil$, which is definitely safe speed for the problem. 
+
+````{note}
+Also, compared to the template, the condition function `check(speed)` is nagetated but returned bool values are consistent with the problem description, thus, the two branches used to update the range are swapped here. If you're still not fimilar with the usage, you can simply use `if not check(speed)` and keep everything else unchanged from the template.
+````
+
+```py
+import math
+class Solution:
+    def minSpeedOnTime(self, dist: List[int], hour: float) -> int:
+        def check(speed):
+            return sum([(i+speed-1)//speed for i in dist[:-1]]) + dist[-1]/speed <= hour
+
+        n = len(dist)
+
+        if hour <= n-1:
+            return -1
+        
+        l,r = 1, int(math.ceil(max(dist)/min(1,hour-n+1)))
+        while l<r:
+            m = (l+r)//2
+            if check(m):
+                r = m
+            else:
+                l = m + 1
+        return r
+```
 
 ## Read More
 
