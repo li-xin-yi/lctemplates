@@ -13,6 +13,7 @@ My personal summerized LeetCode Python templates.
 ```{toctree}
 :maxdepth: 1
 :caption: Home
+Prefix Sum <prefix-sum.md>
 Binary Search <binary-search.md>
 ```
 
