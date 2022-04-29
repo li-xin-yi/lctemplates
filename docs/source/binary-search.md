@@ -86,6 +86,8 @@ class Solution:
 
 
 
+
+
 ### Min Problem
 
 [LC1870 Minimum Speed to Arrive on Time](https://leetcode.com/problems/minimum-speed-to-arrive-on-time/): In this problem, the condition function is very clear:
@@ -122,9 +124,23 @@ class Solution:
         return r
 ```
 
+### More
+
+Some other LC prblems applicable for this template (left as exercises):
+
+- Easy: [LC2226](https://leetcode.com/problems/maximum-candies-allocated-to-k-children/), [LC1608](https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/), [LC1283](https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/)
+- Medium:  [LC1011](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/), [LC1292](https://leetcode.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/), [LC1300](https://leetcode.com/problems/sum-of-mutated-array-closest-to-target/), [LC2064](https://leetcode.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/), [LC1898](https://leetcode.com/problems/maximum-number-of-removable-characters/), [LC1482](https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/) 
+- Hard: [LC1201](https://leetcode.com/problems/ugly-number-iii/), [LC1648](https://leetcode.com/problems/sell-diminishing-valued-colored-balls/), [LC2141](https://leetcode.com/problems/maximum-running-time-of-n-computers/)
+
 ## Read More
 
 See [^1]
+
+### Challenge: Median Sort (Google Code Jam Qual 2021 Q4) \*
+
+//TODO
+
+https://codingcompetitions.withgoogle.com/codejam/round/000000000043580a/00000000006d1284
     
       
 

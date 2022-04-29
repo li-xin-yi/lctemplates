@@ -60,6 +60,9 @@ To conclude, **`accumulate` (Alt-2 template) outperforms other templates signifi
 
 But I still suggest you stick to any template **as long as you're comfortable with it** because LeetCode conducts very loose restrictions on runtime. About 100 test cases with the most extended list as $10^5$-elements are usually designed for each LeetCode problem (like row 1 in the table above), in which a template won't have a great impact on overall runtime, so you can pick any preferred style in a LC weekly contest just for finding the solution fast.
 
+
+---
+
 ## Usage Examples
 
 ## Extensions \& Generalization

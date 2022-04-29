@@ -17,6 +17,17 @@ Prefix Sum <prefix-sum.md>
 Binary Search <binary-search.md>
 ```
 
+## Notes
+
+1. Some problems are listed without solutions for exercises in each topic, which are promised to be solvable by the provided template (because at least I have already passed them with the template) but *may not be the best solutions for the problems*. 
+2. The difficulty levels marked for those problems may be **varied** from the levels given by LeetCode officially because it is just my measurement for difficulty.
+3. Sometimes, I may give some challenges from sources other than LeetCode, which seem more challenging and can't be solved by the template directly. But a step forward from the **idea** in the templates may help solve them. Thus, I just leave them as *optional* challenges.
+
+## More about me
+
+- [My solutions for LeetCode weekly contests](http://notebook.xyli.me/categories/LeetCode/) (*Chinese only, very very early stage, till 174 (02/01/2020)*)
+- [My paper reading notes](https://paper-weekly.readthedocs.io/en/latest/) (Mainly about ML/Security)
+
 
 ## Indices and tables
 
