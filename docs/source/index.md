@@ -30,6 +30,7 @@ Binary Search <binary-search.md>
 - [My solutions for LeetCode weekly contests](http://notebook.xyli.me/categories/LeetCode/) (*Chinese only, very very early stage, till 174 (02/01/2020)*)
 - [My paper reading notes](https://paper-weekly.readthedocs.io/en/latest/), mainly about ML/Security
 - Open for any dev/research intern ({opticon}`location` US or remote). If you have interest in working with me, please contact [{opticon}`mail` wolixinyi@gmail.com](mailto:wolixinyi@gmail.com)
+- [{opticon}`gift` Sponsor me!](https://github.com/sponsors/li-xin-yi) I'm in a poor financial condition due to the suspending research funding now. I can hardly survive this summer, help me! {badge}`cyber begging,badge-dark badge-pill`
 
 
 
