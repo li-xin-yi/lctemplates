@@ -17,6 +17,7 @@ My personal summerized LeetCode Python templates.
 :caption: Home
 Prefix Sum <prefix-sum.md>
 Binary Search <binary-search.md>
+Some Tips for Python in LeetCode <tips.md>
 ```
 
 ## Notes
