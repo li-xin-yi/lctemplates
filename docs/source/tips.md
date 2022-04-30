@@ -12,7 +12,7 @@ To work with Python in LeetCode smoothly, you also have to code in a proper way,
 
 ## Square
 
-Stick to `x*x` style when you are required to calculate the square of a number `x` frequently, which is the most easy way to write and run fast. Don't use `x**2` or `pow(x,2)` unless necessary. (Test results are available in [this notebook](https://github.com/li-xin-yi/lctemplates/blob/main/test/square-test.ipynb))
+Stick to `x*x` style when you are required to calculate the square of a number `x` frequently, which is the easiest way to write and run fast. Don't use `x**2` or `pow(x,2)` unless necessary. (Test results are available in [this notebook](https://github.com/li-xin-yi/lctemplates/blob/main/test/square-test.ipynb))
 
 Why? Both `**` and `pow` apply a [*fast exponentiation*](https://en.wikipedia.org/wiki/Exponentiation_by_squaring) algorithm in $O(\log n)$. When the exponent `n` increases rapidly, they optimize a lot; but when `n=2`, it suffers from the huge *constant factors* in complexity compared to naively multipling two `x`s.
 
