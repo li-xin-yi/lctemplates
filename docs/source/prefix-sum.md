@@ -83,12 +83,24 @@ class Solution:
         return idx
 ```
 
-[LC2245 Maximum Trailing Zeros in a Cornered Path](https://leetcode.com/problems/maximum-trailing-zeros-in-a-cornered-path/): instead of accumulating the number itself, in this problem, we should accumulate the amount of factors of 2 and 5 along with all "paths". The idea is explained by [@votrubac](https://leetcode.com/votrubac/) in [^1] as the picture below (`[a:b]`in the table represents there are total `a` factors of 2 and `b` factors of 5 so far in this line, upper->down, left->right):
+[LC2245 Maximum Trailing Zeros in a Cornered Path](https://leetcode.com/problems/maximum-trailing-zeros-in-a-cornered-path/): instead of accumulating the number itself, in this problem, we should accumulate the amount of factors of 2 and 5 along with all "paths".
+
+![](https://assets.leetcode.com/uploads/2022/03/23/ex1new2.jpg)
+
+The idea is explained by [@votrubac](https://leetcode.com/votrubac/) in [^1] as the picture below (`[a:b]`in the table represents there are total `a` factors of 2 and `b` factors of 5 so far in this line, upper->lower, left->right):
 
 [^1]: [Prefix Sum of Factors 2 and 5](https://leetcode.com/problems/maximum-trailing-zeros-in-a-cornered-path/discuss/1955515/Prefix-Sum-of-Factors-2-and-5)
 
 ![Picture from](https://assets.leetcode.com/users/images/881c18fd-0d0a-4b02-9f1e-06ccb0882df7_1650190116.5992572.png)
 
+- First, calculate the prefix sum of all factors of 2 and 5 for each row (stored as `rows`, with a shape `n*(m+1)`)) and each column (stored as `cols`,with a shape `m*(n+1)`) respectively
+- Now, for each index `(i,j)`, you can reach it by
+    1. left -> right: `grid[i][:j]`, the total number of factors so far (`(i,j)` exclusively) should be `rows[i][j]`
+    2. right -> left: `grid[i][j+1:]`, as `rows[i][-1]-rows[i][j+1]` (yes, *suffix sum* can be calculated by prefix sum as well, you don't have to caculate it again reversely)
+    3. upper -> lower: `grid[:i][j]`, as `cols[j][i]`
+    4. lower -> upper: `grid[i+1:][j]`, as `cols[j][-1]-cols[j][i+1]`
+- When selecting any index `(i,j)` as the "turn point" (*you must turn once to maximize the result because at least it won't reduce the numbers of factors anyway, why not?*), sum up the elememt itself with two paths that reaches it horizontally and vertically, those are, 1 and 3, 1 and 4, 2 and 3, 2 and 4 above, four combinations in total.
+- Find out the max values from all selected "turn points". The overall time complexity is $O(nm)$
 
 ```py
 class Solution:
