@@ -65,6 +65,26 @@ But I still suggest you stick to any template **as long as you're comfortable wi
 
 ## Usage Examples
 
+[LC2256: Minimum Average Difference](https://leetcode.com/contest/weekly-contest-291/problems/minimum-consecutive-cards-to-pick-up/), a very typical application of prefix sum array: it asks for the average of first `i+1` elements and the average of last `n-i-1` elements for each `0<=i<n`，in which the sum of `i+1` elements and the  last `n-i-1` elements) can be read as `pre[i]` and `pre[-1]-pre[i]` respectively.
+
+```py
+class Solution:
+    def minimumAverageDifference(self, nums: List[int]) -> int:
+        n = len(nums)
+        pre = [0]
+        idx,res = -1,float('inf')
+        for num in nums:
+            pre.append(pre[-1]+num)
+        for i in range(n):
+            diff = abs(pre[i+1]//(i+1) - (pre[-1]-pre[i+1])//(n-i-1)) if i!=n-1 else pre[i+1]//(i+1)
+            if diff < res:
+                res = diff
+                idx = i
+        return idx
+```
+
+
+
 ## Extensions \& Generalization
 
 
