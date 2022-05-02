@@ -51,9 +51,9 @@ class Solution:
         return len(seen)
 ```
 
-Thus, if you write the square properly, you may even pass a problem with a wrong algorithm.
+Thus, if you write the square properly, you may even pass a problem with an efficient algorithm.
 
-**Extension**: How about *square root*? I also measured three ways (`**0.5`,`math.sqrt` and `pow(,0.5)`) on a large scale of data and found that `math.sqrt` has the shortest runtime but not so obviously. (Test results are available in [the same notebook](https://github.com/li-xin-yi/lctemplates/blob/main/test/square-test.ipynb)). 
+**Extension**: How about *square root*? I also measured three ways (`**0.5`,  `math.sqrt` and `pow(,0.5)`) on a large scale of data and found that `math.sqrt` has the shortest runtime but not so obviously. (Test results are available in [the same notebook](https://github.com/li-xin-yi/lctemplates/blob/main/test/square-test.ipynb)). 
 
 ## Transpose
 
