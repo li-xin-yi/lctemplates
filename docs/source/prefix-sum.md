@@ -61,11 +61,12 @@ To conclude, **`accumulate` (Alt-2 template) outperforms other templates signifi
 But I still suggest you stick to any template **as long as you're comfortable with it** because LeetCode conducts very loose restrictions on runtime. About 100 test cases with the most extended list as $10^5$-elements are usually designed for each LeetCode problem (like row 1 in the table above), in which a template won't have a great impact on overall runtime, so you can pick any preferred style in a LC weekly contest just for finding the solution fast.
 
 
----
 
 ## Usage Examples
 
-[LC2256: Minimum Average Difference](https://leetcode.com/contest/weekly-contest-291/problems/minimum-consecutive-cards-to-pick-up/), a very typical application of prefix sum array: it asks for the average of first `i+1` elements and the average of last `n-i-1` elements for each `0<=i<n`，in which the sum of `i+1` elements and the  last `n-i-1` elements) can be read as `pre[i]` and `pre[-1]-pre[i]` respectively.
+### Classic
+
+[LC2256: Minimum Average Difference](https://leetcode.com/contest/weekly-contest-291/problems/minimum-consecutive-cards-to-pick-up/), a very typical application of prefix sum array: it asks for the average of first `i+1` elements and the average of last `n-i-1` elements for each `0<=i<n`, in which the sum of `i+1` elements and the  last `n-i-1` elements) can be read as `pre[i]` and `pre[-1]-pre[i]` respectively.
 
 ```py
 class Solution:
@@ -83,7 +84,10 @@ class Solution:
         return idx
 ```
 
-[LC2245 Maximum Trailing Zeros in a Cornered Path](https://leetcode.com/problems/maximum-trailing-zeros-in-a-cornered-path/): instead of accumulating the number itself, in this problem, we should accumulate the amount of factors of 2 and 5 along with all "paths".
+### 2-Direction
+
+
+[LC2245 Maximum Trailing Zeros in a Cornered Path](https://leetcode.com/problems/maximum-trailing-zeros-in-a-cornered-path/): instead of accumulating the number itself, in this problem, we should accumulate the number of factors of 2 and 5 along with all "paths".
 
 ![](https://assets.leetcode.com/uploads/2022/03/23/ex1new2.jpg)
 
@@ -93,13 +97,13 @@ The idea is explained by [@votrubac](https://leetcode.com/votrubac/) in [^1] as 
 
 ![Picture from](https://assets.leetcode.com/users/images/881c18fd-0d0a-4b02-9f1e-06ccb0882df7_1650190116.5992572.png)
 
-- First, calculate the prefix sum of all factors of 2 and 5 for each row (stored as `rows`, with a shape `n*(m+1)`)) and each column (stored as `cols`,with a shape `m*(n+1)`) respectively
+- First, calculate the prefix sum of all factors of 2 and 5 for each row (stored as `rows`, with a shape `n*(m+1)`)) and each column (stored as `cols`, with a shape `m*(n+1)`) respectively
 - Now, for each index `(i,j)`, you can reach it by
     1. left -> right: `grid[i][:j]`, the total number of factors so far (`(i,j)` exclusively) should be `rows[i][j]`
     2. right -> left: `grid[i][j+1:]`, as `rows[i][-1]-rows[i][j+1]` (yes, *suffix sum* can be calculated by prefix sum as well, you don't have to caculate it again reversely)
     3. upper -> lower: `grid[:i][j]`, as `cols[j][i]`
     4. lower -> upper: `grid[i+1:][j]`, as `cols[j][-1]-cols[j][i+1]`
-- When selecting any index `(i,j)` as the "turn point" (*you must turn once to maximize the result because at least it won't reduce the numbers of factors anyway, why not?*), sum up the elememt itself with two paths that reaches it horizontally and vertically, those are, 1 and 3, 1 and 4, 2 and 3, 2 and 4 above, four combinations in total.
+- When selecting any index `(i,j)` as the "turn point" (*you must turn once to maximize the result because at least it won't reduce the number of factors anyway, why not?*), sum up the element itself with two paths that reaches it horizontally and vertically, those are, 1 and 3, 1 and 4, 2 and 3, 2 and 4 above, four combinations in total.
 - Find out the max values from all selected "turn points". The overall time complexity is $O(nm)$
 
 ```py
@@ -140,6 +144,90 @@ class Solution:
         return res
 ```
 
+### More than `sum`
 
+The idea of prefix sum can be applied to other kinds of operations more than `+`, as long as they are *left-associative*, *commutative*, and *invertible*. For some special problems, some properities are even not required. For example, 
 
+[LC238: Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/), which can be solved by calculating product from left to index `i` exclusively and then reversely calculating from right to index i exclusively as well, multiplying the "prefix product" and "suffix product", finally getting the product that excludes `i`-th element:
 
+```py
+from itertools import accumulate
+from operator import mul
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        prefix = list(accumulate(nums,mul,initial=1))
+        suffix = list(accumulate(reversed(nums),mul,initial=1))
+        return [prefix[i]*suffix[n-1-i] for i in range(n)]
+```
+In the solution above, I use the `accumulate` template to show that the operator can be simply replaced by any function of a type as `a,b -> a` to accumulate for a prefix "result" array.
+
+### 2-D Matrix
+
+Besides 1-D array/list, when you're asked to sum up all numbers in some rectangle areas in a 2-D matrix frequently, you can also consider prefix sum with some subtle modification.
+
+For the 2-D array `mat`, you can also discretize the matrix as a set of some elements, in which [Inclusion-Exclusion Principle](https://mathworld.wolfram.com/Inclusion-ExclusionPrinciple.html) help you calculate the union set. In order to get the sum of the sub-matrix `mat[:i][:j]`, elements in the smaller included matrices `mat[:i-1][:j]` and `mat[:i][:j-1]` should be added up and then 
+you need to eliminate those elements lying in both two matrices (i.e., `mat[:i-1][:j-1]`) or they will be added twice. Finally, add the sum of matrices with the new element `mat[i][j]` to get the sum of `mat[:i][:j]`, that is
+
+```
+sum(mat[:i][:j]) = sum(mat[:i-1][:j]) + sum(mat[:i][:j-1]) - sum(mat[i][j]) + mat[i][j]
+```
+
+In Python, the process of calculating 2-D prefix sum matrix can be described as:
+
+```py
+n,m = len(mat),len(mat[0])
+pre = [[0]*(m+1) for _ in range(n+1)]
+for i in range(n):
+    for j in range(m):
+        pre[i+1][j+1] = pre[i+1][j] + pre[i][j+1] + mat[i][j] - pre[i][j]
+```
+
+To get the sum of a sub-matrix `mat[a:b][c:d]`, similary:
+
+```
+sum(mat[a:b][c:d]) = sum(mat[:b][:d]) - sum(mat[:a][:d]) - sum(mat[:b][:c] + sum(mat[:a][:b]))
+```
+
+For example, [1292 Maximum Side Length of a Square with Sum Less than or Equal to Threshold](https://leetcode.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/) is a classic [binary search](binary-search.md) problem, but in its `check(k)` functions, `sum(mat[i:i+k][j:j+k])` is evaluated frequently, we can use the prefix sum array to avoid repeated calculation:
+
+```py
+class Solution:
+    def maxSideLength(self, mat: List[List[int]], threshold: int) -> int:
+        n,m = len(mat),len(mat[0])
+        pre = [[0]*(m+1) for _ in range(n+1)]
+        min_value = float('inf')
+        
+        for i in range(n):
+            for j in range(m):
+                pre[i+1][j+1] = pre[i+1][j] + pre[i][j+1] + mat[i][j] - pre[i][j]
+                min_value = min(min_value,mat[i][j])
+        
+        if min_value>threshold:
+            return 0
+        
+        def check(k):
+            for i in range(k,n+1):
+                for j in range(k,m+1):
+                    s = pre[i][j] - pre[i-k][j] - pre[i][j-k] + pre[i-k][j-k]
+                    if s<=threshold:
+                        return True
+            return False
+        
+        l,r = 1,min(n,m)+1
+        while l<r:
+            mid = (l+r)//2
+            if check(mid):
+                l = mid + 1
+            else:
+                r = mid
+        return l-1                    
+```
+
+### More
+
+Some other LC prblems applicable for this template (left as exercises):
+
+- Easy: [LC303](https://leetcode.com/problems/range-sum-query-immutable/), [LC304](https://leetcode.com/problems/range-sum-query-2d-immutable/), [LC2100](https://leetcode.com/problems/find-good-days-to-rob-the-bank/)
+- Medium: [LC1783](https://leetcode.com/problems/find-kth-largest-xor-coordinate-value/)
+- Hard: [LC1730](https://leetcode.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/), [LC2234](https://leetcode.com/problems/maximum-total-beauty-of-the-gardens/)
