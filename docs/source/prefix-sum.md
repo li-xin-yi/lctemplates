@@ -1,5 +1,7 @@
 # Prefix Sum
 
+{badge}`Done, badge-success badge-pill`
+
 ## What is prefix sum
 
 Given a numeric array `lst` of length `n`, we can use an array `pre_sum` of length `n+1` to represent the current accumulated sum until now, starting from the empty array, where the sum is initialized as 0: 
