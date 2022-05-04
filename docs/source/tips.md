@@ -16,7 +16,7 @@ To work with Python in LeetCode smoothly, you also have to code in a proper way,
 
 Stick to `x*x` style when you are required to calculate the square of a number `x` frequently, which is the easiest way to write and run fast. Don't use `x**2` or `pow(x,2)` unless necessary. (Test results are available in [this notebook](https://github.com/li-xin-yi/lctemplates/blob/main/test/square-test.ipynb))
 
-Why? Both `**` and `pow` apply a [*fast exponentiation*](https://en.wikipedia.org/wiki/Exponentiation_by_squaring) algorithm in $O(\log n)$. When the exponent `n` increases rapidly, they optimize a lot; but when `n=2`, it suffers from the huge *constant factors* in complexity compared to naively multipling two `x`s.
+Why? Both `**` and `pow` apply a [*fast exponentiation*](https://en.wikipedia.org/wiki/Exponentiation_by_squaring) algorithm in $O(\log n)$. When the exponent `n` increases rapidly, they optimize a lot; but when `n=2`, they suffer from the huge *constant factors* in complexity compared to naively multiplying two `x`s.
 
 **Example**: [LC2249 Count Lattice Points Inside a Circle, Weekly Contest 290 Q2](https://leetcode.com/contest/weekly-contest-290/problems/count-lattice-points-inside-a-circle/) asks you to enumerate the points in a given space that hava a distance <= some `r` for some `(x,y)` (i.e., in/on a circle from a lists of circle). If you stick to `x*x` style to calculate the square, you can even pass the problem in a very straight-forward brute-force way ($O(200\times 200 \times n$) as:
 
@@ -53,7 +53,7 @@ class Solution:
         return len(seen)
 ```
 
-Thus, if you write the square properly, you may even pass a problem with an efficient algorithm.
+Thus, if you write the square properly, you may even pass a problem with an inefficient algorithm.
 
 ```{dropdown} More
 **Extension**: How about *square root*? I also measured three ways (`**0.5`,  `math.sqrt` and `pow(,0.5)`) on a large scale of data and found that `math.sqrt` has the shortest runtime but not so obviously. (Test results are available in [the same notebook](https://github.com/li-xin-yi/lctemplates/blob/main/test/square-test.ipynb)).
@@ -97,7 +97,7 @@ class Solution:
         return res[n]
 ````
 
-The class variable `_res` is declared in line 2 right below the declaration of the class. I prefer underscore prefix to indicate it private but it doesn't matter. In line 5, I give the reference of the shared list to a shorter name `res` just for *quicker coding*. In this solution, no matter how many test cases are used to judge it, **all calculations for any number `n` will be performed only once**. Therefore, even though the time complexity of the algorithm is **not optimized**, we can still take advantage of class variables to let our solution run much faster for all test cases in total.
+The class variable `_res` is declared in line 2 right below the declaration of the class. I prefer underscore prefix to indicate it private but it doesn't matter. In line 5, I give the reference of the shared list to a variable with the shorter name `res` just for *quicker coding*. In this solution, no matter how many test cases are used to judge it, **all calculations for any number `n` will be performed only once**. Therefore, even though the time complexity of the algorithm is **not optimized**, we can still take advantage of class variables to let our solution run much faster for all test cases in total.
 
 ````{dropdown} More
 My $O(\log n)$ solution in an **algorithmic** way and **without** any programming trick for this problem is also posted [here](https://leetcode.com/problems/max-number-of-k-sum-pairs/discuss/2006160/Python-or-O(logn)-or-Algo-from-SICP-or-Clean-code-or-Reduction-process-given) for references.
