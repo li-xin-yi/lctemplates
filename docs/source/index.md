@@ -10,6 +10,13 @@ My personal summerized LeetCode Python templates.
 
 {opticon}`star` Star me on GitHub: [![](https://img.shields.io/github/stars/li-xin-yi/lctemplates?style=social)](https://github.com/li-xin-yi/lctemplates)
 
+{opticon}`megaphone` This website is still **updating slowly** due to some difficulties in my academic events in school. If you have any suggestion of:
+- New algorithm/programming topics (e.g., how about create a template about *trie*?)
+- More and better problem examples for existing topics
+- Proof-reading
+
+Please comment {opticon}`comment` on the corresponding pages, and your comment will be kept as a comment for a GitHub issue {opticon}`issue-opened` permanently. Besides, pull requests {opticon}`git-pull-request` to correct me or add new contents are definitely welcome.
+
 
 
 ```{toctree}
