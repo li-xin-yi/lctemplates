@@ -12,6 +12,8 @@ or
 
 To work with Python in LeetCode smoothly, you also have to code in a proper way, which may be **very different** from what you usually do in a productive environment in real-word. Anyway, based on my short experiences in writing *accepted* solutions for LeetCode problems, I have some notes and tricks to avoid redundant lines of code and suffering runtime.
 
+
+
 ## Square
 
 Stick to `x*x` style when you are required to calculate the square of a number `x` frequently, which is the easiest way to write and run fast. Don't use `x**2` or `pow(x,2)` unless necessary. (Test results are available in [this notebook](https://github.com/li-xin-yi/lctemplates/blob/main/test/square-test.ipynb))
@@ -113,7 +115,67 @@ class Solution:
 ```
 
 {badge}`Warning, badge-danger badge-pill` Usually, it's **not a good practice** to do pre-calculation in competitive programming or hard-code values for numerous variables in real-word developing works. [Python language docs](https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables) also calls for **extreme caution** when using class variables because of their side effects. Please don't break the **clean** and **safe** code style unless you can't find any other way to finish the task.
+````
+
+## Numpy & Scipy
+
+Incredibly, LeetCode allows you to import modules like [`numpy`](https://numpy.org/) and [`scipy`](https://scipy.org/) in Python. For some problems with a large matrix or graph, some operations, even complicated algorithms, can be applied easily right after converting the inputs into `np.array`.
+
+For example, [LC2172 Maximum AND Sum of Array](https://leetcode.com/problems/maximum-and-sum-of-array/) can be regarded as an extended [max bipartite matching problem](https://www.cs.cmu.edu/~ckingsf/bioinfo-lectures/matching.pdf), or a more explicit sub-problem, [max linear sum assignment](https://en.wikipedia.org/wiki/Assignment_problem) between `n` elements and `2*numSlots` slots. Cost between element `nums[i]` and slot `j` is intialized as `nums[i]&j`. Then, on this cost matrix, we can use the API [scipy.optimize.linear_sum_assignment](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linear_sum_assignment.html#rc35ed51944ec-1), which implements a modified *Jonker-Volgenant algorithm* [^2](see also in [*Hungarian algorithm*](https://en.wikipedia.org/wiki/Hungarian_algorithm)). So the solution can be written as:
+
+[^2]: Crouse, David F. "[On implementing 2D rectangular assignment algorithms.](https://ieeexplore.ieee.org/iel7/7/7738330/07738348.pdf?casa_token=bcapCsfjAM0AAAAA:pNOva0x5frhw2LEAr8CcCTDBFIXj_t3LWAbEDAfeQ5NzQNVedyIG46OLR8QsQAclOhHQGAdILQ)" *IEEE Transactions on Aerospace and Electronic Systems* 52, no. 4 (2016): 1679-1696.
+
+```py
+from scipy.optimize import linear_sum_assignment
+import numpy as np
+class Solution:
+    def maximumANDSum(self, nums: List[int], numSlots: int) -> int:
+        n = len(nums)
+        costs = np.array([[num&(j//2+1) for j in range(2*numSlots)] for num in nums])
+        rows,cols = linear_sum_assignment(costs,True)
+        return costs[rows,cols].sum()
+```
+
+Which passes all test cases very fast due to the optimization in `numpy` and `scipy` in data structures & algorithms.
 
 
+````{dropdown} More
 
+Moreover, many classic graph-theory algorithms are also included in [`scipy.sparse.csgraph`](https://docs.scipy.org/doc/scipy/reference/sparse.csgraph.html). We can take advantage of the submodule to write solutions faster. For example, an application of its [`Dijkstra` API](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.dijkstra.html#scipy.sparse.csgraph.dijkstra): [LC882 Reachable Nodes In Subdivided Graph]([Reachable Nodes In Subdivided Graph](https://leetcode.com/problems/reachable-nodes-in-subdivided-graph/))
+
+
+```py
+from scipy.sparse import dok_matrix
+from scipy.sparse.csgraph import dijkstra
+class Solution:
+    def reachableNodes(self, edges: List[List[int]], maxMoves: int, n: int) -> int:
+        graph = dok_matrix((n,n))
+        for i,j,d in edges:
+            graph[i,j] =  graph[j,i] = d+1
+        dist = dijkstra(graph,directed=False,indices=0)
+        moves = [max(0,maxMoves-i) for i in dist]
+        res = len([i for i in dist if i<=maxMoves])
+        for i,j,d in edges:
+            res += min(moves[i]+moves[j],d)
+        return int(res)
+```
+
+{badge}`Note, badge-info badge-pill` If you're very familiar with those *data science*/ *scientific computing* packages in Python, you can enjoy the quick coding on some LeetCode problems. However, remember that you're a risk of TLE (for some historical implementation problems in those packages) or getting annoyed with type issues (integer *overflow*) if you insist on calling those APIs on a problem with a large scale of inputs. For example, for [LC2203 Minimum Weighted Subgraph With the Required Paths](https://leetcode.com/problems/minimum-weighted-subgraph-with-the-required-paths/), the following solution comes across a TLE error probably due to its inefficient `csgraph` data structure:
+
+```py
+import numpy as np
+from scipy.sparse import dok_matrix
+from scipy.sparse.csgraph import shortest_path
+class Solution:
+    def minimumWeight(self, n: int, edges: List[List[int]], src1: int, src2: int, dest: int) -> int:
+        mat = dok_matrix((n, n))
+        for i,j,w in edges:
+            mat[i,j] = min(mat.get((i,j),np.inf),w)
+        dist_from_src1,dist_from_src2 = shortest_path(mat,directed=True,indices=[src1,src2])
+        dist_to_dest = shortest_path(mat.transpose(),directed=True,indices=dest)
+        res = min([dist_from_src1[i]+dist_from_src2[i]+dist_to_dest[i] for i in range(n)])
+        return int(res) if res!=np.inf else -1
+```
+
+I suggest all of you practice more on writing those **simple** and **classic** algorithms, such as Dijkstra's algorithm. Don't rely on 3-rd party package too much, especially if you're not familiar with them. Packages are awesome, but please use them only when necessary as you're preparing for tech interviews!
 ````
