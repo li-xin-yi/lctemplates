@@ -61,5 +61,8 @@ comments_config = {
    "utterances": {
         "repo": "li-xin-yi/lctemplates",
         "optional": "config",
+        "issue-term":"pathname",
+        "label":"comment",
+        "theme":"github-light",
    }
 }
