@@ -6,3 +6,4 @@ sphinx-copybutton==0.3.1
 sphinxext-opengraph==0.4.2
 alabaster==0.7.12
 Jinja2==3.0.1
+sphinx-comments==0.0.3

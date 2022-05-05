@@ -51,8 +51,15 @@ html_theme = 'alabaster'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-extensions = ['myst_parser','sphinx_panels','sphinx.ext.viewcode','sphinx_copybutton']
+extensions = ['myst_parser','sphinx_panels','sphinx.ext.viewcode','sphinx_copybutton', "sphinx_comments"]
 
 myst_enable_extensions = ["linkify","dollarmath", "amsmath"]
 
 master_doc = 'index'
+
+comments_config = {
+   "utterances": {
+        "repo": "li-xin-yi/lctemplates",
+        "optional": "config",
+   }
+}

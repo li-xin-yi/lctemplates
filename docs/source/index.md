@@ -49,3 +49,15 @@ Some Tips for Python in LeetCode <tips.md>
 
 - {ref}`genindex`
 - {ref}`search`
+
+
+```{raw} html
+<script src="https://utteranc.es/client.js"
+        repo="li-xin-yi/lctemplates"
+        issue-term="pathname"
+        label="comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+```
