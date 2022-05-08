@@ -179,3 +179,76 @@ class Solution:
 
 I suggest all of you practice more on writing those **simple** and **classic** algorithms, such as Dijkstra's algorithm. Don't rely on 3-rd party package too much, especially if you're not familiar with them. Packages are awesome, but please use them only when necessary as you're preparing for tech interviews!
 ````
+
+## Hash
+
+In general, Python has a higher speed of reading (or slicing) and hashing **immutable** data than **mutable** one (*just a general rule, many exceptions*). Especially when we're talking about some problems that ask you to slice a sub-list from a list and hash it frequently, an efficient way to read and hash is significant to make your brute-force solution (*yes, usually you have already over-estimated the time complexity when considering hashing the whole sub-lists*) acceptable by LeetCode.
+
+For example, [LC2261 K Divisible Elements Subarrays](https://leetcode.com/problems/k-divisible-elements-subarrays/) requires number of *unique* subarrays. The expected solution for this problem uses [suffix array](https://leetcode.com/problems/k-divisible-elements-subarrays/discuss/1996271/O(N)-C%2B%2B-solution-using-Suffix-array-template.) in $O(n)$. However, we can also pass all test cases if we are able to enumerate all subarrays `nums[i:j]`, check if the subarray meets the requirement by [prefix sum](prefix-sum.md), and de-duplicate those subarrays by **a proper hash method**, though the overall time complexity is $O(n^3)$.
+
+As we don't need to modify anything in the list `nums`, after computing prefix sum, we can first convert the whole array to something immutable, kind to slice, and then we can hash them into a set quickly. I post three data types I tested to solve the problem quickly here:
+
+`````{tabbed} Tuple
+```py
+from itertools import accumulate
+class Solution:
+    def countDistinct(self, nums: List[int], k: int, p: int) -> int:
+        n = len(nums)
+        nums = tuple(nums)
+        xs = [int(nums[i]%p==0) for i in range(n)]
+        pre = list(accumulate(xs,initial=0))
+        res = set()
+        for i in range(n):
+            for j in range(i+1,n+1):
+                num = pre[j] - pre[i]
+                if num <= k:
+                    res.add(nums[i:j])
+        return len(res)
+```
+`````
+
+`````{tabbed} String
+```py
+from itertools import accumulate
+class Solution:
+    def countDistinct(self, nums: List[int], k: int, p: int) -> int:
+        n = len(nums)
+        xs = [int(nums[i]%p==0) for i in range(n)]
+        pre = list(accumulate(xs,initial=0))
+        s = ""
+        pos = [0]
+        for num in nums:
+            s += " "+str(num)
+            pos.append(len(s))
+        res = set()
+        for i in range(n):
+            for j in range(i+1,n+1):
+                num = pre[j] - pre[i]
+                if num <= k:
+                    res.add(s[pos[i]:pos[j]])
+        return len(res)
+```         
+`````
+
+`````{tabbed} Bytes + Memoryview [^3]
+```py
+from itertools import accumulate
+class Solution:
+    def countDistinct(self, nums: List[int], k: int, p: int) -> int:
+        n = len(nums)
+        xs = [int(nums[i]%p==0) for i in range(n)]
+        nums = memoryview(bytearray(nums))
+        pre = list(accumulate(xs,initial=0))
+        res = set()
+        for i in range(n):
+            for j in range(i+1,n+1):
+                num = pre[j] - pre[i]
+                if num <= k:
+                    res.add(bytes(nums[i:j]))
+        return len(res)
+```
+`````
+
+All three methods are accepted by LeetCode during its weekly contest 291, and the method using `memoryview` has the shortest runtime, which even beats 97% of submitted Python solutions. Certainly, we take the advantage of the data scale, `nums[i]<=200` so we can use `nums` as bytes without changing the indexes, and `n<=200` lets this $O(n^3)$ brute-force method feasible. Recall that when you **have to** hash a complicated data structure, try your best to do some pre-processing that "simplifies" the objects to hash.
+
+[^3]: More about `memoryview` and its effiency analysis, see this article: https://effectivepython.com/2019/10/22/memoryview-bytearray-zero-copy-interactions
