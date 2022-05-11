@@ -232,4 +232,4 @@ Some other LC prblems applicable for this template (left as exercises):
 
 - Easy: [LC303](https://leetcode.com/problems/range-sum-query-immutable/), [LC304](https://leetcode.com/problems/range-sum-query-2d-immutable/), [LC2100](https://leetcode.com/problems/find-good-days-to-rob-the-bank/)
 - Medium: [LC1783](https://leetcode.com/problems/find-kth-largest-xor-coordinate-value/)
-- Hard: [LC1730](https://leetcode.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/), [LC2234](https://leetcode.com/problems/maximum-total-beauty-of-the-gardens/)
+- Hard: [LC1730](https://leetcode.com/problems/minimum-adjacent-swaps-for-k-consecutive-ones/), [LC2234](https://leetcode.com/problems/maximum-total-beauty-of-the-gardens/), [LC1906](https://leetcode.com/problems/minimum-absolute-difference-queries/), [LC1878](https://leetcode.com/problems/get-biggest-three-rhombus-sums-in-a-grid/)
