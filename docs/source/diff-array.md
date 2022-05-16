@@ -10,6 +10,6 @@ The data structure is often combined with [*sweep line algorithm*](https://en.m.
 
 ## A Typical Scenario
 
-- Given some intervals denoted as the format of `[start,end]`. 
-- For each interval, a value `num` only appears within it. 
+- Given a list of intervals in the format of `[start,end]`. 
+- For each interval, a value `num` appears only within it. 
 - Ask for the total value `cur` so far at some moments (indexes).
