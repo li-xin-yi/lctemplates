@@ -30,7 +30,7 @@ And their required numbers of people are `2,1,3,6,3`, so can you tell me how man
 
 Intuitively, as the picture[^0] below shows, we record how many people start to work (+) and leave from work (-) at each moment, which is stored in `diff` array: 
 
-![](../images/diff-array.png)
+![](../images/diff-array-1.png)
 
 [^0]: For the code used to plot this picture, see [this notebook](https://github.com/li-xin-yi/lctemplates/blob/main/plots/diff-array.ipynb)
 
