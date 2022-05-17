@@ -20,7 +20,7 @@ We can first record changes contributed by each interval to a *diff array* (`dif
 
 ### Example
 
-For example, suppose that our project team has a list of tasks that must be proceeded during time `[start,end]` (inclusively):
+For example, suppose that our project team has a list of tasks that must be proceeded in the duration`[start,end]` (inclusively):
 
 ```
 [[1,4],[2,5],[3,4],[4,7],[6,10]]
@@ -60,7 +60,7 @@ for i in sorted(diff):
     cnt[i] = cur
 ```
 
-Though we use the word "array" to describe *diff array* and *raw array*, in many problems, the array is **sparse**: the indexes span a large range but changes only occur at a few of them. Instead of *linear lists* (array/linked list), It costs littler space to use `dict` to simulate some indexes with changes in order. When querying the value at an index `k` in the raw array, we need to first find the largest index `idx<=k` as:
+Though we use the word "array" to describe *diff array* and *raw array*, in many problems, the array is **sparse**: the indexes span a large range, but changes only occur at a few of them. Instead of *linear lists* (array/linked list), It costs littler space to use `dict` to simulate some indexes with changes in order. When querying the value at an index `k` in the raw array, we need to first find the largest index `idx<=k` as:
 
 ```py
 from bisect import bisect_right
@@ -69,11 +69,11 @@ idx = bisect_right(cnt,k)
 k_value = diff[keys[idx-1]] if idx>0 else 0
 ```
 
-If the queried index `k` smaller than any recorded index, that means no number observed at that time, we return initial value 0.
+If the queried index `k` is smaller than any recorded index, that means nothing is observed at that time, for which we return initial value 0.
 
 
 ````{note}
-Unlike [`map`](https://www.cplusplus.com/reference/map/map)/[`multimap`](https://www.cplusplus.com/reference/map/multimap/) in C++ or [`treemap`](https://docs.oracle.com/javase/8/docs/api/java/util/TreeMap.html) in Java, `collections.Counter` and its superclass `dict` **don't guarantee keys ordered**: for Python<=3.6, `dict` has totally unordered keys without any assumption[^1]; after Python 3.7, it just maintains an *insertion order*[^2] instead of the comporison of values. Therefore, for both Python and Python3, to simulate the ascending order of array indexes, we must sort the keys in `diff` first by `sorted(diff)` or `sorted(diff.keys())`.  
+Unlike [`map`](https://www.cplusplus.com/reference/map/map)/[`multimap`](https://www.cplusplus.com/reference/map/multimap/) in C++ or [`treemap`](https://docs.oracle.com/javase/8/docs/api/java/util/TreeMap.html) in Java, `collections.Counter` and its superclass `dict` **don't guarantee keys ordered**: for Python<=3.6, `dict` has totally unordered keys without any assumption[^1]; after Python 3.7, it just maintains an *insertion order*[^2] instead of the comparison of values. Therefore, for both Python and Python3, to simulate the ascending order of array indexes, we must sort the keys in `diff` first by `sorted(diff)` or `sorted(diff.keys())`.  
 ````
 
 [^1]: Changelog of Python 3.6 mentions that *the order-preserving aspect of this new implementation is considered an implementation detail and should not be relied upon*, see https://docs.python.org/3.6/whatsnew/3.6.html#whatsnew36-compactdict
@@ -93,4 +93,4 @@ For this *sparse* implementation of diff array problems, suppose that there are 
   - **Space complexity**: $O(1)$
 
 
-[^3]: We take the [average complexity](https://wiki.python.org/moin/TimeComplexity) ($O(1)$) of insertion and accesing the item by a index for `dict` in this case. For the worst case, the complexity of a hash set could be $O(n)$ for both operations, but usually we rarely come across and talk about those worst cases. Just a reminder: when analyzing the upper bound of complexity for some explicited problems involved with *hashmap*, don't take $O(1)$ for granted.
+[^3]: We take the [average complexity](https://wiki.python.org/moin/TimeComplexity) ($O(1)$) of insertion and accessing the item by an index for `dict` in this case. For the worst case, the complexity of a hash set could be $O(n)$ for both operations, but usually, we rarely come across and talk about those worst cases. Just a reminder: when analyzing the upper bound of complexity for some explicit problems involved with *hashmap*, don't take $O(1)$ for granted.
