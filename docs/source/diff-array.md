@@ -28,9 +28,11 @@ For example, suppose that our project team has a list of tasks that must be proc
 
 And their required numbers of people are `2,1,3,6,3`, so can you tell me how many people are working at time 7?
 
-Intuitively, as the picture below shows, we record how many people start to work (+) and leave from work (-) at each moment, which is stored in `diff` array: 
+Intuitively, as the picture[^0] below shows, we record how many people start to work (+) and leave from work (-) at each moment, which is stored in `diff` array: 
 
 ![](../images/diff-array.png)
+
+[^0]: For the code used to plot this picture, see [this notebook](https://github.com/li-xin-yi/lctemplates/blob/main/plots/diff-array.ipynb)
 
 then we go back from time `0`, sum up all those changes to get the current value of that time, and finally get the `cnt` array, `cnt[i]` represents the exact number of working people at time `t`. When asked for time 7, we just need to look up the `cnt` array and return `cnt[7]` as 9.  
 
