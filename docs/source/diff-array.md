@@ -30,7 +30,7 @@ And their required numbers of people are `2,1,3,6,3`, so can you tell me how man
 
 Intuitively, as the picture[^0] below shows, we record how many people start to work (+) and leave from work (-) at each moment, which is stored in `diff` array: 
 
-![](../images/diff-array-1.png)
+![](../images/diff-array.png)
 
 [^0]: For the code used to plot this picture, see [this notebook](https://github.com/li-xin-yi/lctemplates/blob/main/plots/diff-array.ipynb)
 
@@ -94,3 +94,65 @@ For this *sparse* implementation of diff array problems, suppose that there are 
 
 
 [^3]: We take the [average complexity](https://wiki.python.org/moin/TimeComplexity) ($O(1)$) of insertion and accessing the item by an index for `dict` in this case. For the worst case, the complexity of a hash set could be $O(n)$ for both operations, but usually, we rarely come across and talk about those worst cases. Just a reminder: when analyzing the upper bound of complexity for some explicit problems involved with *hashmap*, don't take $O(1)$ for granted.
+
+## Usage Examples
+
+### Dense Array
+
+[LC1109: Corporate Flight Bookings](https://leetcode.com/problems/corporate-flight-bookings/) specifies `1 <= n <= 2 * 10^4` and asks for an array of reserved seats for all `n` flights. In this problem, we don't need to consider the memory issue as `n` is not too large and an array of length `n` should be returned, just stick to array:
+
+```py
+from itertools import accumulate
+class Solution:
+    def corpFlightBookings(self, bookings: List[List[int]], n: int) -> List[int]:
+        diff = [0]*(n+1)
+        for s,e,seats in bookings:
+            diff[s-1] += seats
+            diff[e] -= seats
+        return list(accumulate(diff))[:-1]
+```
+
+For the diff array, [prefix sum](prefix-sum.md) array calculted from it is the actual counter array (raw array). Note that we use `s-1` and `e` because the number of flights starts from 1 not 0, so we still keep adding (+) number of seats at every `start` flights and drop (-) them right after `end` flight (i.e., \#`end+1`).
+
+### Sparse Dict
+
+[LC2251: Number of Flowers in Full Bloom](https://leetcode.com/problems/number-of-flowers-in-full-bloom/) has a huge range of time (0-1e9) but fewer intervals (`n`<1e5), so flowers only bloom or wither at a few moments, we don't need to allocate memory for an array of size 1e9. 
+
+![](https://assets.leetcode.com/uploads/2022/03/02/ex1new.jpg)
+
+Use the [template](#template) above:
+
+```py
+from collections import Counter
+from bisect import bisect_right
+class Solution:
+    def fullBloomFlowers(self, flowers: List[List[int]], persons: List[int]) -> List[int]:
+        diff = Counter()
+        for s,e in flowers:
+            diff[s]+=1
+            diff[e+1]-=1
+        
+        keys = sorted(list(diff))
+        cnt = Counter()
+        cur = 0
+        for k in keys:
+            cur += diff[k]
+            cnt[k] = cur
+        
+        res = []
+        for t in persons:
+            idx = bisect_right(keys,t)
+            if idx == 0:
+                res.append(0)
+            else:
+                res.append(cnt[keys[idx-1]])
+        return res
+```
+
+This is a very classic problem of sparse diff array and also a special case that trivializes the difference occurs at each index to only 1.
+
+### More
+
+- **Easy**: [LC732](https://leetcode.com/problems/my-calendar-iii/), [LC1094](https://leetcode.com/problems/car-pooling/), [LC1893](https://leetcode.com/problems/check-if-all-the-integers-in-a-range-are-covered/)
+- **Medium**: [LC1589](https://leetcode.com/problems/maximum-sum-obtained-of-any-permutation/), [LC1943](https://leetcode.com/problems/describe-the-painting/)
+- **Hard**: [LC995](https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/), [LC1674](https://leetcode.com/problems/minimum-moves-to-make-array-complementary/), [LC798](https://leetcode.com/problems/smallest-rotation-with-highest-score/) 
