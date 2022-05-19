@@ -151,6 +151,31 @@ class Solution:
 
 This is a very classic problem of sparse diff array and also a special case that trivializes the difference occurs at each index to only 1.
 
+### Slide Window
+
+[LC1871: Jump Game VII](https://leetcode.com/problems/jump-game-vii/) looks like a *dynamic programming* problem that requires to check if there is any reachable position in `s[i-maxJump:i-minJump+1]` to determine whether `s[i]` is reachable. But the approach costs $O(n(maxJump-minJump))$ time, which leads to a TLE. To reduce the complexity caused by check all previous `[minJump, maxJump]` positions, the idea to add only *difference* contributed by each endpoints of intervals can also be applied here:
+
+```py
+class Solution:
+    def canReach(self, s: str, minJump: int, maxJump: int) -> bool:
+        if s[-1]!='0':
+            return False
+        n = len(s)
+        reachable = [False]*n
+        reachable[0] = True
+        cur = 0 # current s[i] can be reached from how many positions
+        for i in range(minJump,n):
+            if i - maxJump > 0:
+                cur -= reachable[i-maxJump-1]
+            cur += reachable[i-minJump]
+            if cur > 0 and s[i]=='0':
+                reachable[i] = True
+        return reachable[-1]
+```
+
+For each `s[i]`, `s[i-maxJump-1]` should be dropped from its previous steps while `s[[i-minJump]` should be added to the possible previous steps. By maintaining a counter `cur` of all previous reachable steps, the overall time complexity decreases to $O(n)$.
+
+
 ### More
 
 - **Easy**: [LC732](https://leetcode.com/problems/my-calendar-iii/), [LC1094](https://leetcode.com/problems/car-pooling/), [LC1893](https://leetcode.com/problems/check-if-all-the-integers-in-a-range-are-covered/)
