@@ -180,4 +180,4 @@ For each `s[i]`, `s[i-maxJump-1]` should be dropped from its previous steps whil
 
 - **Easy**: [LC732](https://leetcode.com/problems/my-calendar-iii/), [LC1094](https://leetcode.com/problems/car-pooling/), [LC1893](https://leetcode.com/problems/check-if-all-the-integers-in-a-range-are-covered/)
 - **Medium**: [LC1589](https://leetcode.com/problems/maximum-sum-obtained-of-any-permutation/), [LC1943](https://leetcode.com/problems/describe-the-painting/)
-- **Hard**: [LC995](https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/), [LC1674](https://leetcode.com/problems/minimum-moves-to-make-array-complementary/), [LC798](https://leetcode.com/problems/smallest-rotation-with-highest-score/) 
+- **Hard**: [LC995](https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/), [LC1674](https://leetcode.com/problems/minimum-moves-to-make-array-complementary/), [LC798](https://leetcode.com/problems/smallest-rotation-with-highest-score/)
