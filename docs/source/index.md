@@ -51,7 +51,7 @@ Some Tips for Python in LeetCode <tips.md>
 - [clist.by](https://clist.by/), collecting coding contests recently and showing the changes of your history rating.
 - [Leetcode Rating Predictor](https://lcpredictor.herokuapp.com/), predicting your rating changes right after the completion of Leetcode contests.
 - [Leetcode Problems Rating](https://zerotrac.github.io/leetcode_problem_rating/), credit to [@zerotrac](https://leetcode.cn/u/zerotrac2/), measuring the difficulty levels for problems.
-- [Test Case Generator](http://generatortestcase.herokuapp.com/), generating test cases with some given constraints.
+- [Test Case Generator](https://test-case-generator.herokuapp.com/), generating test cases with some given constraints.
 - [{opticon}`people` Cruel Coding Group](http://board.cruelcoding.com/) {badge}`youxiu is our habit, badge-primary badge-pill`
 
 
