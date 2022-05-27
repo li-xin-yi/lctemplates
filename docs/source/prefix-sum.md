@@ -226,6 +226,39 @@ class Solution:
         return l-1                    
 ```
 
+### Prefix Sum of Prefix Sum
+
+[LC2281: Sum of Total Strength of Wizards](https://leetcode.com/problems/sum-of-total-strength-of-wizards/)
+
+```py
+from itertools import accumulate
+class Solution:
+    def totalStrength(self, A: List[int]) -> int:
+        n = len(A)
+        M = 10**9+7
+        
+        left = [-1]*n
+        right = [n]*n
+        stack = []
+        for i,v in enumerate(A):
+            while stack and stack[-1][0] > A[i]:
+                right[stack.pop()[1]] = i
+            if stack:
+                left[i] = stack[-1][1]
+            stack.append((v,i))
+        
+        res = 0
+        modplus = lambda x,y:(x+y)%M
+        acc = list(accumulate(accumulate(A,func=modplus),func=modplus,initial = 0))
+        for i in range(n):
+            l,r = left[i],right[i]
+            lacc = acc[i] - acc[max(l,0)]
+            racc = acc[r] - acc[i]
+            ln,rn = i-l,r-i
+            res =  (res + A[i]*(racc*ln - lacc*rn))%M
+        return res
+```
+
 ### More
 
 Some other LC prblems applicable for this template (left as exercises):
