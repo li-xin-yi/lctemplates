@@ -68,7 +68,7 @@ But I still suggest you stick to any template **as long as you're comfortable wi
 
 ### Classic
 
-[LC2256: Minimum Average Difference](https://leetcode.com/contest/weekly-contest-291/problems/minimum-consecutive-cards-to-pick-up/), a very typical application of prefix sum array: it asks for the average of first `i+1` elements and the average of last `n-i-1` elements for each `0<=i<n`, in which the sum of `i+1` elements and the  last `n-i-1` elements) can be read as `pre[i]` and `pre[-1]-pre[i]` respectively.
+[LC2256: Minimum Average Difference](https://leetcode.com/problems/minimum-average-difference/), a very typical application of prefix sum array: it asks for the average of first `i+1` elements and the average of last `n-i-1` elements for each `0<=i<n`, in which the sum of `i+1` elements and the  last `n-i-1` elements) can be read as `pre[i]` and `pre[-1]-pre[i]` respectively.
 
 ```py
 class Solution:
@@ -229,6 +229,41 @@ class Solution:
 ### Prefix Sum of Prefix Sum
 
 [LC2281: Sum of Total Strength of Wizards](https://leetcode.com/problems/sum-of-total-strength-of-wizards/)
+
+1. Use monotonic stack to find the nearest smaller number for each `A[i]`: `left[i]` is the rightmost position that hosts a number <= `A[i]` on the left side while `right[i]` is the leftmost position that hosts a number <= `A[i]`. That is, the longest subarray, in which `A[i]` plays a role of the min value, is `[left[i]+1,right[i]-1]` (or `(left[i],right[i])`).
+2. For each `A[i]`: how to find all subarray that takes `A[i]` as the min value? Assume a subarray is written as `[l,r]`, then it must satisfy the constraint: `left[i]<l<=A[i]<r<=right[i]`, otherwise it will include some value < `A[i]` or exclude the min value `A[i]`.
+3. How to sum up all numbers in all those subarries `[l,r]`? It may be more clear to write it in a math formula:  
+
+$$
+\begin{aligned}
+& \sum_{l=left[i]+1}^i{\sum_{r=i}^{right[i]-1}}{sum(\color{green}{A}[l:r+1])} & (1)  \\
+= & \sum_{l=left[i]+1}^i{\sum_{r=i}^{right[i]-1}}{\color{blue}{presum}[r+1] - \color{blue}{presum}[l]} & \bf{(2)} \\
+= & \sum_{l=left[i]+1}^i{\sum_{r=i}^{right[i]-1}}{\color{blue}{presum}[r+1]} -   \sum_{l=left[i]+1}^i{\sum_{r=i}^{right[i]-1}}{\color{blue}{presum}[l]} & (3) \\
+= & (i-left[i]) {\sum_{r=i}^{right[i]-1}}{\color{blue}{presum}[r+1]} - (right[i]-i)\sum_{l=left[i]+1}^i{\color{blue}{presum}[l]} & (4)\\
+= & (i-left[i])(\color{red}{prepresum}[right[i]+1]-\color{red}{prepresum}[i+1]) - (right[i]-i)(\color{red}{prepresum}[i+1]-\color{red}{prepresum}[left[i]+1]) & \bf{(5)}
+\end{aligned}
+$$
+
+```{note}
+The formula above is not formal at all. I just use it to demonstrate some points:
+
+1. For the first step, which follows the definition of "*sum up all subarries with [l,r] satisfying the requirement mentioned above*", three layers of sum symbol ($\sum{\sum{\sum}}$) should be used here to represent the formula. But I think the inner stuff can be represented more clearly by literally `sum` notation. I don't want to introduce more variable symbols here.
+2. It's easy to come up with (2) as you have learned prefix sum and **the sum of subarray** [l:r+1] is a very obvious sign to use it, and now we call the prefix sum array `presum`.
+3. In (3)-(4), we reorganize the terms and extract something invariant with the loop variable from the summed terms respectively, which can remove one layer of $\sum$ immediately.
+4. The last step (5) is the most difficult one to handle. But if you view the `presum` as an array (of course, actually it is), you now come across a problem that requires **the sum of subarray** again. Just apply the prefix sum of `presum` array!
+
+In summary:
+- {badge}`A, badge-success`: the raw array
+- {badge}`presum, badge-primary`: the first-order prefix sum: prefix sum array of {badge}`A, badge-success`
+- {badge}`prepresum, badge-danger`: the second-order prefix sum: prefix sum array of {badge}`presum, badge-primary`.
+
+By accumulating the origin array twice, along with extracting invariables, we eliminate three $\sum$s step by step. For the problem of "sum up all target subarraies for a given index `i`", we reduce the complexity from $O((right[i]-left[i])^3)$ to $O(1)$. Certainly, it first costs $O(n)$ time to build `prepresum` array.
+```
+
+As we have the sum of all `[l,r]` subarries for each `A[i]`, just multiply the sum by their min value `A[i]`, then sum up the result for each `A[i]` we will get the final result. I post my code solution here, which is inspired by [@lee215](https://leetcode.com/lee215/)[^2]. Note that in the last step (5) of the formula above, all indexes of `prepresum` must >= 1, so it's not necessary to consider initializing `prepresum[0]=0`, we can build `prepresum` from `prepresum[0]=presum[0]`. 
+
+[^2]: [[Java/C++/Python] One Pass Solution](https://leetcode.com/problems/sum-of-total-strength-of-wizards/discuss/2061985/JavaC%2B%2BPython-One-Pass-Solution)
+
 
 ```py
 from itertools import accumulate
