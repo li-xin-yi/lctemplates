@@ -231,7 +231,7 @@ class Solution:
 [LC2281: Sum of Total Strength of Wizards](https://leetcode.com/problems/sum-of-total-strength-of-wizards/)
 
 1. Use monotonic stack to find the nearest smaller number for each `A[i]`: `left[i]` is the rightmost position that hosts a number <= `A[i]` on the left side while `right[i]` is the leftmost position that hosts a number <= `A[i]`. That is, the longest subarray, in which `A[i]` plays a role of the min value, is `[left[i]+1,right[i]-1]` (or `(left[i],right[i])`).
-2. For each `A[i]`: how to find all subarray that takes `A[i]` as the min value? Assume a subarray is written as `[l,r]`, then it must satisfy the constraint: `left[i]<l<=A[i]<r<=right[i]`, otherwise it will include some value < `A[i]` or exclude the min value `A[i]`.
+2. For each `A[i]`: how to find all subarray that takes `A[i]` as the min value? Assume a subarray is written as `[l,r]`, then it must satisfy the constraint: `left[i]<l<=i<r<=right[i]`, otherwise it will include some value < `A[i]` or exclude the min value `A[i]`.
 3. How to sum up all numbers in all those subarries `[l,r]`? It may be more clear to write it in a math formula:  
 
 $$
@@ -247,7 +247,7 @@ $$
 ```{note}
 The formula above is not formal at all. I just use it to demonstrate some points:
 
-1. For the first step, which follows the definition of "*sum up all subarries with [l,r] satisfying the requirement mentioned above*", three layers of sum symbol ($\sum{\sum{\sum}}$) should be used here to represent the formula. But I think the inner stuff can be represented more clearly by literally `sum` notation. I don't want to introduce more variable symbols here.
+1. For the first step, which follows the definition of "*sum up all subarries with `[l,r]` satisfying the requirement mentioned above*", three layers of sum symbol ($\sum{\sum{\sum}}$) should be used here to represent the formula. But I think the inner stuff can be represented more clearly by literally `sum` notation. I don't want to introduce more variable symbols here.
 2. It's easy to come up with (2) as you have learned prefix sum and **the sum of subarray** [l:r+1] is a very obvious sign to use it, and now we call the prefix sum array `presum`.
 3. In (3)-(4), we reorganize the terms and extract something invariant with the loop variable from the summed terms respectively, which can remove one layer of $\sum$ immediately.
 4. The last step (5) is the most difficult one to handle. But if you view the `presum` as an array (of course, actually it is), you now come across a problem that requires **the sum of subarray** again. Just apply the prefix sum of `presum` array!
