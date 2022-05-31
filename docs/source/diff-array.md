@@ -199,7 +199,9 @@ We take every element as one unit and the barplot looks really rough. Now the ga
 
 When $dx \to 0$, we can write the presum $S$ as the integral of a continuous function $f$:
 
-$$S(x) = \int_{1}^{x}{f(x)}dx $$
+$$S(x) = \int_{1}^{x}{f(x)}dx + f(1)$$
+
+But Notice that it is not the same as the sum formula $-x^2+10x$ because of the different $\Delta x$. Except for that, we can still view prefix sum as **a rough version of integral upon an array**.
 
 
 
