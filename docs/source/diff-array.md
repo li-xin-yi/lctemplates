@@ -181,3 +181,26 @@ For each `s[i]`, `s[i-maxJump-1]` should be dropped from its previous steps whil
 - **Easy**: [LC732](https://leetcode.com/problems/my-calendar-iii/), [LC1094](https://leetcode.com/problems/car-pooling/), [LC1893](https://leetcode.com/problems/check-if-all-the-integers-in-a-range-are-covered/)
 - **Medium**: [LC1589](https://leetcode.com/problems/maximum-sum-obtained-of-any-permutation/), [LC1943](https://leetcode.com/problems/describe-the-painting/)
 - **Hard**: [LC995](https://leetcode.com/problems/minimum-number-of-k-consecutive-bit-flips/), [LC1674](https://leetcode.com/problems/minimum-moves-to-make-array-complementary/), [LC798](https://leetcode.com/problems/smallest-rotation-with-highest-score/)
+
+## Prefix Sum vs. Diff
+
+### Prefix sum: the "integral" of an array
+
+Suppose that we have an array `A = [9,  7,  5,  3,  1, -1, -3, -5, -7, -9]` (index from 1), which is also an *arithmetic sequence* of 10 numbers as $A_n = 11 - 2n$. The sum of the sequence can be easily calculated as:
+$S_{n} = \sum_{i=1}^{n}{A_i} = -n^2+10n$ and we let $S_0 = 0$. So the partial sum of a subsequence `A[i:j]` can be obtained by: $S_j-S_{i-1}$.
+
+$S$ is exactly the **prefix sum** array of `A` (index from 1). If we plot both raw array `A` (in blue) and its prefix sum $S$ as bars in the same graph (along with their curve given by the formula with $n$ above), we get:
+
+![](../images/prefix-sum.png)
+
+We take every element as one unit and the barplot looks really rough. Now the gap between every two elements, denoted as $dx$, is exact 1. If we regard the array `A` as a continuous function $f(x) = 11 - 2x$, we can still reduce the gap between every two elements to as small as possible ($dx \to 0$), that is, we accumulate every small *difference* (in blue) between two neighbour $x$s to the $S$ (in red):
+
+![](../images/integral.png)
+
+When $dx \to 0$, we can write the presum $S$ as the integral of a continuous function $f$:
+
+$$S(x) = \int_{1}^{x}{f(x)}dx $$
+
+
+
+
