@@ -51,7 +51,7 @@ html_theme = 'alabaster'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-extensions = ['myst_parser','sphinx_panels','sphinx.ext.viewcode','sphinx_copybutton', "sphinx_comments"]
+extensions = ['myst_parser','sphinx_panels','sphinx.ext.viewcode','sphinx_copybutton', "sphinx_comments","sphinxcontrib.mermaid"]
 
 myst_enable_extensions = ["linkify","dollarmath", "amsmath"]
 

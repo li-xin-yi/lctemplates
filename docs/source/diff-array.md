@@ -1,7 +1,5 @@
 # Diff Array
 
-{badge}`TODO, badge-danger badge-pill`
-
 Opposite to the idea of [prefix sum](prefix-sum.md), which is aimed to evaluate the **changes** on the overall sum through one interval(subarray), a difference array is used to reconstruct the **accumulated sum** at each moment (index) from the **changes** contributed by each **discrete** interval.
 
 ```{seealso}
@@ -28,11 +26,9 @@ For example, suppose that our project team has a list of tasks that must be proc
 
 And their required numbers of people are `2,1,3,6,3`, so can you tell me how many people are working at time 7?
 
-Intuitively, as the picture[^0] below shows, we record how many people start to work (+) and leave from work (-) at each moment, which is stored in `diff` array: 
+Intuitively, as the picture below shows, we record how many people start to work (+) and leave from work (-) at each moment, which is stored in `diff` array: 
 
 ![](../images/diff-array.png)
-
-[^0]: For the code used to plot this picture, see [this notebook](https://github.com/li-xin-yi/lctemplates/blob/main/plots/diff-array.ipynb)
 
 then we go back from time `0`, sum up all those changes to get the current value of that time, and finally get the `cnt` array, `cnt[i]` represents the exact number of working people at time `t`. When asked for time 7, we just need to look up the `cnt` array and return `cnt[7]` as 9.  
 
@@ -189,11 +185,11 @@ For each `s[i]`, `s[i-maxJump-1]` should be dropped from its previous steps whil
 Suppose that we have an array `A = [9,  7,  5,  3,  1, -1, -3, -5, -7, -9]` (index from 1), which is also an *arithmetic sequence* of 10 numbers as $A_n = 11 - 2n$. The sum of the sequence can be easily calculated as:
 $S_{n} = \sum_{i=1}^{n}{A_i} = -n^2+10n$ and we let $S_0 = 0$. So the partial sum of a subsequence `A[i:j]` can be obtained by: $S_j-S_{i-1}$.
 
-$S$ is exactly the **prefix sum** array of `A` (index from 1). If we plot both raw array `A` (in blue) and its prefix sum $S$ as bars in the same graph (along with their curve given by the formula with $n$ above), we get:
+$S$ is exactly the **prefix sum** array of `A` (index from 1). If we plot both the raw array `A` (in blue) and its prefix sum $S$ as bars in the same graph (along with their curve given by the formula with $n$ above), we get:
 
 ![](../images/prefix-sum.png)
 
-We take every element as one unit and the barplot looks really rough. Now the gap between every two elements, denoted as $dx$, is exact 1. If we regard the array `A` as a continuous function $f(x) = 11 - 2x$, we can still reduce the gap between every two elements to as small as possible ($dx \to 0$), that is, we accumulate every small *difference* (in blue) between two neighbour $x$s to the $S$ (in red):
+We take every element as one unit, and the barplot looks really rough. Now the gap between every two elements, denoted as $dx$, is exact 1. If we regard the array `A` as a continuous function $f(x) = 11 - 2x$, we can still reduce the gap between every two elements to as small as possible ($dx \to 0$), that is, we accumulate every small *difference* (in blue) between two neighbor $x$s to the $S$ (in red):
 
 ![](../images/integral.png)
 
@@ -205,7 +201,7 @@ But Notice that it is not the same as the sum formula $-x^2+10x$ because of the 
 
 ### Diff: the "derivative" of an array
 
-Opposite to prefix sum array, the diff array reflects every $\Delta y$ happening on specified $x$. Imagine that an interval`[start,end]` gives an increase $dy$ of `num` at the start endpoint `start`, and the increased difference disappears at the end of endpoint, `end+1`. If we plot those intervals as rectangles, use $dy$ as their heights, a curve to fit the outline of those stacked rectangles accumulates all difference of overall height introduced by rectangles, which is also the recovered raw array `A`.
+Opposite to the prefix-sum array, the diff array reflects every $\Delta y$ happening on specified $x$. Imagine that an interval`[start,end]` gives an increase $dy$ of `num` at the start endpoint `start`, and the increased difference disappears at the end of endpoint, `end+1`. If we plot those intervals as rectangles, and use $dy$ as their heights, a curve to fit the outline of those stacked rectangles accumulates all differences in overall height introduced by rectangles, which is also the recovered raw array `A`.
 
 ![](../images/diff-interval.png)
 
@@ -213,7 +209,27 @@ Of course, we won't only meet those regular stacked rectangles as intervals in r
 
 ![](../images/mess-intervals.png)
 
-But anyway, after constructing the diff array from intervals, "integrate" them up and you will get the raw array.
+But anyway, after constructing the diff array from intervals, "integrate" them up, and then you will get the raw array.
+
+In summary, we go through a process as:
+
+```{mermaid}
+flowchart LR
+
+Intervals[Intervals] -->|discretize| diff[Diff array]
+diff -->|integrate| raw[Raw array]
+raw -->|integrate| pre[Presum array]
+pre -->|difference| sum[Sum of an interval] 
+```
+
+Note that we integrate the diff array to get the raw array, and then integrate the raw array to get the prefix sum array. Therefore, `raw -> diff` is exactly an opposite operation (derivative) to the process of `raw -> presum` (integrate).
+
+````{dropdown} Plot Code
+Codes used to plot all pictures in this article are available in the following notebooks:
+- [`diff-array.ipynb`](https://github.com/li-xin-yi/lctemplates/blob/main/plots/diff-array.ipynb): for [Exmaple](#example)
+- [`diff-vs-prefix-sum.ipynb`](https://github.com/li-xin-yi/lctemplates/blob/main/plots/diff-vs-prefix-sum.ipynb): for [Prefix Sum vs. Diff](#prefix-sum-vs-diff)
+````
+
 
 
 
