@@ -203,6 +203,18 @@ $$S(x) = \int_{1}^{x}{f(x)}dx + f(1)$$
 
 But Notice that it is not the same as the sum formula $-x^2+10x$ because of the different $\Delta x$. Except for that, we can still view prefix sum as **a rough version of integral upon an array**.
 
+### Diff: the "derivative" of an array
+
+Opposite to prefix sum array, the diff array reflects every $\Delta y$ happening on specified $x$. Imagine that an interval`[start,end]` gives an increase $dy$ of `num` at the start endpoint `start`, and the increased difference disappears at the end of endpoint, `end+1`. If we plot those intervals as rectangles, use $dy$ as their heights, a curve to fit the outline of those stacked rectangles accumulates all difference of overall height introduced by rectangles, which is also the recovered raw array `A`.
+
+![](../images/diff-interval.png)
+
+Of course, we won't only meet those regular stacked rectangles as intervals in real problems. Usually, intervals are given in a mess like:
+
+![](../images/mess-intervals.png)
+
+But anyway, after constructing the diff array from intervals, "integrate" them up and you will get the raw array.
+
 
 
 
