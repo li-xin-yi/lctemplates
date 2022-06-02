@@ -230,7 +230,7 @@ class Solution:
 
 [LC2281: Sum of Total Strength of Wizards](https://leetcode.com/problems/sum-of-total-strength-of-wizards/)
 
-1. Use monotonic stack to find the nearest smaller number for each `A[i]`: `left[i]` is the rightmost position that hosts a number <= `A[i]` on the left side while `right[i]` is the leftmost position that hosts a number <= `A[i]`. That is, the longest subarray, in which `A[i]` plays a role of the min value, is `[left[i]+1,right[i]-1]` (or `(left[i],right[i])`).
+1. Use monotonic stack to find the nearest smaller number for each `A[i]`: `left[i]` is the rightmost position that hosts a number < `A[i]` on the left side while `right[i]` is the leftmost position that hosts a number <= `A[i]`. That is, the longest subarray, in which `A[i]` plays a role of the min value, is `[left[i]+1,right[i]-1]` (or `(left[i],right[i])`).
 2. For each `A[i]`: how to find all subarray that takes `A[i]` as the min value? Assume a subarray is written as `[l,r]`, then it must satisfy the constraint: `left[i]<l<=i<r<=right[i]`, otherwise it will include some value < `A[i]` or exclude the min value `A[i]`.
 3. How to sum up all numbers in all those subarries `[l,r]`? It may be more clear to write it in a math formula:  
 

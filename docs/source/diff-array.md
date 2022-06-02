@@ -1,5 +1,7 @@
 # Diff Array
 
+{badge}`Done, badge-success badge-pill`
+
 Opposite to the idea of [prefix sum](prefix-sum.md), which is aimed to evaluate the **changes** on the overall sum through one interval(subarray), a difference array is used to reconstruct the **accumulated sum** at each moment (index) from the **changes** contributed by each **discrete** interval.
 
 ```{seealso}
@@ -199,7 +201,7 @@ $$S(x) = \int_{1}^{x}{f(x)}dx + f(1)$$
 
 But Notice that it is not the same as the sum formula $-x^2+10x$ because of the different $\Delta x$. Except for that, we can still view prefix sum as **a rough version of integral upon an array**.
 
-### Diff: the "derivative" of an array
+### Diff: the "derivate" of an array
 
 Opposite to the prefix-sum array, the diff array reflects every $\Delta y$ happening on specified $x$. Imagine that an interval`[start,end]` gives an increase $dy$ of `num` at the start endpoint `start`, and the increased difference disappears at the end of endpoint, `end+1`. If we plot those intervals as rectangles, and use $dy$ as their heights, a curve to fit the outline of those stacked rectangles accumulates all differences in overall height introduced by rectangles, which is also the recovered raw array `A`.
 

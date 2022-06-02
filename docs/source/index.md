@@ -26,6 +26,7 @@ Please comment {opticon}`comment` on the corresponding pages, and your comment w
 Prefix Sum <prefix-sum.md>
 Diff Array <diff-array.md>
 Binary Search <binary-search.md>
+Segment Tree <segtree.md>
 Some Tips for Python in LeetCode <tips.md>
 ```
 
