@@ -32,3 +32,9 @@ Let's talk about querying the `sum` of an interval `[i,j]`, which may not be rep
 
 ![](../images/segtree-query.png)
 
+Start from the root node, we search for the intervals:
+
+- If current node is completely contained in `[1,7]`, just return the `sum` of it.
+- If the left half of the interval represented by current node, search the left child and add the returned `sum` of it to current result.
+- Similarly, if the right half of the interval represented by current node, search the right child and add the returned `sum` of it to current result.
+
