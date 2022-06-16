@@ -1,9 +1,22 @@
 class SegTree:
     def __init__(self, n:int):
         self.n = n
-        self.sum = [0]*(1<<(n.bit_length()+1))
-        self.min = [0]*(1<<(n.bit_length()+1))
-        self.max = [0]*(1<<(n.bit_length()+1))
+        self.sum = [0]*(4*n)
+        self.min = [0]*(4*n)
+        self.max = [0]*(4*n)
+
+    def build(self, root:int,l:int, r:int, arr:list) -> None:
+        if l == r:
+            self.sum[root] = arr[l]
+            self.min[root] = arr[l]
+            self.max[root] = arr[l]
+            return
+        mid = (l+r)//2
+        self.build(root*2, l, mid, arr)
+        self.build(root*2+1, mid+1, r, arr)
+        self.sum[root] = self.sum[root*2] + self.sum[root*2+1]
+        self.min[root] = min(self.min[root*2], self.min[root*2+1])
+        self.max[root] = max(self.max[root*2], self.max[root*2+1])
     
     def update(self, root:int, l:int, r:int, idx:int, val:int) -> None:
         if l == r:
