@@ -48,6 +48,7 @@ Some Tips for Python in LeetCode <tips.md>
 ## Resources
 
 - [OI Wiki](https://oi-wiki.org/) (Chinese only), basic knowledge for competitive programming.
+- [Algorithms for Competitive Programming](https://cp-algorithms.com/), English translation of e-maxx.ru/algo, which includes descriptions of many algorithms and data structures especially popular in field of competitive programming.
 - [An awesome list for competitive programming!](https://codeforces.com/blog/entry/23054)
 - [clist.by](https://clist.by/), collecting coding contests recently and showing the changes of your history rating.
 - [Leetcode Rating Predictor](https://lcpredictor.herokuapp.com/), predicting your rating changes right after the completion of Leetcode contests.

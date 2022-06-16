@@ -38,3 +38,8 @@ Start from the root node, we search for the intervals:
 - If the left half of the interval represented by current node, search the left child and add the returned `sum` of it to current result.
 - Similarly, if the right half of the interval represented by current node, search the right child and add the returned `sum` of it to current result.
 
+## Read More
+
+See [^1]
+
+[^1]: https://cp-algorithms.com/data_structures/segment_tree.html
