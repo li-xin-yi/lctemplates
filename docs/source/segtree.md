@@ -38,6 +38,26 @@ Start from the root node, we search for the intervals:
 - If the left half of the interval represented by current node, search the left child and add the returned `sum` of it to current result.
 - Similarly, if the right half of the interval represented by current node, search the right child and add the returned `sum` of it to current result.
 
+## Template (for fixed `n`-length array)
+
+### Initialize
+
+If you have already confirmed that it is a fixed `n`-length array and you want to build a segment tree for it, you can represent such a binary tree by a 1-D array. The height of such a binary tree is $\lceil \log n \rceil$, which can have $2^{(\lceil \log n \rceil + 1)} - 1 \le 4n - 1$ at most. Thus, we usually create an array of length `4n` to represent nodes in that segment tree.
+
+For example, if we are only interested in info including `sum`, `min` and `max` of each interval, we create a `4n`-length array for each of them.
+
+```py
+class SegTree:
+    def __init__(self, n:int):
+        self.n = n
+        self.sum = [0]*(4*n)
+        self.min = [0]*(4*n)
+        self.max = [0]*(4*n)
+```
+
+Recall that how we use a linear array `nodes` to represent a binary tree (index from 1): if a node is stored at `nodes[i]`, then its left child node is stored at `nodes[2*i]` while its right child node is stored at `nodes[2*i+1]`.
+
+
 ## Read More
 
 See [^1]
