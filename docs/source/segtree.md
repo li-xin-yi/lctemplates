@@ -57,6 +57,29 @@ class SegTree:
 
 Recall that how we use a linear array `nodes` to represent a binary tree (index from 1): if a node is stored at `nodes[i]`, then its left child node is stored at `nodes[2*i]` while its right child node is stored at `nodes[2*i+1]`.
 
+### Build from Array
+
+Then, if we have an array at start and want to build the segment tree from it. We use `build(self, root:int,l:int, r:int, arr:list)` defined below:
+
+```py
+    def build(self, root:int,l:int, r:int, arr:list) -> None:
+        if l == r:
+            self.sum[root] = arr[l]
+            self.min[root] = arr[l]
+            self.max[root] = arr[l]
+            return
+        mid = (l+r)//2
+        self.build(root*2, l, mid, arr)
+        self.build(root*2+1, mid+1, r, arr)
+        self.sum[root] = self.sum[root*2] + self.sum[root*2+1]
+        self.min[root] = min(self.min[root*2], self.min[root*2+1])
+        self.max[root] = max(self.max[root*2], self.max[root*2+1])
+```
+
+- `root`: current root node of the subtree to build, represented as an int
+- `l` and `r`: the subarray `arr[l:r+1]` that we need to build the segment tree
+
+When initialize the segment tree with an known array, we can use `self.build(1,0,n-1,arr)`. Note that we always start a tree rooted at node `1` because it gives the correct indexes of child nodes using the formula above (instead `0` can't).
 
 ## Read More
 
