@@ -78,8 +78,63 @@ Then, if we have an array at start and want to build the segment tree from it. W
 
 - `root`: current root node of the subtree to build, represented as an int
 - `l` and `r`: the subarray `arr[l:r+1]` that we need to build the segment tree
+- **Time complexity**: $O(n)$
 
 When initialize the segment tree with an known array, we can use `self.build(1,0,n-1,arr)`. Note that we always start a tree rooted at node `1` because it gives the correct indexes of child nodes using the formula above (instead `0` can't).
+
+### Update
+
+To update the value of a single element in the array, we first need to find all intervals that contains that element, which must be a path from the root node to a leaf.
+
+```py
+    def update(self, root:int, l:int, r:int, idx:int, val:int) -> None:
+        if l == r:
+            self.sum[root] = val
+            self.min[root] = val
+            self.max[root] = val
+            return
+        mid = (l+r)//2
+        if idx <= mid:
+            self.update(root*2, l, mid, idx, val)
+        else:
+            self.update(root*2+1, mid+1, r, idx, val)
+        self.sum[root] = self.sum[root*2] + self.sum[root*2+1]
+        self.min[root] = min(self.min[root*2], self.min[root*2+1])
+        self.max[root] = max(self.max[root*2], self.max[root*2+1])
+```
+
+- `root`: current root node of the subtree that represents the current interval
+- `l` and `r`: the endpoints of the current interval
+- `idx`: the index of element in the raw array to update
+- `val`: the value used to update the element at `idx`
+- **Time Complexity:** $O(\log n)$
+- **Entry**: `self.update(root=1,l=0,r=n-1,idx=idx,val=val)`
+
+### Query
+
+To query some data (e.g., `sum` here) of an interval `[L,R]`, we search the intervals level by level:
+
+1. if the current intevals is totally included in `[L,R]`, just return the data of it.
+2. if not, check if the left child (`[L,mid]`) and the right child (`[mid+1,R]`) recursively.
+
+```py
+    def query_sum(self, root:int, l:int, r:int, L:int, R:int) -> int:
+        if l >= L and r <= R:
+            return self.sum[root]
+        mid = (l+r)//2
+        res = 0
+        if L <= mid:
+            res += self.query_sum(root*2, l, mid, L, R)
+        if R > mid:
+            res += self.query_sum(root*2+1, mid+1, r, L, R)
+        return res
+```
+
+- `root`: current root node of the subtree that represents the current interval
+- `l` and `r`: the endpoints of the current interval
+- `L` and `R`: the endpoints of the interval to query
+- **Time Complexity:** $O(\log n)$
+- **Entry**: `self.query_sum(root=1,l=0,r=n-1,L=L,R=R)`
 
 ## Read More
 
