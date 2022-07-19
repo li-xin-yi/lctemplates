@@ -6,27 +6,27 @@ For some topics that I have no idea where to archive but may be helpful.
 
 I first came across the problem in a coding challenge hosted by Amazon, which is not public. Thus I can't find the origin problem on the Internet after the challenge, but I can briefly descrile the problem:
 
-> There are `n` CPUs in use for several tasks, represented by an array `cpu` of length `n`. `cpu[i]` denotes that there are still `cpu[i]` tasks now in queue for `i`-th CPU to complete. You need to assign `k` incoming tasks to those CPUs, that is, push those tasks into queues of different CPUs. How can you make loads of CPUs **as balanced as possible**? The measurement of balanced is calculated by `max(cpu)-min(cpu)`, which should be mininized after your assigment.
+> There are `n` CPUs in use for several tasks, represented by an array `cpu` of length `n`. `cpu[i]` denotes that there are still `cpu[i]` tasks now in queue for `i`-th CPU to complete. You need to assign `k` incoming tasks to those CPUs, that is, push those tasks into queues of different CPUs. How can you make loads of CPUs **as balanced as possible**? The measurement of balance is calculated by `max(cpu)-min(cpu)`, which should be mininized after your assigment.
 
 I can further model this kind of problem as:
 
 > Given an int array `nums` of length `n`, you are asked to do the following operation `k` times: choose an index `i` in `[0...n)` and increase (or decrease) `nums[i]` by 1. How to make the modified `nums` as **balanced** as possible?
 
-How to understand the word *balanced*? Besides  minimizing `max(cpu)-min(cpu)`, Many popular objectives can also be reduced to the "balanced" problem intuitively on LeetCode, for example:
+How to understand the word *balanced*? Besides  minimizing `max(cpu)-min(cpu)`, Many popular objectives can also be reduced to the "balance" problem intuitively on LeetCode, for example:
 
 - [LC2233](https://leetcode.com/problems/maximum-product-after-k-increments/): To **maximize the product** of the entire array.
 - [LC2333](https://leetcode.com/problems/minimum-sum-of-squared-difference/): To **minimize the sum of squared** values in the entire array.
 
 ### Heap
 
-A very straight-forward way is to emulation the "balancer" literally, increase (or decrease) the min (max) element in the current array by 1 each time:
+A very straight-forward way is to emulate the "balancer" literally, increase (or decrease) the min (max) element in the current array by 1 each time:
 
 ````{tabbed} Increase
 ```py
 heapq.heapify(nums)
 for _ in range(k):
     num = heapq.heappop(nums)
-    heaq.heappush(nums,num+1)
+    heapq.heappush(nums,num+1)
 ```
 ````
 
@@ -36,7 +36,7 @@ nums = [-i for i in nums]
 heapq.heapify(nums)
 for _ in range(k):
     num = heapq.heappop(nums)
-    heaq.heappush(nums,num+1)
+    heapq.heappush(nums,num+1)
 nums = [-i for i in nums]
 ```
 ````
