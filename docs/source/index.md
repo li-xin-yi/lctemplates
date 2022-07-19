@@ -28,6 +28,7 @@ Diff Array <diff-array.md>
 Binary Search <binary-search.md>
 Segment Tree <segtree.md>
 Some Tips for Python in LeetCode <tips.md>
+Miscellaneous <miscellaneous.md>
 ```
 
 ## Notes
