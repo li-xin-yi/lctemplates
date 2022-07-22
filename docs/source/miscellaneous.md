@@ -76,12 +76,16 @@ I don't know how to call the approach, but I always stick to it because it gives
 1. Sort the array first
 2. Traverse the array from the second element: for every `nums[i]`, try to refill all previous `i` elements (their values are all `nums[i-1]`) to the value of `nums[i]`. If it is feasible, just remove the added value `i*(nums[i]-nums[i-1])` from `k` and continue the traversal for next `i`.
 3. If the current left k is insufficient to refill them as `nums[i]` for all, just split to all those `i` elements evenly: assume `d=k//i` and `r=k%i`, `r` numbers of `d+1` are added to `r` previous elements while `i-r` numbers of `d` are added to `i-r` previous ones. Now, we can return the final array as
-   
+
+An example of increasing is shown below, in which `nums=[2,8,13,17,22,29]` and `k=61`:
+
 ```py
 nums = [nums[i-1]+d]*(i-r) + [nums[i-1]+d+1]*r + nums[i:] 
 ```
 
 which is already in a sorted order.
+
+![](../images/load-balancer.gif)
 
 So the complete code is:
 
