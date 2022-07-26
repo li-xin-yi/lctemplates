@@ -4,7 +4,7 @@ For some topics that I have no idea where to archive but may be helpful.
 
 ## Load Balancer Problem
 
-I first came across the problem in a coding challenge hosted by Amazon, which is not public. Thus I can't find the origin problem on the Internet after the challenge, but I can briefly descrile the problem:
+I first came across the problem in a coding challenge hosted by Amazon, which is not public. Thus I can't find the origin problem on the Internet after the challenge, but I can briefly describe the problem:
 
 > There are `n` CPUs in use for several tasks, represented by an array `cpu` of length `n`. `cpu[i]` denotes that there are still `cpu[i]` tasks now in queue for `i`-th CPU to complete. You need to assign `k` incoming tasks to those CPUs, that is, push those tasks into queues of different CPUs. How can you make loads of CPUs **as balanced as possible**? The measurement of balance is calculated by `max(cpu)-min(cpu)`, which should be mininized after your assigment.
 
