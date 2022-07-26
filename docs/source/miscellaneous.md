@@ -69,6 +69,44 @@ nums = [-i for i in nums]
 ```
 ````
 
+### Counting Sort
+
+Of course, instead of heap, we can use a counter to represent the distrubition of `nums` by values. Each time we shift the min number by 1 and keep track of the min number:
+
+````{tabbed} Increase
+```py
+from collections import Counter
+cnt = Counter(nums)
+min_num = min(cnt)
+
+for _ in range(k):
+    cnt[min_num] -= 1
+    cnt[min_num+1] += 1
+    if cnt[min_num] == 0:
+        min_num += 1
+cnt += Counter()
+nums = cnt.elements()
+```
+````
+
+````{tabbed} Decrease
+```py
+from collections import Counter
+cnt = Counter(nums)
+max_num = min(cnt)
+
+for _ in range(k):
+    cnt[max_num] -= 1
+    cnt[max_num-1] += 1
+    if cnt[max_num] == 0:
+        max_num -= 1
+cnt += Counter()
+nums = cnt.elements()
+```
+````
+
+- **Time Complexity**: $O(\max(n,k))$
+
 ### Sort + Greedy Approach
 
 I don't know how to call the approach, but I always stick to it because it gives a time complexity $O(n\log(n))$ regardless of `k`.
