@@ -121,7 +121,7 @@ To query some data (e.g., `sum` here) of an interval `[L,R]`, we search the inte
     def query_sum(self, root:int, l:int, r:int, L:int, R:int) -> int:
         if l >= L and r <= R:
             return self.sum[root]
-        mid = (l+r)//2
+        mid = (l + r) / /2
         res = 0
         if L <= mid:
             res += self.query_sum(root*2, l, mid, L, R)
