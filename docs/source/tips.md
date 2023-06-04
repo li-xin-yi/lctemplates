@@ -281,3 +281,34 @@ class Solution:
 All three methods are accepted by LeetCode during its weekly contest 291, and the method using `memoryview` has the shortest runtime, which even beats 97% of submitted Python solutions. Certainly, we take the advantage of the data scale, `nums[i]<=200` so we can use `nums` as bytes without changing the indexes, and `n<=200` lets this $O(n^3)$ brute-force method feasible. Recall that when you **have to** hash a complicated data structure, try your best to do some pre-processing that "simplifies" the objects to hash.
 
 [^3]: More about `memoryview` and its effiency analysis, see this article: https://effectivepython.com/2019/10/22/memoryview-bytearray-zero-copy-interactions
+
+## Prime Factorization
+
+{badge}`TODO, badge-danger badge-pill`
+
+Usually, we can use [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) to generate all prime numbers less than a given $N$ in $O(N\log\log N)$ time. An example:
+
+```py
+primes = []
+for i in range(2, N):
+    for j in primes:
+        if i % j == 0:
+            break
+    else:
+        primes.append(i)
+```
+
+It works based on the fact: if `i` is not a prime number, then there must be a smaller prime number  `j` that divides `i`. Simimarly, to factorize a number `N`, we can use the following strategy:
+
+```py
+primes = set()
+i = 2
+while N > 1:
+    if N % i == 0:
+        primes.add(i)
+        N //= i
+    else:
+        i += 1
+```
+
+It is also based on the fact: if a factor is non-prime, then there must be a smaller prime factor that divides it.
