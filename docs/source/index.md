@@ -1,24 +1,20 @@
 # Python Templates for LeetCode
 
-
-
 My personal summerized LeetCode Python templates.
 
 [![Python](https://custom-icon-badges.herokuapp.com/badge/Python-3.10-blue?style=flat-square&logo=python&logoColor=white)](https://docs.python.org/3.10/)
-[![Twitter Follow](https://img.shields.io/twitter/follow/yangzhou301)](https://twitter.com/yangzhou301) 
-[![LeetCode user xy-li](https://img.shields.io/badge/dynamic/json?style=flat-square&labelColor=black&color=%23ffa116&label=Solved&query=solvedOverTotal&url=https%3A%2F%2Fbadges.xyli.codes%2Fapi%2Fusers%2Fxy-li&logo=leetcode&logoColor=yellow)](https://leetcode.com/xy-li/)
-[![LeetCode user xy-li](https://img.shields.io/badge/dynamic/json?style=social&labelColor=black&color=%23ffa116&label=Rating&query=rating&url=https%3A%2F%2Fbadges.xyli.codes%2Fapi%2Fusers%2Fxy-li&logo=leetcode&logoColor=yellow)](https://leetcode.com/xy-li/)
+[![Twitter Follow](https://img.shields.io/twitter/follow/yangzhou301)](https://twitter.com/yangzhou301)
+[![LeetCode user xy-li](https://img.shields.io/badge/dynamic/json?style=flat-square&labelColor=black&color=%23ffa116&label=Solved&query=solvedOverTotal&url=https%3A%2F%2Fbadge.xyli.tech/%2Fapi%2Fusers%2Fxy-li&logo=leetcode&logoColor=yellow)](https://leetcode.com/xy-li/)
 
 {opticon}`star` Star me on GitHub: [![](https://img.shields.io/github/stars/li-xin-yi/lctemplates?style=social)](https://github.com/li-xin-yi/lctemplates)
 
 {opticon}`megaphone` This website is still **updating slowly** due to some difficulties in my academic events in school. If you have any suggestion of:
-- New algorithm/programming topics (e.g., how about create a template about *trie*?)
+
+- New algorithm/programming topics (e.g., how about create a template about _trie_?)
 - More and better problem examples for existing topics
 - Proof-reading
 
 Please comment {opticon}`comment` on the corresponding pages, and your comment will be kept as a comment for a GitHub issue {opticon}`issue-opened` permanently. Besides, pull requests {opticon}`git-pull-request` to correct me or add new contents are definitely welcome.
-
-
 
 ```{toctree}
 :maxdepth: 1
@@ -33,15 +29,15 @@ Miscellaneous <miscellaneous.md>
 
 ## Notes
 
-1. Some problems are listed without solutions for exercises in each topic, which are promised to be solvable by the provided template (because at least I have already passed them with the template) but *may not be the best solutions for the problems*. 
+1. Some problems are listed without solutions for exercises in each topic, which are promised to be solvable by the provided template (because at least I have already passed them with the template) but _may not be the best solutions for the problems_.
 2. The difficulty levels marked for those problems may be **varied** from the levels given by LeetCode officially because it is just my measurement for difficulty levels.
-3. Sometimes, I may give some challenges (marked as {badge}`Advanced,badge-info badge-pill`) from sources other than LeetCode, which seem more challenging and can't be solved by the template directly. But a step forward from the **idea** in the templates may help solve them. Thus, I just leave them as *optional* challenges.
-4. I never have a *premium* subscription on leetcode.com or leetcode.cn due to my poor financial condition. I won't list any *premium* problem as material on this site because **I guarantee to verify all solutions I post**. Of course, I'll extremely appreciate it if you are willing to [{opticon}`gift` sponsor me](https://github.com/sponsors/li-xin-yi) with a *premium* subscription on either LeetCode site to encourage me to update some *premium* problems. {badge}`cyber begging,badge-dark badge-pill`
+3. Sometimes, I may give some challenges (marked as {badge}`Advanced,badge-info badge-pill`) from sources other than LeetCode, which seem more challenging and can't be solved by the template directly. But a step forward from the **idea** in the templates may help solve them. Thus, I just leave them as _optional_ challenges.
+4. I never have a _premium_ subscription on leetcode.com or leetcode.cn due to my poor financial condition. I won't list any _premium_ problem as material on this site because **I guarantee to verify all solutions I post**. Of course, I'll extremely appreciate it if you are willing to [{opticon}`gift` sponsor me](https://github.com/sponsors/li-xin-yi) with a _premium_ subscription on either LeetCode site to encourage me to update some _premium_ problems. {badge}`cyber begging,badge-dark badge-pill`
 
 ## More about me
 
-- [Videos](https://space.bilibili.com/62988): My Bilibili channel, Chinese only,cracking every LeetCode with my friend and discuss in an interactive way. 
-- [My solutions for LeetCode weekly contests](http://notebook.xyli.me/categories/LeetCode/) (*Chinese only, very very early stage, till 174 (02/01/2020)*)
+- [Videos](https://space.bilibili.com/62988): My Bilibili channel, Chinese only,cracking every LeetCode with my friend and discuss in an interactive way.
+- [My solutions for LeetCode weekly contests](http://notebook.xyli.me/categories/LeetCode/) (_Chinese only, very very early stage, till 174 (02/01/2020)_)
 - [My paper reading notes](https://paper-weekly.readthedocs.io/en/latest/), mainly about ML/Security.
 - The LeetCode badges on the header are generated by [badges.xyli.codes](https://badges.xyli.codes/) (star me: [![](https://img.shields.io/github/stars/li-xin-yi/leetcode-badge?style=social)](https://github.com/li-xin-yi/leetcode-badge)), I modified code from [@cascandaliato's leetcode-badge](https://github.com/cascandaliato/leetcode-badge) to add contest rating and data for users in [leetcode.cn](https://leetcode.cn/).
 - Open to any dev/research intern opportunity ({opticon}`location` US or remote). If you have interest in working with me, please contact [{opticon}`mail` wolixinyi@gmail.com](mailto:wolixinyi@gmail.com)
@@ -57,9 +53,6 @@ Miscellaneous <miscellaneous.md>
 - [Leetcode Problems Rating](https://zerotrac.github.io/leetcode_problem_rating/), credit to [@zerotrac](https://leetcode.cn/u/zerotrac2/), measuring the difficulty levels for problems.
 - [Test Case Generator](https://test-case-generator.herokuapp.com/), generating test cases with some given constraints.
 - [{opticon}`people` Cruel Coding Group](http://board.cruelcoding.com/) {badge}`youxiu is our habit, badge-primary badge-pill`
-
-
-
 
 ## Indices and tables
 

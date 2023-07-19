@@ -298,7 +298,7 @@ for i in range(2, N):
         primes.append(i)
 ```
 
-It works based on the fact: if `i` is not a prime number, then there must be a smaller prime number  `j` that divides `i`. Simimarly, to factorize a number `N`, we can use the following strategy:
+It works based on the fact: if `i` is not a prime number, then there must be a smaller prime number `j` that divides `i`. Simimarly, to factorize a number `N`, we can use the following strategy:
 
 ```py
 primes = set()
@@ -311,4 +311,21 @@ while N > 1:
         i += 1
 ```
 
-It is also based on the fact: if a factor is non-prime, then there must be a smaller prime factor that divides it.
+It is also based on the fact: if a factor is non-prime, then there must be a smaller prime factor that divides it. This method works for most of problems involving prime factorization. However, it could be incredibly slow when we have to many inputs to factorize. Though [class variables](#class-variables) or other global pre-proceesing tricks may help, we can supress the prime checking and factorization process further. For example, [LC2709](https://leetcode.cn/problems/greatest-common-divisor-traversal/), you will may get TLE if treat prime factorization by regular methods first (about 5000ms for all test cases). So we just keep a list of primes `primes` and records the largest prime factor for each number `i` in `factor[i]`.
+
+```py
+# the smallest prime factor of a number
+N = 100000
+factor = [0] * (N + 1)
+primes = []
+for i in range(2, N + 1):
+    if factor[i] == 0:
+        primes.append(i)
+        factor[i] = i
+    for p in primes:
+        if i * p > N:
+            break
+        factor[i * p] = p
+        if factor[i] == p:
+            break
+```
