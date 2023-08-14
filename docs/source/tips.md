@@ -311,7 +311,7 @@ while N > 1:
         i += 1
 ```
 
-It is also based on the fact: if a factor is non-prime, then there must be a smaller prime factor that divides it. This method works for most of problems involving prime factorization. However, it could be incredibly slow when we have to many inputs to factorize. Though [class variables](#class-variables) or other global pre-proceesing tricks may help, we can supress the prime checking and factorization process further. For example, [LC2709](https://leetcode.cn/problems/greatest-common-divisor-traversal/), you will may get TLE if treat prime factorization by regular methods first (about 5000ms for all test cases). So we just keep a list of primes `primes` and records the largest prime factor for each number `i` in `factor[i]`.
+It is also based on the fact: if a factor is non-prime, then there must be a smaller prime factor that divides it. This method works for most of problems involving prime factorization. However, it could be incredibly slow when we have to many inputs to factorize. Though [class variables](#class-variables) or other global pre-proceesing tricks may help, we can supress the prime checking and factorization process further. For example, [LC2709](https://leetcode.cn/problems/greatest-common-divisor-traversal/), you will may get TLE if treat prime factorization by regular methods first (about 5000ms for all test cases). So we just keep a list of primes `primes` and records **the smallest prime factor** for each number `i` in `factor[i]`.
 
 ```py
 # the smallest prime factor of a number
@@ -323,9 +323,78 @@ for i in range(2, N + 1):
         primes.append(i)
         factor[i] = i
     for p in primes:
+        # for any prime p < i, if i is not divisible by p, then the smallest prime factor of i * p is p
+        # until the smallest prime factor of i is p, then any multiple of i has the smallest prime factor p
         if i * p > N:
             break
         factor[i * p] = p
         if factor[i] == p:
             break
+```
+
+Then we can get all prime factors of a number `x` by:
+
+```py
+def get_factors(x):
+    res = []
+    while x > 1:
+        res.append(factor[x])
+        x //= factor[x]
+    return res
+```
+
+For example, LC2709 can be solved by:
+
+```py
+N = 100000
+factor = [0] * (N + 1)
+primes = []
+factor[1] = 1
+for i in range(2, N + 1):
+    if factor[i] == 0:
+        primes.append(i)
+        factor[i] = i
+    for p in primes:
+        if i * p > N:
+            break
+        factor[i * p] = p
+        if factor[i] == p:
+            break
+
+class Solution:
+    def canTraverseAllPairs(self, nums: List[int]) -> bool:
+        n = len(nums)
+        root = {}
+        size = {}
+        if n > 1 and min(nums) == 1:
+            return False
+
+        def find(x: int) -> int:
+            if x not in root:
+                root[x] = x
+                size[x] = 1
+            if root[x] != x:
+                root[x] = find(root[x])
+            return root[x]
+
+        def union(x: int, y: int):
+            x, y = find(x), find(y)
+            if x != y:
+                if size[x] > size[y]:
+                    root[x] = y
+                    size[y] += size[x]
+                else:
+                    root[y] = x
+                    size[x] += size[y]
+
+
+        for num in nums:
+            f = factor[num]
+            find(f)
+            cur = num // f
+            while cur != 1:
+                union(factor[cur], f)
+                cur //= factor[cur]
+
+        return max(size.values()) == len(root)
 ```
