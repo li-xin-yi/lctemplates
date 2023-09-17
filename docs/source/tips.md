@@ -172,6 +172,41 @@ class Solution:
         return int(res) if res!=np.inf else -1
 ```
 
+Another example, [LC 587](https://leetcode.com/problems/erect-the-fence/) requires you to find the convex hull of a set of points. You can use [`scipy.spatial.ConvexHull`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.ConvexHull.html#scipy.spatial.ConvexHull) or [`scipy.spatial.Delaunay`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Delaunay.html#scipy.spatial.Delaunay) to solve it in a few lines:
+
+{tabbed} `ConvexHull`
+```py
+from scipy.spatial import ConvexHull,Delaunay
+import numpy as np
+
+def points_in_hull(p, hull, tol=1e-12):
+    return np.any(np.abs(hull.equations[:,:-1] @ p.T + np.repeat(hull.equations[:,-1][None,:], len(p), axis=0).T) <= tol, 0)
+
+class Solution:
+    def outerTrees(self, trees: List[List[int]]) -> List[List[int]]:
+        if len(trees) <= 2:
+            return trees
+        points = np.array(trees)
+        try:
+            hull = ConvexHull(points)
+            index = points_in_hull(points, hull)
+            return points[index]
+        except:
+            return trees
+```
+
+{tabbed} `Delaunay`
+```py
+from scipy.spatial import Delaunay
+class Solution:
+    def outerTrees(self, trees: List[List[int]]) -> List[List[int]]:
+        try:
+            hull = Delaunay(trees).convex_hull
+            return list(set(tuple(trees[i]) for i in hull.ravel()))
+        except:
+            return trees
+```
+
 I suggest all of you practice more on writing those **simple** and **classic** algorithms, such as Dijkstra's algorithm. Don't rely on 3-rd party package too much, especially if you're not familiar with them. Packages are awesome, but please use them only when necessary as you're preparing for tech interviews!
 ````
 
