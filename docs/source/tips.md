@@ -315,6 +315,8 @@ class Solution:
 ```
 ````
 
+`````
+
 All three methods are accepted by LeetCode during its weekly contest 291, and the method using `memoryview` has the shortest runtime, which even beats 97% of submitted Python solutions. Certainly, we take the advantage of the data scale, `nums[i]<=200` so we can use `nums` as bytes without changing the indexes, and `n<=200` lets this $O(n^3)$ brute-force method feasible. Recall that when you **have to** hash a complicated data structure, try your best to do some pre-processing that "simplifies" the objects to hash.
 
 [^3]: More about `memoryview` and its effiency analysis, see this article: https://effectivepython.com/2019/10/22/memoryview-bytearray-zero-copy-interactions
@@ -435,4 +437,3 @@ class Solution:
 
         return max(size.values()) == len(root)
 ```
-`````
