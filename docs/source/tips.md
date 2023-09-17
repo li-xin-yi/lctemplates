@@ -174,7 +174,7 @@ class Solution:
 
 Another example, [LC 587](https://leetcode.com/problems/erect-the-fence/) requires you to find the convex hull of a set of points. You can use [`scipy.spatial.ConvexHull`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.ConvexHull.html#scipy.spatial.ConvexHull) or [`scipy.spatial.Delaunay`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Delaunay.html#scipy.spatial.Delaunay) to solve it in a few lines:
 
-````{tabbed} `ConvexHull`
+````{tabbed} ConvexHull
 ```py
 from scipy.spatial import ConvexHull,Delaunay
 import numpy as np
@@ -196,7 +196,7 @@ class Solution:
 ```
 ````
 
-````{tabbed} `Delaunay`
+````{tabbed} Delaunay
 
 ```py
 from scipy.spatial import Delaunay
@@ -208,8 +208,7 @@ class Solution:
         except:
             return trees
 ```
-
-`````
+````
 
 I suggest all of you practice more on writing those **simple** and **classic** algorithms, such as Dijkstra's algorithm. Don't rely on 3-rd party package too much, especially if you're not familiar with them. Packages are awesome, but please use them only when necessary as you're preparing for tech interviews!
 
@@ -436,3 +435,4 @@ class Solution:
 
         return max(size.values()) == len(root)
 ```
+`````
