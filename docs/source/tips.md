@@ -18,7 +18,7 @@ Stick to `x*x` style when you are required to calculate the square of a number `
 
 Why? Both `**` and `pow` apply a [_fast exponentiation_](https://en.wikipedia.org/wiki/Exponentiation_by_squaring) algorithm in $O(\log n)$. When the exponent `n` increases rapidly, they optimize a lot; but when `n=2`, they suffer from the huge _constant factors_ in complexity compared to naively multiplying two `x`s.
 
-**Example**: [LC2249 Count Lattice Points Inside a Circle, Weekly Contest 290 Q2](https://leetcode.com/contest/weekly-contest-290/problems/count-lattice-points-inside-a-circle/) asks you to enumerate the points in a given space that hava a distance <= some `r` for some `(x,y)` (i.e., in/on a circle from a lists of circle). If you stick to `x*x` style to calculate the square, you can even pass the problem in a very straight-forward brute-force way ($O(200\times 200 \times n$) as:
+**Example**: [LC2249 Count Lattice Points Inside a Circle, Weekly Contest 290 Q2](https://leetcode.com/contest/weekly-contest-290/problems/count-lattice-points-inside-a-circle/) asks you to enumerate the points in a given space that hava a distance <= some `r` for some `(x,y)` (i.e., in/on a circle from a lists of circle). If you stick to `x*x` style to calculate the square, you can even pass the problem in a very straight-forward brute-force way ($O(200\times 200 \times n)$) as:
 
 ```py
 class Solution:
@@ -325,7 +325,7 @@ All three methods are accepted by LeetCode during its weekly contest 291, and th
 
 {badge}`TODO, badge-danger badge-pill`
 
-Usually, we can use [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) to generate all prime numbers less than a given $N$ in $O(N\log\log N)$ time. An example:
+Usually, based on the idea of [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes), we can quickly write a function to generate all prime numbers less than `N` by filtering out all non-prime numbers that can be devided by `i` once you find a prime `i`:
 
 ```py
 primes = []
@@ -333,11 +333,31 @@ for i in range(2, N):
     for j in primes:
         if i % j == 0:
             break
+        if j * j > i:
+            primes.append(i)
+            break
     else:
         primes.append(i)
 ```
 
-It works based on the fact: if `i` is not a prime number, then there must be a smaller prime number `j` that divides `i`. Simimarly, to factorize a number `N`, we can use the following strategy:
+It works based on the fact: if `i` is not a prime number, then there must be a smaller prime number `j` that divides `i`.
+
+````{dropdown} Note
+The code above is definitely not the implementation of Sieve of Eratosthenes, which should work in $O(n\log\log n)$ time. The code above inefficiently check if the current number is divisible by all prime numbers less than it. To implement a true, we must introduce a boolean array to mark if a number is already checked as a composite number. For example, the following code is a true implementation of Sieve of Eratosthenes:
+
+```py
+mask = [False]* 2 + [True] * (N-1)
+primes = []
+for i in range(2, N+1):
+if mask[i]:
+    primes.append(i)
+    for j in range(i*i, N+1, i):
+    mask[j] = False
+return [i for i in range(2, N+1) if mask[i]]
+```
+````
+
+Simimarly, to factorize a number `N`, we can use the following strategy:
 
 ```py
 primes = set()
