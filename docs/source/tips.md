@@ -325,7 +325,7 @@ All three methods are accepted by LeetCode during its weekly contest 291, and th
 
 {badge}`TODO, badge-danger badge-pill`
 
-Usually, based on the idea of [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes), we can quickly write a function to generate all prime numbers less than `N` by filtering out all non-prime numbers that can be devided by `i` once you find a prime `i`:
+Usually, based on the idea of [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes), we can quickly write a simple function (**NOT exactly the implentation of the sieve!!**) to generate all prime numbers less than `N` by filtering out all non-prime numbers that can be devided by `i` once you find a prime `i`:
 
 ```py
 primes = []
@@ -355,6 +355,8 @@ if mask[i]:
     mask[j] = False
 return [i for i in range(2, N+1) if mask[i]]
 ```
+
+To compare the efficiency of the two implementations, ref to [this notebook](https://github.com/li-xin-yi/lctemplates/blob/main/test/prime-check-test.ipynb), which also includes a more efficient code implementation in Numpy, which you can use in weekly contests to get a prime list faster.
 ````
 
 Simimarly, to factorize a number `N`, we can use the following strategy:
