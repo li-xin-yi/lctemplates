@@ -247,7 +247,6 @@ class Solution:
             return trees
 ```
 ````
-`````
 
 I suggest all of you practice more on writing those **simple** and **classic** algorithms, such as Dijkstra's algorithm. Don't rely on 3-rd party package too much, especially if you're not familiar with them. Packages are awesome, but please use them only when necessary as you're preparing for tech interviews!
 
@@ -496,4 +495,7 @@ class Solution:
 
         return max(size.values()) == len(root)
 ```
-`````
+
+```
+
+```
