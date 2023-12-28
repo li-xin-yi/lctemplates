@@ -134,7 +134,7 @@ class Solution:
 
 Which passes all test cases very fast due to the optimization in `numpy` and `scipy` in data structures & algorithms. Similary, see [this solution to LC2463](https://leetcode.cn/problems/minimum-total-distance-traveled/solution/er-fen-tu-zui-xiao-pi-pei-chun-diao-bao-o47p8/).
 
-`````{dropdown} More
+````{dropdown} More
 
 Moreover, many classic graph-theory algorithms are also included in [`scipy.sparse.csgraph`](https://docs.scipy.org/doc/scipy/reference/sparse.csgraph.html). We can take advantage of the submodule to write solutions faster. For example, an application of its [`Dijkstra` API](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.dijkstra.html#scipy.sparse.csgraph.dijkstra): [LC882 Reachable Nodes In Subdivided Graph](https://leetcode.com/problems/reachable-nodes-in-subdivided-graph/)
 
@@ -171,6 +171,44 @@ class Solution:
         res = min([dist_from_src1[i]+dist_from_src2[i]+dist_to_dest[i] for i in range(n)])
         return int(res) if res!=np.inf else -1
 ```
+
+Also, as `shortest_path` takes advantage of Floyd-Warshall algorithm, sometimes we can specify it to Floyd-Warshall algorithm and it does help in some cases. For example, in [LC2977](https://leetcode.com/problems/minimum-cost-to-convert-string-ii/), this solution only uses 1600ms, much faster than the most of other solutions:
+
+
+```py
+from scipy.sparse import csr_matrix
+from scipy.sparse.csgraph import floyd_warshall
+class Solution:
+    def minimumCost(self, source: str, target: str, original: List[str], changed: List[str], cost: List[int]) -> int:
+        nodes = {s:i for i, s in enumerate(set(original + changed))}
+
+        m = len(nodes)
+        n = len(source)
+        adj = [[float('inf')]*m for _ in range(m)]
+        for x,y,w in zip(original, changed, cost):
+            u, v = nodes[x], nodes[y]
+            adj[u][v] = min(adj[u][v], w)
+
+        changed = set(changed)
+        original = set(original)
+        original_len = set(len(s) for s in original)
+
+        dist = floyd_warshall(csr_matrix(adj), directed=True)
+
+        dp = [float('inf')]*(n+1)
+        dp[0] = 0
+        for i in range(1, n+1):
+            if source[i-1] == target[i-1]:
+                dp[i] = dp[i-1]
+            for length in original_len:
+                if i>=length and (s:= source[i-length:i]) in original and (t:= target[i-len(s):i]) in changed:
+                    dp[i] = min(dp[i], dp[i-len(s)] + dist[nodes[s],nodes[t]])
+
+
+        return -1 if dp[-1] == float('inf') else int(dp[-1])
+```
+
+````
 
 Another example, [LC 587](https://leetcode.com/problems/erect-the-fence/) requires you to find the convex hull of a set of points. You can use [`scipy.spatial.ConvexHull`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.ConvexHull.html#scipy.spatial.ConvexHull) or [`scipy.spatial.Delaunay`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Delaunay.html#scipy.spatial.Delaunay) to solve it in a few lines:
 
@@ -458,3 +496,4 @@ class Solution:
 
         return max(size.values()) == len(root)
 ```
+`````
