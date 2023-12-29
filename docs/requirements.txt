@@ -1,10 +1,10 @@
-sphinx==7.2.6
-myst-parser== 2.0.0
-linkify-it-py==2.0.2
-sphinx-panels==0.6.0
-sphinx-copybutton==0.3.1
-sphinxext-opengraph==0.4.2
-alabaster==0.7.12
-Jinja2==3.0.1
-sphinx-comments==0.0.3
-sphinxcontrib-mermaid==0.7.1
+sphinx
+myst-parser
+linkify-it-py
+sphinx-panels
+sphinx-copybutton
+sphinxext-opengraph
+alabaster
+Jinja2
+sphinx-comments
+sphinxcontrib-mermaid
