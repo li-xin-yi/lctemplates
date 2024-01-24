@@ -8,3 +8,4 @@ alabaster
 Jinja2
 sphinx-comments
 sphinxcontrib-mermaid
+sphinx-design
