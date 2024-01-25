@@ -60,3 +60,8 @@ class Solution:
 
 - Time complexity: $O(n \log n)$, where $n$ is the number of points. The bottleneck is the sorting step.
 - Space complexity: $O(n)$, where $n$ is the number of points. The monotone stack requires $O(n)$ space.
+
+:::{dropdown} Graham Scan
+
+Andrew's monotone chain is a special case of [Graham scan](https://en.wikipedia.org/wiki/Graham_scan), which is a more general algorithm to find the convex hull of a set of points in the plane.
+:::
