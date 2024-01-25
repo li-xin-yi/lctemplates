@@ -57,3 +57,6 @@ class Solution:
         lower = stack
         return list(set((i,j) for i,j in lower + upper))
 ```
+
+- Time complexity: $O(n \log n)$, where $n$ is the number of points. The bottleneck is the sorting step.
+- Space complexity: $O(n)$, where $n$ is the number of points. The monotone stack requires $O(n)$ space.
