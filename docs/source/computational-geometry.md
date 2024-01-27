@@ -24,9 +24,9 @@ Let's start from the first point to construct the upper hull, using a **monotone
 
 - If there are less than two points in $S$, push the current point into $S$. Don't worry, we are supposed to have at least two points on the upper hull (the first and the last points).
 - If there are at least two points in $S$, the top two points, denoted as $p_1$ and $p2$ (from bottom to top), and the current point is $p_3$
-  - To make $p_1 \rightarrow p_2 \rightarrow p_3$ a **counter-clockwise** turn, we need to check the **cross product** $\vec{p_1p_2} \times \vec{p_2p_3}$.
-    - If it is positive, then $p_1 \rightarrow p_2 \rightarrow p_3$ is a counter-clockwise turn, so we can push $p_3$ into $S$.
-    - If it is negative, then $p_1 \rightarrow p_2 \rightarrow p_3$ is a clockwise turn, so we need to pop $p_2$ from $S$ and check the next point with $p_1$ and the new top point in $S$, until $p_1 \rightarrow p_2 \rightarrow p_3$ is a counter-clockwise turn, or there are less than two points in $S$. Then, push $p_3$ into $S$.
+  - To make $p_1 \rightarrow p_2 \rightarrow p_3$ a **clockwise** turn, we need to check the **cross product** $\vec{p_1p_2} \times \vec{p_1p_3}$.
+    - If it is negative, then $p_1 \rightarrow p_2 \rightarrow p_3$ is a clockwise turn (right-turn), so we can push $p_3$ into $S$.
+    - If it is positive, then $p_1 \rightarrow p_2 \rightarrow p_3$ is a counter-clockwise (left-turn) turn, so we need to pop $p_2$ from $S$ and check the next point with $p_1$ and the new top point in $S$, until $p_1 \rightarrow p_2 \rightarrow p_3$ is a clockwise turn, or there are less than two points in $S$. Then, push $p_3$ into $S$.
     - If it is zero, then $p_1 \rightarrow p_2 \rightarrow p_3$ is collinear, keep it if required (e.g., the problem requires to find all points on the convex hull).
 
 Similarly, to construct the lower hull, we can start from the last point to the first point, or just check if every turn is clockwise instead of counter-clockwise.
@@ -34,24 +34,23 @@ Similarly, to construct the lower hull, we can start from the last point to the 
 Example code ([LC587](https://leetcode.com/problems/erect-the-fence/)):
 
 ```python
-def cross_product(x1, y1, x2, y2, x3, y3):
+# check if it is a left turn (>0 ->counter-clockwise)
+def ccw(x1, y1, x2, y2, x3, y3):
     return (x1 - x3) * (y2 - y3) - (y1 - y3) * (x2 - x3)
 
 class Solution:
     def outerTrees(self, trees: List[List[int]]) -> List[List[int]]:
-        trees.sort()
         n = len(trees)
+        trees.sort()
         stack = []
-        # upper hull
         for i in range(n):
-            while len(stack) >= 2 and cross_product(*stack[-2], *stack[-1], *trees[i]) > 0:
+            while len(stack) >= 2 and ccw(*stack[-2], *stack[-1], *trees[i]) > 0:
                 stack.pop()
             stack.append(trees[i])
         upper = stack
         stack = []
-        # lower hull
         for i in range(n - 1, -1, -1):
-            while len(stack) >= 2 and cross_product(*stack[-2], *stack[-1], *trees[i]) > 0:
+            while len(stack) >= 2 and ccw(*stack[-2], *stack[-1], *trees[i]) > 0:
                 stack.pop()
             stack.append(trees[i])
         lower = stack
@@ -63,5 +62,37 @@ class Solution:
 
 :::{dropdown} Graham Scan
 
-Andrew's monotone chain is a special case of [Graham scan](https://en.wikipedia.org/wiki/Graham_scan), which is a more general algorithm to find the convex hull of a set of points in the plane.
+Andrew's monotone chain is a special case of [Graham scan](https://en.wikipedia.org/wiki/Graham_scan), which is a more general algorithm to find the convex hull of a set of points in the plane. It first finds the point $P_0$ with the smallest $y$-coordinate (and the smallest $x$-coordinate if there are multiple points with the smallest $y$-coordinate), and then sort the points by the angle they and the first point make with the $x$-axis, that is, the angle $vec{P_0P_i}$ makes with the $x$-axis direction. Then, apply the similar method, use a monotone stack to store the convex hull so far, and check if the top two points and the current point make a counter-clockwise turn.
+
+For example, LC587 can be solved by Graham scan as well:
+
+```python
+# check if it is a left turn (>0 ->counter-clockwise)
+import bisect
+def ccw(p1, p2, p3):
+    return (p2[0] - p1[0]) * (p3[1] - p1[1]) - (p2[1] - p1[1]) * (p3[0] - p1[0])
+
+def angle(x1, y1, x2, y2):
+    # check the polar angle of (x2, y2) with respect to (x1, y1)
+    # range: [0, 2pi)
+    if (res:=math.atan2(y2 - y1, x2 - x1)) < 0:
+        return 2 * math.pi + res
+    return res
+
+class Solution:
+    def outerTrees(self, trees: List[List[int]]) -> List[List[int]]:
+        p0 = min(trees, key=lambda p: (p[1], p[0]))
+        trees = sorted([(angle(*p, *p0), abs(p[0] - p0[0]), *p) for p in trees])
+
+        # for the points with the greatest polar angle, we should traverse them from the farthest to the nearest, to make a fine ending
+        idx = bisect.bisect_left(trees, (trees[-1][0], 0, 0, 0, 0))
+        trees[idx:] = trees[idx:][::-1]
+        stack = [p0]
+        for _, _, x, y in trees:
+            while len(stack) > 1 and ccw(stack[-2], stack[-1], (x, y)) < 0:
+                stack.pop()
+            stack.append((x, y))
+        return list(set((x, y) for x, y in stack))
+```
+
 :::
