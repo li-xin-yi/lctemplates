@@ -95,4 +95,8 @@ class Solution:
         return list(set((x, y) for x, y in stack))
 ```
 
-:::
+Personally, I rarely use this version. Because
+
+- To calculate the polar angle, we need to use some function (like `math.atan2`), which gives a floating-point number and may have some precision issues (see [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754)). In the sorting step, this imprecise key may influence the points on the edges.
+- For example (LC587), we required to give all points on the egdes. We have to be careful on how to sort the points with the same polar angle. Intuitively, we should sort them by their distance to the first point, the points should traverse from the closest to the farthest. However, for the last edge, we first enumerate the farthest point then to the closer ones.
+  :::
