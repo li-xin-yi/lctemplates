@@ -6,6 +6,14 @@
 
 > More algorithms can be found in [this textbook](https://www.cs.cmu.edu/afs/cs/academic/class/15456-s14/Handouts/BKOS.pdf).
 
+## Common Senses
+
+> Given two different points $(x_1, y_1)$ and $(x_2, y_2)$, how to determine the line they are on?
+
+If we want get the line equation in the form of $ax + by + c = 0$, we can use the following formula as a solution:
+
+$$ a = y_2 - y_1, b = x_1 - x_2, c = x_2y_1 - x_1y_2 $$
+
 ## Convex Hull
 
 The [convex hull](https://en.wikipedia.org/wiki/Convex_hull) problem refers to a classic problem that
@@ -100,3 +108,8 @@ Personally, I rarely use this version. Because
 - To calculate the polar angle, we need to use some function (like `math.atan2`), which gives a floating-point number and may have some precision issues (see [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754)). In the sorting step, this imprecise key may influence the points on the edges.
 - For example (LC587), we required to give all points on the egdes. We have to be careful on how to sort the points with the same polar angle. Intuitively, we should sort them by their distance to the first point, the points should traverse from the closest to the farthest. However, for the last edge, we first enumerate the farthest point then to the closer ones.
   :::
+
+:::{dropdown} Divide and Conquer
+
+This is also an exercise (1.18) in the textbook. See more in [this post](https://algorithmtutor.com/Computational-Geometry/An-efficient-way-of-merging-two-convex-hull/)
+:::
