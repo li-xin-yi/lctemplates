@@ -68,6 +68,9 @@ class Solution:
 - Time complexity: $O(n \log n)$, where $n$ is the number of points. The bottleneck is the sorting step.
 - Space complexity: $O(n)$, where $n$ is the number of points. The monotone stack requires $O(n)$ space.
 
+To practice more, you can also try [Compute a convex hull
+](https://www.codewars.com/kata/5657d8bdafec0a27c800000f) on Codewars, which asks for the **minimum** number of vertices to construct the convex hull.
+
 :::{dropdown} Graham Scan
 
 Andrew's monotone chain is a special case of [Graham scan](https://en.wikipedia.org/wiki/Graham_scan), which is a more general algorithm to find the convex hull of a set of points in the plane. It first finds the point $P_0$ with the smallest $y$-coordinate (and the smallest $x$-coordinate if there are multiple points with the smallest $y$-coordinate), and then sort the points by the angle they and the first point make with the $x$-axis, that is, the angle $vec{P_0P_i}$ makes with the $x$-axis direction. Then, apply the similar method, use a monotone stack to store the convex hull so far, and check if the top two points and the current point make a counter-clockwise turn.
