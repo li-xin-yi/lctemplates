@@ -8,11 +8,23 @@
 
 ## Common Senses
 
+### Lines
+
 > Given two different points $(x_1, y_1)$ and $(x_2, y_2)$, how to determine the line they are on?
 
 If we want get the line equation in the form of $ax + by + c = 0$, we can use the following formula as a solution:
 
 $$ a = y_2 - y_1, b = x_1 - x_2, c = x_2y_1 - x_1y_2 $$
+
+### Cross Product
+
+The cross product of two vectors $\vec{u} = (x_1, y_1)$ and $\vec{v} = (x_2, y_2)$ is defined as
+
+$$ \vec{u} \times \vec{v} = x_1y_2 - x_2y_1 $$
+
+- If $\vec{u} \times \vec{v} > 0$, then $\vec{u}$ is **counter-clockwise** with respect to $\vec{v}$
+- If $\vec{u} \times \vec{v} < 0$, then $\vec{u}$ is **clockwise** with respect to $\vec{v}$
+- If $\vec{u} \times \vec{v} = 0$, then $\vec{u}$ and $\vec{v}$ are **collinear**
 
 ## Convex Hull
 
@@ -115,4 +127,7 @@ Personally, I rarely use this version. Because
 :::{dropdown} Divide and Conquer
 
 This is also an exercise (1.18) in the textbook. See more in [this post](https://algorithmtutor.com/Computational-Geometry/An-efficient-way-of-merging-two-convex-hull/)
+:::
+
+:::{dropdown} Jarvis March
 :::
