@@ -28,7 +28,7 @@ The idea of the Rabin-Karp algorithm is to use a rolling hash to compare the has
 
 The hash function that maps a string to a number is called a string hashing. The most common hash function is the polynomial rolling hash function, which is defined as follows:
 
-$$ H(s) = \sum\_{i=0}^{n-1} s[i] \cdot b^{n-1-i} (\mod m) $$
+$$ H(s) = \sum_{i=0}^{n-1} s[i] \cdot b^{n-1-i} (\mod m) $$
 
 where
 
