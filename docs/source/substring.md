@@ -78,7 +78,7 @@ Compared to other linear-time string-matching algorithms (e.g., KMP, AC automati
 
 - Easy to understand, implement and explain the theory in it.
 
-To be honest, I can't memorize every theotical details and implementation of KMP. So I prefer to use rolling hash when I come across the string-matching problem in an interview.
+To be honest, I can't memorize every theotical details and implementation of KMP. So I prefer rolling hash when I come across the string-matching problem in an interview.
 
 **Cons**:
 
