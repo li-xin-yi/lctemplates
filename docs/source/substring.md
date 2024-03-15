@@ -112,3 +112,7 @@ class Solution:
             i += 1
         return -1
 ```
+
+## Kunth-Morris-Pratt (KMP) Algorithm
+
+The KMP algorithm is another string-searching algorithm that uses a preprocessed table to avoid the backtracking of the brute-force solution.
