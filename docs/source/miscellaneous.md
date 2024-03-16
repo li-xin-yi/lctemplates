@@ -12,7 +12,7 @@ I can further model this kind of problem as:
 
 > Given an int array `nums` of length `n`, you are asked to do the following operation `k` times: choose an index `i` in `[0...n)` and increase (or decrease) `nums[i]` by 1. How to make the modified `nums` as **balanced** as possible?
 
-How to understand the word *balanced*? Besides  minimizing `max(cpu)-min(cpu)`, Many popular objectives can also be reduced to the "balance" problem intuitively on LeetCode, for example:
+How to understand the word _balanced_? Besides minimizing `max(cpu)-min(cpu)`, Many popular objectives can also be reduced to the "balance" problem intuitively on LeetCode, for example:
 
 - [LC2233](https://leetcode.com/problems/maximum-product-after-k-increments/): To **maximize the product** of the entire array.
 - [LC2333](https://leetcode.com/problems/minimum-sum-of-squared-difference/): To **minimize the sum of squared** values in the entire array.
@@ -116,7 +116,7 @@ I don't know how to call the approach, but I always stick to it because it gives
 3. If the current left k is insufficient to refill them as `nums[i]` for all, just split to all those `i` elements evenly: assume `d=k//i` and `r=k%i`, `r` numbers of `d+1` are added to `r` previous elements while `i-r` numbers of `d` are added to `i-r` previous ones. Now, we can return the final array as
 
 ```py
-nums = [nums[i-1]+d]*(i-r) + [nums[i-1]+d+1]*r + nums[i:] 
+nums = [nums[i-1]+d]*(i-r) + [nums[i-1]+d+1]*r + nums[i:]
 ```
 
 which is already in a sorted order.
@@ -154,3 +154,7 @@ for i in range(1,len(nums)):
 ````
 
 Usage exmaple: [My solution to LC2233](https://leetcode.com/problems/maximum-product-after-k-increments/discuss/2302400/python-no-heap-maybe-sweepline-onlogn)
+
+### OOD-related Interview Question
+
+For typical OOD problems in interviews, you can refer to [{opticon}`mark-github` tssovi/grokking-the-object-oriented-design-interview](https://github.com/tssovi/grokking-the-object-oriented-design-interview).
