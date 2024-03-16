@@ -157,4 +157,6 @@ Usage exmaple: [My solution to LC2233](https://leetcode.com/problems/maximum-pro
 
 ### OOD-related Interview Question
 
-For typical OOD problems in interviews, you can refer to [{opticon}`mark-github` tssovi/grokking-the-object-oriented-design-interview](https://github.com/tssovi/grokking-the-object-oriented-design-interview).
+For typical OOD problems in interviews, you can refer to [{opticon}`mark-github` tssovi/grokking-the-object-oriented-design-interview](https://github.com/tssovi/grokking-the-object-oriented-design-interview), which includes many study cases of common problems. The key point is not at the problem itself, but keeping communicating and clarifying what is the requirement and what is the constraint.
+
+Besides, some simple OOD problems may also occur. For example, how to implement linked list, vector, stack, double-ended queue, etc. Usually, we often use the built-in data structures in Python. But in interviews, you may be asked to implement them from scratch. Many issues you may come across after used to the Python built-in data structures, the most serious one (just in my opinion) is there is no bare array (though you can use `array.array`), take care of the memory allocation and deallocation, and the time complexity of operations when you use `list` to simulate it and don't forget to assume it has all features of an array if needed.
