@@ -496,6 +496,8 @@ class Solution:
         return max(size.values()) == len(root)
 ```
 
-```
+## Memoization
 
-```
+In some dynamic programming problems, we can use memoized DFS to do the top-down dynamic programming. In other languages, you may need to pass the reference of `unordered_map` (C++) or `HashMap` (Java) to the recursive DFS function and maintain the memoization table for each new arguments. However, in Python, you can simply use the decorator `lru_cache` or `cache` to make the function memoized.
+
+More details can be found in [this docs](https://docs.python.org/3/library/functools.html#functools.cache).
