@@ -6,11 +6,11 @@
 
 Imagine that you are given an array of integers, namely `A`, of length `n`. There are total ${{n+1} \choose 2} = n(n+1)/2$ non-empty subarrays, written as `A[i:j+1]` with `0<=i<=j<n`. To maintain some statistics (e.g. sum, min, max and etc.) about each subarray for further queries, we have some straightforward solutions:
 
-- If we naively keep all $n(n+1)/2$ subarrays physically, we need $O(n^2)$ spaces, while every time we need to query some information about a specified interval `[i,j]`, it costs $O(1)$ time. However, if you need to update a single element in `A`, to keep all data about all intervals up-to-date, you still need $O(n^2)$ time to update all intervals containing the element. 
+- If we naively keep all $n(n+1)/2$ subarrays physically, we need $O(n^2)$ spaces, while every time we need to query some information about a specified interval `[i,j]`, it costs $O(1)$ time. However, if you need to update a single element in `A`, to keep all data about all intervals up-to-date, you still need $O(n^2)$ time to update all intervals containing the element.
 - In opposite, if we only keep every single element for each index (every `A[i]`), in other words, `n` intervals of length 1, as what a built-in array exactly does, we only require $O(n)$ space to build them and $O(1)$ to update any single element. But the time cost for each query of interval data increases to $O(n)$.
 - ...
 
-Yes, as you see, this is a **trade-off** between **space and time**, as well as a **trade-off** between **construction**, the following **updates**, and **queries**. A [segment tree](https://en.wikipedia.org/wiki/Segment_tree) is designed to balance those costs and break the dilemma, which offers better performance to build the array quickly and supports **numerous** times of both *update* and *query* operations. 
+Yes, as you see, this is a **trade-off** between **space and time**, as well as a **trade-off** between **construction**, the following **updates**, and **queries**. A [segment tree](https://en.wikipedia.org/wiki/Segment_tree) is designed to balance those costs and break the dilemma, which offers better performance to build the array quickly and supports **numerous** times of both _update_ and _query_ operations.
 
 We build a segment tree from an array by recursively dividing every subarray `[left,right]` into two smaller subarrays as `[left,mid]` and `[mid+1,right]`, where `mid=(left+right)//2`. Every subarray `[left,right]` is represented as a TreeNode, with left child `[left,mid]` and right child `[mid+1,right]`. For example, assume we have an array `A` initialized as:
 
@@ -24,9 +24,9 @@ First, we build the segment tree as the picture below and track the sum of every
 
 We see that we create `2n-1` TreeNodes for different subarrays. The **leaf** nodes are used to store **single** elements (interval `[i,i]`). For each query or update request, we go through a [post-order DFS](https://en.wikipedia.org/wiki/Tree_traversal#Post-order,_LRN) from the root of the entire tree (the array `[0,n-1]`). For example, in the case above, every `sum` value for each TreeNode is calculated by adding the `sum` of two child nodes. Therefore, whenever we request to update a single element `A[i]` contained in either child node, we must first traverse to any TreeNode that includes this index `i` and then go to one of its children. After any child node is modified, the `sum` of the parent node must also be re-calculated by adding the two updated `sum`s of its children.
 
-````{note}
+```{note}
 Even though each node in the picture is depicted as a subarray, remember that it is **just for demonstration**. a TreeNode never stores any specific value of elements in the interval `[i,j]`, instead it only keeps track of some information about the interval (e.g., `sum` in this case) and pointers to its children, which always take up $O(1)$ space for each TreeNode.
-````
+```
 
 Let's talk about querying the `sum` of an interval `[i,j]`, which may not be represented exactly by any single TreeNode in the tree right now. For example, if we want to query `sum(A[1:8])`, we need to start a traversal like:
 
@@ -82,9 +82,9 @@ Then, if we have an array at start and want to build the segment tree from it. W
 
 When initialize the segment tree with an known array, we can use `self.build(1,0,n-1,arr)`. Note that we always start a tree rooted at node `1` because it gives the correct indexes of child nodes using the formula above (instead `0` can't).
 
-### Update
+### Update (Single Element)
 
-To update the value of a single element in the array, we first need to find all intervals that contains that element, which must be a path from the root node to a leaf.
+To update the value of a **single** element in the array, we first need to find all intervals that contains that element, which must be a path from the root node to a leaf.
 
 ```py
     def update(self, root:int, l:int, r:int, idx:int, val:int) -> None:
@@ -135,6 +135,10 @@ To query some data (e.g., `sum` here) of an interval `[L,R]`, we search the inte
 - `L` and `R`: the endpoints of the interval to query
 - **Time Complexity:** $O(\log n)$
 - **Entry**: `self.query_sum(root=1,l=0,r=n-1,L=L,R=R)`
+
+## Lazy Propagation
+
+To update a range of elements in the array, we don't have to update every single element in the range. Instead, we can update the interval represented by a TreeNode and mark it as `lazy` to indicate that its children are not up-to-date. When we need to query the data of a TreeNode, we first check if it is `lazy` and update its children if necessary.
 
 ## Read More
 
