@@ -250,6 +250,10 @@ class Solution:
 
 I suggest all of you practice more on writing those **simple** and **classic** algorithms, such as Dijkstra's algorithm. Don't rely on 3-rd party package too much, especially if you're not familiar with them. Packages are awesome, but please use them only when necessary as you're preparing for tech interviews!
 
+More examples for exercises:
+
+- [LC 3187](https://leetcode.com/problems/peaks-in-array/) (Numpy)
+
 ## Topological Sort
 
 {badge}`TODO, badge-danger badge-pill`
