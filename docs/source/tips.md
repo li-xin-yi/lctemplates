@@ -502,6 +502,8 @@ class Solution:
 
 ## Memoization
 
+{badge}`TODO, badge-danger badge-pill`
+
 In some dynamic programming problems, we can use memoized DFS to do the top-down dynamic programming. In other languages, you may need to pass the reference of `unordered_map` (C++) or `HashMap` (Java) to the recursive DFS function and maintain the memoization table for each new arguments. However, in Python, you can simply use the decorator `lru_cache` or `cache` to make the function memoized.
 
 More details can be found in [this docs](https://docs.python.org/3/library/functools.html#functools.cache).
@@ -510,4 +512,39 @@ Don't forget to clear the cache if necessary:
 
 ```py
 [function_name].cache_clear()
+```
+
+## Balanced Tree
+
+{badge}`TODO, badge-danger badge-pill`
+
+In some problems, you may need to maintain a sorted container to search for some specific elements quickly and insert/delete elements efficiently. In LC, we can import `sortedcontainers` module, which includes `SortedList` and `SortedDict` classes. For example, [LC3187 Peaks in Array](https://leetcode.com/problems/peaks-in-array/) can be solved by `SortedList`:
+
+```py
+from sortedcontainers import SortedList
+
+class Solution:
+    def countOfPeaks(self, nums: List[int], queries: List[List[int]]) -> List[int]:
+        peaks = SortedList([i for i in range(1, len(nums) - 1) if nums[i] > nums[i - 1] and nums[i] > nums[i + 1]])
+        res = []
+        for query in queries:
+            if query[0] == 1:
+                _, l, r = query
+                if l == r:
+                    s = 0
+                else:
+                    i = bisect.bisect_right(peaks, l)
+                    j = bisect.bisect_left(peaks, r)
+                    s = j - i
+                res.append(s)
+            else:
+                _, idx, val = query
+                nums[idx] = val
+                for i in range(max(0, idx-1), min(len(nums), idx+2)):
+                    pos = peaks.bisect_right(i)
+                    if pos > 0 and peaks[pos-1] == i:
+                        peaks.remove(i)
+                    if i!=0 and i!=len(nums)-1 and nums[i] > nums[i - 1] and nums[i] > nums[i + 1]:
+                        peaks.add(i)
+        return res
 ```
