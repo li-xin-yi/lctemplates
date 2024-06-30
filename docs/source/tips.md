@@ -548,3 +548,15 @@ class Solution:
                         peaks.add(i)
         return res
 ```
+
+## Doubly-ended Queue
+
+For a standard implementation of a doubly-ended queue (and queue) in Python, we usually use [`deque`](https://docs.python.org/3/library/collections.html#collections.deque) by
+
+```py
+from collections import deque
+```
+
+Though `append`, `appendleft`, `pop` and `popleft` offer a speed of approximately $O(1)$, sometimes we suffer from the constant factors in the complexity as it wrapped by Python's list.
+
+If we're not interested in the **doubly**-ended feature so much, we can
