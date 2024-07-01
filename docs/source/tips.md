@@ -559,4 +559,17 @@ from collections import deque
 
 Though `append`, `appendleft`, `pop` and `popleft` offer a speed of approximately $O(1)$, sometimes we suffer from the constant factors in the complexity as it wrapped by Python's list.
 
-If we're not interested in the **doubly**-ended feature so much, we can
+If we're not interested in the **doubly**-ended feature so much, we can just use a list to simulate the queue. For example, in BFS approach, we can write the template as:
+
+```py
+seen = set([start])
+
+# enqueue the starting node, assume we are calculting the distance from the starting node
+q = [(start, 0)]
+
+for node, d in q:
+    for nei in adj[node]:
+        if nei not in seen:
+            seen.add(nei)
+            q.append((nei, d+1))
+```
