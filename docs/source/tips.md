@@ -254,38 +254,46 @@ More examples for exercises:
 
 - [LC 3187](https://leetcode.com/problems/peaks-in-array/) (Numpy)
 
-## Topological Sort
+## Topological Sorting
 
 {badge}`TODO, badge-danger badge-pill`
 
-For example, a solution to [LC1632. Rank Transform of a Matrix](https://leetcode.com/problems/rank-transform-of-a-matrix/):
+For example, a solution to [LC1203 Sort Items by Groups Respecting Dependencies](https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/) can be written as:
 
 ```py
 from collections import defaultdict
+from graphlib import TopologicalSorter
 class Solution:
-    def matrixRankTransform(self, matrix: List[List[int]]) -> List[List[int]]:
-        val = defaultdict(list)
-        n,m = len(matrix),len(matrix[0])
-        rank = [0]*(n+m)
+    def sortItems(self, n: int, m: int, group: List[int], beforeItems: List[List[int]]) -> List[int]:
+        groups_adj = {i:set() for i in range(-m,n) if i<0 or group[i]==-1}
+        adj = defaultdict(set)
+        nodes = [[] for _ in range(m)]
+        indp = set()
         for i in range(n):
-            for j in range(m):
-                val[matrix[i][j]].append((i,j))
+            u = i
+            if group[i] >= 0:
+                u = -group[i]-1
+                nodes[u].append(i)
+            for j in beforeItems[i]:
+                v = -group[j]-1 if group[j] >=0 else j
+                if u!=v:
+                    groups_adj[u].add(v)
+                else:
+                    adj[i].add(j)
 
-        def find(i):
-            if p[i]!=i:
-                p[i] = find(p[i])
-            return p[i]
-
-        for k in sorted(val.keys()):
-            p = list(range(n+m))
-            temp = list(rank)
-            for i,j in val[k]:
-                i,j = find(i),find(j+n)
-                p[i] = j
-                temp[j] = max(temp[i],temp[j])
-            for i,j in val[k]:
-                rank[i] = rank[j+n] = matrix[i][j] = temp[find(i)]+1
-        return matrix
+        res = []
+        try:
+            ts = TopologicalSorter(groups_adj)
+            groups = ts.static_order()
+            for i in groups:
+                if i >= 0:
+                    res.append(i)
+                else:
+                    ts = TopologicalSorter({j:adj[j] for j in nodes[i]})
+                    res.extend(ts.static_order())
+        except:
+            return []
+        return res
 ```
 
 ## Hash
@@ -572,4 +580,8 @@ for node, d in q:
         if nei not in seen:
             seen.add(nei)
             q.append((nei, d+1))
+```
+
+```{dropdown} Example
+A very typical application of the BFS algorithm is topological sorting.
 ```
