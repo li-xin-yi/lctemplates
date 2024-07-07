@@ -582,6 +582,10 @@ for node, d in q:
             q.append((nei, d+1))
 ```
 
-```{dropdown} Example
-A very typical application of the BFS algorithm is topological sorting.
+````{dropdown} Example
+A very typical application of the BFS algorithm is topological sorting. If `graphlibs.TopologicalSorter` is not available, we can solve [LC1203 Sort Items by Groups Respecting Dependencies (we mentioned it before!)](https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/) by BFS topo-sorting:
+
+```py
+from collections import defaultdict
 ```
+````
