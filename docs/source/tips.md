@@ -583,9 +583,29 @@ for node, d in q:
 ```
 
 ````{dropdown} Example
-A very typical application of the BFS algorithm is topological sorting. If `graphlibs.TopologicalSorter` is not available, we can solve [LC1203 Sort Items by Groups Respecting Dependencies (we mentioned it before!)](https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/) by BFS topo-sorting:
+A very typical application of the BFS algorithm is topological sorting. If `graphlibs.TopologicalSorter` is not available, we can solve [Find All Possible Recipes from Given Supplies](https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/) by the BFS topo-sorting algorithm:
 
 ```py
-from collections import defaultdict
+from collections import defaultdict, Counter
+class Solution:
+    def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
+        adj = defaultdict(list)
+        rev = Counter()
+        for i, lst in zip(recipes, ingredients):
+            for j in lst:
+                adj[j].append(i)
+            rev[i] = len(lst)
+        res = set(supplies)
+        for i in supplies:
+            for j in adj[i]:
+                if j not in res:
+                    rev[j] -= 1
+                    if rev[j] == 0:
+                        res.add(j)
+                        supplies.append(j)
+        return [i for i in recipes if i in res]
+
 ```
+
+Note that we use a list `supplies` to simulate the queue in the BFS algorithm.
 ````
