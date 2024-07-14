@@ -55,6 +55,7 @@ Miscellaneous <miscellaneous.md>
 - [Leetcode Problems Rating](https://zerotrac.github.io/leetcode_problem_rating/), credit to [@zerotrac](https://leetcode.cn/u/zerotrac2/), measuring the difficulty levels for problems.
 - [Test Case Generator](https://test-case-generator.herokuapp.com/), generating test cases with some given constraints.
 - [{opticon}`people` Cruel Coding Group](http://board.cruelcoding.com/) {badge}`youxiu is our habit, badge-primary badge-pill`
+- [Chrome Codeium Extension](https://github.com/Exafunction/codeium-chrome), an in-line code auto completion extension that can be used in LeetCode editor, which is also what I contributed to.
 
 ## Indices and tables
 
