@@ -113,6 +113,34 @@ class Solution:
 {badge}`Warning, badge-danger badge-pill` Usually, it's **not a good practice** to do pre-calculation in competitive programming or hard-code values for numerous variables in real-word developing works. [Python language docs](https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables) also calls for **extreme caution** when using class variables because of their side effects. Please don't break the **clean** and **safe** code style unless you can't find any other way to finish the task.
 ````
 
+Alternatively, you can define a variable outside `Solution` class as a global variable, which is also shared among all invocations of methods in `Solution` class. For example, in [LC 3233 Find the Count of Numbers Which Are Not Special](https://leetcode.com/problems/find-the-count-of-numbers-which-are-not-special/), we can maintain the list of primes `primes` and the number of primes <= its index as `nums` globally:
+
+```py
+import math
+
+primes = []
+nums = [0, 0]
+
+def f(n):
+    if len(nums) > n:
+        return nums[n]
+    while len(nums) <= n:
+        for i in primes:
+            if len(nums) % i == 0:
+                nums.append(nums[-1])
+                break
+        else:
+            primes.append(len(nums))
+            nums.append(nums[-1] + 1)
+    return nums[n]
+
+class Solution:
+    def nonSpecialCount(self, l: int, r: int) -> int:
+        res = r - l + 1
+        l, r = int(math.sqrt(l-1)), int(math.sqrt(r))
+        return res - f(r) + f(l)
+```
+
 ## Numpy & Scipy
 
 Incredibly, LeetCode allows you to import modules like [`numpy`](https://numpy.org/) and [`scipy`](https://scipy.org/) in Python. For some problems with a large matrix or graph, some operations, even complicated algorithms, can be applied easily right after converting the inputs into `np.array`.
