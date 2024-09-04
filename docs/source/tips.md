@@ -536,6 +536,8 @@ class Solution:
         return max(size.values()) == len(root)
 ```
 
+Another example: [LC2818](https://leetcode.com/problems/apply-operations-to-maximize-score/) requires to find the number of unique prime factors of every `nums[i]`, in this official hint, just suggests the brute-force method in $O(n\sqrt{N})$ time, which must result in a TLE. We can utilize this trick to avoid the repeated factorization: [see my solution](https://leetcode.com/submissions/detail/1378423199/).
+
 ## Memoization
 
 {badge}`TODO, badge-danger badge-pill`
