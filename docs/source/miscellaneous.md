@@ -155,7 +155,24 @@ for i in range(1,len(nums)):
 
 Usage exmaple: [My solution to LC2233](https://leetcode.com/problems/maximum-product-after-k-increments/discuss/2302400/python-no-heap-maybe-sweepline-onlogn)
 
-### OOD-related Interview Question
+## Primes
+
+Though we mentioned a fast factorization algorithm for all numbers $\le$ a given $N$ [here](https://lctemplates.readthedocs.io/en/latest/tips.html#prime-factorization), sometimes we don't need to do factorization during the process, all we need is to enumerate all primes $\le N$. Just use the sieve of Eratosthenes algorithm, which is very simple and efficient.
+
+```py
+mask = [False]* 2 + [True] * (N-1)
+primes = []
+for i in range(2, N+1):
+if mask[i]:
+    primes.append(i)
+    for j in range(i*i, N+1, i):
+    mask[j] = False
+return [i for i in range(2, N+1) if mask[i]]
+```
+
+An example exercise: [Meta Hackercup 2024 Round 1 Problem B](https://www.facebook.com/codingcompetitions/hacker-cup/2024/round-1/problems/B), which can solved by first listing all primes $\le 10^7$ and store the accumulated count of twin primes at every possible query $N$.
+
+## OOD-related Interview Question
 
 For typical OOD problems in interviews, you can refer to [{opticon}`mark-github` tssovi/grokking-the-object-oriented-design-interview](https://github.com/tssovi/grokking-the-object-oriented-design-interview), which includes many study cases of common problems. The key point is not at the problem itself, but keeping communicating and clarifying what is the requirement and what is the constraint.
 
