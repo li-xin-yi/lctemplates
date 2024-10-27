@@ -587,6 +587,8 @@ class Solution:
         return res
 ```
 
+**Tips**: for the dynamic Top-K problems, you can use `SortedList` to maintain the top-K elements in a list, which is much faster (just in writting) than the heap-based method.
+
 ## Doubly-ended Queue
 
 For a standard implementation of a doubly-ended queue (and queue) in Python, we usually use [`deque`](https://docs.python.org/3/library/collections.html#collections.deque) by
