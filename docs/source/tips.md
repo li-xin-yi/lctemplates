@@ -641,3 +641,15 @@ class Solution:
 
 Note that we use a list `supplies` to simulate the queue in the BFS algorithm.
 ````
+
+## Time Complexity Estimation
+
+To guess what algorithm can be used to get accepted by LeetCode, a trick to first observe the **data range** can also be used here. For example, the size $n$ of an input array is given in the **notes** section of every problem, we can roughly guess the algorithm:
+
+| $n$ | Complexity Upper Bound | Possible Algoriths |
+| $/leq 20$ | $O(2^n)$ | Brute-force DFS, Bitmask |
+| $/leq 10^2$ | $O(n^3)$ | Brute-force, Floyd-Warshall, 3-D DP |
+| $/leq 10^3$ | $O(n^2)$ | 2-D DP, BFS, DFS |
+| $/leq 10^5$ | $O(n\log n)$ | Sort, Binary Search, Dijkstra |
+| $/leq 10^6$ | $O(n)$ | Hash, Prefix Sum, Union-Find, Double Pointer |
+| $/leq 10^9$ | $O(\log n)$ | Binary Search |
