@@ -653,3 +653,43 @@ To guess what algorithm can be used to get accepted by LeetCode, a trick to firs
 | $/leq 10^5$ | $O(n\log n)$ | Sort, Binary Search, Dijkstra |
 | $/leq 10^6$ | $O(n)$ | Hash, Prefix Sum, Union-Find, Double Pointer |
 | $/leq 10^9$ | $O(\log n)$ | Binary Search |
+
+## Modulo $10^9+7$
+
+In many problems, the answer is required to be modulo $10^9+7$ because it may exceed the range of a 32-bit integer. Recall the properties of modulo operation:
+
+- $(a+b) \mod M \equiv (a \mod M + b \mod M) \mod M$
+- $(a-b) \mod M \equiv (a \mod M - b \mod M) \mod M$
+- $(a \times b) \mod M \equiv (a \mod M \times b \mod M) \mod M$
+- $(a^b) \mod M \equiv ((a \mod M)^b) \mod M$
+
+Many operations can remain the same whenever we applying modulo operation. Thus, we usually apply modulo operation after each operation to avoid overflow. Like:
+
+```py
+M = 10**9+7
+
+...
+for i in range(n):
+    res = (res + f(nums[i])) % M
+...
+```
+
+However, division is not a commutative operation under modulo, that is
+
+$$(a/b) \mod M \equiv (a \mod M / b \mod M) \mod M$$
+
+is not necessarily true.
+
+The correct way to calculate the division under modulo is to calculate the modular inverse of the divisor.
+
+$$a/b \mod M \equiv a \times b^{-1} \mod M$$
+
+where $b^{-1}$ is the modular inverse of $b$ under modulo $M$. The modular inverse can be calculated by the extended Euclidean algorithm. In Python, we can use the `pow` function to calculate the modular inverse:
+
+```py
+inversed_b = pow(b, -1, M)
+# res += a/b
+res = (res + a * inversed_b) % M
+```
+
+It utilizes the extended Euclidean algorithm to calculate the modular inverse of $b$ under modulo $M$, which doesn't require the divisor $M$ to be a prime number, only requires that $b$ and $M$ are co-prime. Note that sometimes you may observe another expression `pow(b, M-2, M)` as the inverse of $b$ under modulo $M$, which is derived from the Fermat's little theorem and only works when $M$ is a prime number.
