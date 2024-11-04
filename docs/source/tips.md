@@ -685,7 +685,7 @@ The correct way to calculate the division under modulo is to calculate the modul
 
 $$a/b \mod M \equiv a \times b^{-1} \mod M$$
 
-where $b^{-1}$ is the modular inverse of $b$ under modulo $M$. The modular inverse can be calculated by the extended Euclidean algorithm. In Python, we can use the `pow` function to calculate the modular inverse:
+where $b^{-1}$ is the modular inverse of $b$ under modulo $M$. In Python, we can use the `pow` function to calculate the modular inverse:
 
 ```py
 inversed_b = pow(b, -1, M)
@@ -693,4 +693,18 @@ inversed_b = pow(b, -1, M)
 res = (res + a * inversed_b) % M
 ```
 
-It utilizes the extended Euclidean algorithm to calculate the modular inverse of $b$ under modulo $M$, which doesn't require the divisor $M$ to be a prime number, only requires that $b$ and $M$ are co-prime. Note that sometimes you may observe another expression `pow(b, M-2, M)` as the inverse of $b$ under modulo $M$, which is derived from the Fermat's little theorem and only works when $M$ is a prime number.
+It utilizes the [extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm) to calculate the modular inverse of $b$ under modulo $M$, which doesn't require the divisor $M$ to be a prime number, only requires that $b$ and $M$ are co-prime. Note that sometimes you may observe another expression `pow(b, M-2, M)` as the inverse of $b$ under modulo $M$, which is derived from the [Fermat's little theorem](https://en.wikipedia.org/wiki/Fermat%27s_little_theorem) and only works when $M$ is a prime number.
+
+For instance, sometimes we need to calculate a combination number $n \choose k = \frac{n!}{k!(n-k)!}$ ($C(n, k)$) under modulo $M$. We can pre-calculate the factorial and the modular inverse of the factorial to get the result:
+
+```py
+frac = [1]
+for i in range(1, n+1):
+    frac.append(frac[-1] * i % M)
+
+inv = [pow(num, -1, M) for num in frac]
+
+# C(n, k) = n! / (k! * (n-k)!)
+res = frac[n] * inv[k] % M * inv[n-k] % M
+```
+
