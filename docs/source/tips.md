@@ -708,3 +708,45 @@ inv = [pow(num, -1, M) for num in frac]
 res = frac[n] * inv[k] % M * inv[n-k] % M
 ```
 
+**Example**: [LC3343. 3343. Count Number of Balanced Permutations](https://leetcode.com/problems/count-number-of-balanced-permutations/)
+
+```py
+M = 10**9 + 7
+
+fraq = [1]
+
+for i in range(80):
+    fraq.append((fraq[-1] * (i+1)) % M)
+
+fraq_inv = [pow(i, -1, M) for i in fraq]
+
+# print(fraq_inv[:10])
+
+from collections import Counter
+class Solution:
+    def countBalancedPermutations(self, num: str) -> int:
+        nums = [int(i) for i in num]
+        cnt = Counter(nums)
+        s = sum(nums)
+        if s % 2 != 0:
+            return 0
+        n = len(nums)
+        k = n // 2
+        target_sum = s // 2
+        
+        dp = [[0] * (target_sum + 1) for _ in range(k + 1)]
+        dp[0][0] = 1  # Base case: one way to get sum 0 with 0 elements
+
+        # Fill the DP table
+        for num in nums:
+            # Update dp table in reverse to avoid reusing elements in the same iteration
+            for j in range(k, 0, -1):
+                for s in range(target_sum, num - 1, -1):
+                    dp[j][s] = (dp[j][s] + dp[j - 1][s - num]) % M
+                    
+        res = dp[-1][-1] * fraq[n - k] * fraq[k] % M
+        for num in cnt:
+            # divide by the factorial of the count of each number to avoid overcounting
+            res = (res * fraq_inv[cnt[num]]) % M
+        return res
+```
