@@ -695,7 +695,7 @@ res = (res + a * inversed_b) % M
 
 It utilizes the [extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm) to calculate the modular inverse of $b$ under modulo $M$, which doesn't require the divisor $M$ to be a prime number, only requires that $b$ and $M$ are co-prime. Note that sometimes you may observe another expression `pow(b, M-2, M)` as the inverse of $b$ under modulo $M$, which is derived from the [Fermat's little theorem](https://en.wikipedia.org/wiki/Fermat%27s_little_theorem) and only works when $M$ is a prime number.
 
-For instance, sometimes we need to calculate a combination number $n \choose k = \frac{n!}{k!(n-k)!}$ ($C(n, k)$) under modulo $M$. We can pre-calculate the factorial and the modular inverse of the factorial to get the result:
+For instance, sometimes we need to calculate a combination number ${n \choose k} = \frac{n!}{k!(n-k)!}$ ($C(n, k)$) under modulo $M$. We can pre-calculate the factorial and the modular inverse of the factorial to get the result:
 
 ```py
 frac = [1]
