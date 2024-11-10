@@ -646,7 +646,7 @@ Note that we use a list `supplies` to simulate the queue in the BFS algorithm.
 
 To guess what algorithm can be used to get accepted by LeetCode, a trick to first observe the **data range** can also be used here. For example, the size $n$ of an input array is given in the **notes** section of every problem, we can roughly guess the algorithm:
 
-| $n$        | Complexity Upper Bound | Possible Algoriths                           |
+| $n$        | Complexity Upper Bound | Possible Algorithms                          |
 | ---------- | ---------------------- | -------------------------------------------- |
 | $\le 20$   | $O(2^n)$               | Brute-force DFS, Bitmask                     |
 | $\le 10^2$ | $O(n^3)$               | Brute-force, Floyd-Warshall, 3-D DP          |
@@ -695,7 +695,7 @@ res = (res + a * inversed_b) % M
 
 It utilizes the [extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm) to calculate the modular inverse of $b$ under modulo $M$, which doesn't require the divisor $M$ to be a prime number, only requires that $b$ and $M$ are co-prime. Note that sometimes you may observe another expression `pow(b, M-2, M)` as the inverse of $b$ under modulo $M$, which is derived from the [Fermat's little theorem](https://en.wikipedia.org/wiki/Fermat%27s_little_theorem) and only works when $M$ is a prime number.
 
-For instance, sometimes we need to calculate a combination number ${n \choose k} = \frac{n!}{k!(n-k)!}$ ($C(n, k)$) under modulo $M$. We can pre-calculate the factorial and the modular inverse of the factorial to get the result:
+For instance, sometime.s we need to calculate a combination number ${n \choose k} = \frac{n!}{k!(n-k)!}$ ($C(n, k)$) under modulo $M$. We can pre-calculate the factorial and the modular inverse of the factorial to get the result:
 
 ```py
 frac = [1]
@@ -708,7 +708,9 @@ inv = [pow(num, -1, M) for num in frac]
 res = frac[n] * inv[k] % M * inv[n-k] % M
 ```
 
-**Example**: [LC3343. 3343. Count Number of Balanced Permutations](https://leetcode.com/problems/count-number-of-balanced-permutations/)
+which can be used in [LC 3352. Count K-Reducible Numbers Less Than N](https://leetcode.com/problems/count-k-reducible-numbers-less-than-n/).
+
+**Example**: [LC3343. Count Number of Balanced Permutations](https://leetcode.com/problems/count-number-of-balanced-permutations/)
 
 ```py
 M = 10**9 + 7
