@@ -26,6 +26,7 @@ Substring Problem <substring.md>
 Segment Tree <segtree.md>
 Computational Geometry <computational-geometry.md>
 Some Tips for Python in LeetCode <tips.md>
+Other Tricks <other-tricks.md>
 Miscellaneous <miscellaneous.md>
 ```
 
