@@ -15,3 +15,6 @@ To guess what algorithm can be used to get accepted by LeetCode, a trick to firs
 | $\le 10^6$ | $O(n)$                 | Hash, Prefix Sum, Union-Find, Double Pointer |
 | $\le 10^9$ | $O(\log n)$            | Binary Search                                |
 
+## Serial Number Guess
+
+Check https://oeis.org/ and take a brave guess.
