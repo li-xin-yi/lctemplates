@@ -18,3 +18,7 @@ To guess what algorithm can be used to get accepted by LeetCode, a trick to firs
 ## Serial Number Guess
 
 Check https://oeis.org/ and take a brave guess.
+
+## Round-up
+
+$\lceil \frac{a}{b} \rceil = $ `(a + b - 1) // b`
