@@ -120,3 +120,7 @@ The KMP algorithm is another string-searching algorithm that uses a preprocessed
 The key idea of the KMP algorithm is to preprocess the `target` string to build a table `next` that records the length of the longest proper prefix of the substring `target[:i]` that is also a suffix of the substring `target[:i]`.
 
 ### Build the Next Table
+
+The `next` table is built by the following rules:
+
+- `next[0] = -1`
