@@ -739,3 +739,7 @@ class Solution:
             res = (res * fraq_inv[cnt[num]]) % M
         return res
 ```
+
+More examples for exercises:
+
+- [3428. Maximum and Minimum Sums of at Most Size K Subsequences](https://leetcode.com/problems/maximum-and-minimum-sums-of-at-most-size-k-subsequences/description/) (See [my solution](https://leetcode.com/problems/maximum-and-minimum-sums-of-at-most-size-k-subsequences/solutions/6301536/python-o-nlogn-works-on-any-large-k/))
