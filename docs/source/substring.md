@@ -113,6 +113,51 @@ class Solution:
         return -1
 ```
 
+Multi-length substrings example: [3504. Longest Palindrome After Substring Concatenation II](https://leetcode.com/contest/weekly-contest-443/problems/minimum-operations-to-make-elements-within-k-subarrays-equal/). As there are too many substrings to memorize, I use large modulo ($2^{61} - 1$) to avoid hash collision.
+
+```python
+M = (1<<61) - 1
+base = 31
+
+def build_hash_table(s):
+    d = set()
+    for i in range(len(s)):
+        prefix = 0
+        for j in range(i, len(s)):
+            prefix = (prefix * base + ord(s[j]) - ord('a') + 1) % M
+            d.add(prefix)
+    return d
+
+
+class Solution:
+    def longestPalindrome(self, s: str, t: str) -> int:
+        suffix = build_hash_table(t[::-1])
+        prefix = build_hash_table(s)
+        
+        def check(s, suffix):
+            p = []
+            res = 0
+            for i in range(len(s)):
+                
+                max_len = 0
+                for j in range(i+1, len(s)+1):
+                    if s[i:j] == s[i:j][::-1]:
+                        max_len = max(max_len, j - i)
+                res = max(res, max_len)
+                for j in range(i):
+                    if p[j] in suffix:
+                        res = max(res, max_len + (len(p) - j) * 2)
+                        break
+                p = [(j * base + ord(s[i]) - ord('a') + 1) % M for j in p]
+                p.append((ord(s[i]) - ord('a') + 1) % M)
+            for i in range(len(s)):
+                if p[i] in suffix:
+                    res = max(res, (len(p) - i) * 2)
+            return res
+        
+        return max(check(s, suffix), check(t[::-1], prefix))
+```
+
 ## Kunth-Morris-Pratt (KMP) Algorithm
 
 The KMP algorithm is another string-searching algorithm that uses a preprocessed table to avoid the backtracking of the brute-force solution.
