@@ -172,6 +172,43 @@ return [i for i in range(2, N+1) if mask[i]]
 
 An example exercise: [Meta Hackercup 2024 Round 1 Problem B](https://www.facebook.com/codingcompetitions/hacker-cup/2024/round-1/problems/B), which can solved by first listing all primes $\le 10^7$ and store the accumulated count of twin primes at every possible query $N$.
 
+
+## Times of Swaps
+
+To make two arrays (with the same distinct elements) equal, How many times do we need to swap two elements?
+
+Conclusion: The answe is to track the number of cycles in the permutation of the two arrays:
+
+$$\text{# of swaps} = \sum_{c \in \{cycles\}} (|c| - 1)$$
+
+where $|c|$ is the length of cycle $c$.
+
+```py
+diff = {a: b for a, b in zip(arr1, arr2) if a != b}
+n = len(diff)
+colors = {a: -1 for a in diff}
+
+def dfs(node, c):
+    # mark the node in the current cycle with color c
+    colors[node] = c
+    if colors[diff[node]] == -1:
+        # if the next node is not colored, continue the DFS
+        dfs(diff[node], c)
+
+c = 0
+for i in range(n):
+    if colors[arr1[i]] == -1:
+        # if the current node is not colored, start a new cycle
+        dfs(arr1[i], i)
+        c += 1
+
+cnt = Counter(colors.values())
+res = sum(v - 1 for v in cnt.values())
+```
+
+Example: [LC3551. Minimum Swaps to Sort by Digit Sum](https://leetcode.com/problems/minimum-swaps-to-sort-by-digit-sum/).
+
+
 ## OOD-related Interview Question
 
 For typical OOD problems in interviews, you can refer to [{opticon}`mark-github` tssovi/grokking-the-object-oriented-design-interview](https://github.com/tssovi/grokking-the-object-oriented-design-interview), which includes many study cases of common problems. The key point is not at the problem itself, but keeping communicating and clarifying what is the requirement and what is the constraint.
