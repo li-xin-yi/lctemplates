@@ -140,6 +140,42 @@ To query some data (e.g., `sum` here) of an interval `[L,R]`, we search the inte
 
 To update a range of elements in the array, we don't have to update every single element in the range. Instead, we can update the interval represented by a TreeNode and mark it as `lazy` to indicate that its children are not up-to-date. When we need to query the data of a TreeNode, we first check if it is `lazy` and update its children if necessary.
 
+```py
+    def push_down(self, root:int, l:int, r:int) -> None:
+        if self.lazy[root] != 0:
+            self.sum[root] += (r-l+1) * self.lazy[root]
+            self.min[root] += self.lazy[root]
+            self.max[root] += self.lazy[root]
+            if l != r:
+                self.lazy[root*2] += self.lazy[root]
+                self.lazy[root*2+1] += self.lazy[root]
+            self.lazy[root] = 0
+```
+
+- `root`: current root node of the subtree that represents the current interval
+- `l` and `r`: the endpoints of the current interval
+- **Time Complexity:** $O(1)$
+- **Entry**: `self.push_down(root=1,l=0,r=n-1)`
+
+### Update Range
+To update a range of elements in the array, we can use the `lazy` propagation technique. We only need to update the current node and mark it as `lazy`, without updating its children immediately.
+
+```py
+    def update_range(self, root:int, l:int, r:int, L:int, R:int, val:int) -> None:
+        if l > R or r < L:
+            return
+        if l >= L and r <= R:
+            self.lazy[root] += val
+            self.push_down(root, l, r)
+            return
+        mid = (l + r) // 2
+        self.update_range(root*2, l, mid, L, R, val)
+        self.update_range(root*2+1, mid+1, r, L, R, val)
+        self.sum[root] = self.sum[root*2] + self.sum[root*2+1]
+        self.min[root] = min(self.min[root*2], self.min[root*2+1])
+        self.max[root] = max(self.max[root*2], self.max[root*2+1])
+```
+
 ## Read More
 
 See [^1]
