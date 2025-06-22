@@ -10,5 +10,5 @@ Assuming there is a `parent` array that stores the parent[^1] of each node, we c
 
 Let's start with a simple problem: finding the [**lowest common ancestor (LCA)**](https://en.wikipedia.org/wiki/Lowest_common_ancestor) of two nodes in a tree. The steps to solve this problem using binary lifting are as follows:
 
-1. **Preprocess the tree** to build the `up` array: 
- - Assume we already have a `parent` array that stores the parent of each node. So we can initialize `up` with `up[0][i] = parent[i]` for all nodes `i`.
+1. **Preprocess the tree**: to build the 2-D `parent` array, where `parent[i][j]` is the $2^i$-th ancestor of node j.
+2. **Query the k-th ancestor**: to find the k-th ancestor of a node, we can use the `parent` array, which allows us to jump all the way up the tree in logarithmic time. Assume $k = \sum_{i} {2^i}, k \leq n$, then we can find the k-th ancestor of node `x` by iterating through the bits of `k` and jumping to the corresponding ancestor in the `parent` array.  
