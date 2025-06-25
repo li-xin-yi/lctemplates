@@ -12,3 +12,7 @@ Let's start with a simple problem: finding the [**lowest common ancestor (LCA)**
 
 1. **Preprocess the tree**: to build the 2-D `parent` array, where `parent[i][j]` is the $2^i$-th ancestor of node j.
 2. **Query the k-th ancestor**: to find the k-th ancestor of a node, we can use the `parent` array, which allows us to jump all the way up the tree in logarithmic time. Assume $k = \sum_{i} {2^i}, k \leq n$, then we can find the k-th ancestor of node `x` by iterating through the bits of `k` and jumping to the corresponding ancestor in the `parent` array.  *(for this step, you can also refer to the template problem [LC 1483. Kth Ancestor of a Tree Node](https://leetcode.com/problems/kth-ancestor-of-a-tree-node/))*
+3. **Find the LCA**: to find the LCA of two nodes `x` and `y`, we first need to bring both nodes to the same depth. We can do this by finding the depth of both nodes and then jumping up the tree until they are at the same level. Once they are at the same level, we can jump up the tree together until we find their LCA.
+
+The whole implementation template can be found [here](https://github.com/li-xin-yi/lctemplates/blob/main/lctemplates/LCA.py)
+
