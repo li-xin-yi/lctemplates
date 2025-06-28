@@ -42,6 +42,10 @@ class LCA:
             if parent_x != parent_y:
                 x, y = parent_x, parent_y
         return self.parent[x][0]
+    
+    def distance(self, x, y) -> int:
+        lca_node = self.lca(x, y)
+        return self.depth[x] + self.depth[y] - 2 * self.depth[lca_node]
 
 
 # weighted LCA implementation
