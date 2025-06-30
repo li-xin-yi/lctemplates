@@ -104,7 +104,7 @@ class WeightedLCA:
     def upto(self, x: int, d: int) -> int:
         dx = self.distance[x]
         for i in range(self.m-1, -1, -1):
-            p = self.pa[x][i]
+            p = self.parent[x][i]
             if p != -1 and dx - self.distance[p] <= d:
                 x = p
         return x
