@@ -99,3 +99,12 @@ class WeightedLCA:
     def dist(self, x, y) -> int:
         lca_node = self.lca(x, y)
         return self.distance[x] + self.distance[y] - 2 * self.distance[lca_node]
+    
+    # jump from node x by at most distance d, returns the farthest node reachable
+    def upto(self, x: int, d: int) -> int:
+        dx = self.distance[x]
+        for i in range(self.m-1, -1, -1):
+            p = self.pa[x][i]
+            if p != -1 and dx - self.distance[p] <= d:
+                x = p
+        return x
