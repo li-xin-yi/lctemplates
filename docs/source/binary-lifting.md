@@ -137,4 +137,5 @@ Notice `upto` method in weighted tree, it solves the problem that if you are all
 
 Exercises:
 
-- [LC. 3585](https://leetcode.com/problems/find-weighted-median-node-in-tree/) (`upto` method is useful here), 
+- [LC3585](https://leetcode.com/problems/find-weighted-median-node-in-tree/): `upto` method is useful here
+- [LC2846](https://leetcode.com/problems/minimum-edge-weight-equilibrium-queries-in-a-tree/description/): prefix sum on a tree (from root to each node) is also helpful here
