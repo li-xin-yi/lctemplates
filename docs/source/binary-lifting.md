@@ -139,3 +139,5 @@ Exercises:
 
 - [LC3585](https://leetcode.com/problems/find-weighted-median-node-in-tree/): `upto` method is useful here
 - [LC2846](https://leetcode.com/problems/minimum-edge-weight-equilibrium-queries-in-a-tree/description/): prefix sum on a tree (from root to each node) is also helpful here
+- [LC3553](https://leetcode.com/problems/minimum-weighted-subgraph-with-the-required-paths-ii/description/)
+- [LC3559](https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii/description/)
