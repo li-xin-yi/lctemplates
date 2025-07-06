@@ -21,7 +21,8 @@ How to understand the word _balanced_? Besides minimizing `max(cpu)-min(cpu)`, M
 
 A very straight-forward way is to emulate the "balancer" literally, increase (or decrease) the min (max) element in the current array by 1 each time:
 
-````{tabbed} Increase
+`````{tab-set}
+````{tab-item} Increase
 ```py
 heapq.heapify(nums)
 for _ in range(k):
@@ -30,7 +31,7 @@ for _ in range(k):
 ```
 ````
 
-````{tabbed} Decrease
+````{tab-item} Decrease
 ```py
 nums = [-i for i in nums]
 heapq.heapify(nums)
@@ -40,10 +41,13 @@ for _ in range(k):
 nums = [-i for i in nums]
 ```
 ````
+
+`````
 
 A heap is used to find the min value after updating each time. `nums` is the final array after modification, but the order is not preserved. The time complexity is $k\log(n)$. When `k` is small, the code is so clean and efficient. Still, when k increases, it may not be accepted anymore, which motivates us to consider a larger step instead. When there are still `k` times left,the min number will be assigned to at least $\lfloor k/n \rfloor$ times of +1 operations in the future beacuse the larger number so far must accept fewer +1 operations in emulation.
 
-````{tabbed} Increase
+`````{tab-set}
+````{tab-item} Increase
 ```py
 n = len(nums)
 heapq.heapify(nums)
@@ -55,7 +59,7 @@ while k>0:
 ```
 ````
 
-````{tabbed} Decrease
+````{tab-item} Decrease
 ```py
 n = len(nums)
 nums = [-i for i in nums]
@@ -64,16 +68,19 @@ while k>0:
     step = max(k//n,1)
     num = heapq.heappop(nums)
     heapq.heappush(nums,num+step)
-    k - =step
+    k -= step
 nums = [-i for i in nums]
 ```
 ````
+
+`````
 
 ### Counting Sort
 
 Of course, instead of heap, we can use a counter to represent the distrubition of `nums` by values. Each time we shift the min number by 1 and keep track of the min number:
 
-````{tabbed} Increase
+`````{tab-set}
+````{tab-item} Increase
 ```py
 from collections import Counter
 cnt = Counter(nums)
@@ -89,7 +96,7 @@ nums = cnt.elements()
 ```
 ````
 
-````{tabbed} Decrease
+````{tab-item} Decrease
 ```py
 from collections import Counter
 cnt = Counter(nums)
@@ -104,6 +111,7 @@ cnt += Counter()
 nums = cnt.elements()
 ```
 ````
+`````
 
 - **Time Complexity**: $O(\max(n,k))$
 
@@ -129,7 +137,8 @@ An example of increasing is shown below [^1], in which `nums=[2,8,13,17,22,29]` 
 
 So the complete code is:
 
-````{tabbed} Increase
+`````{tab-set}
+````{tab-item} Increase
 ```py
 nums.sort()
 nums.append(float('inf'))
@@ -141,7 +150,7 @@ for i in range(1,len(nums)):
 ```
 ````
 
-````{tabbed} Decrease
+````{tab-item} Decrease
 ```py
 nums.sort(reverse=True)
 nums.append(float('-inf'))
@@ -152,6 +161,8 @@ for i in range(1,len(nums)):
     k -= i*(nums[i-1]-nums[i])
 ```
 ````
+
+`````
 
 Usage exmaple: [My solution to LC2233](https://leetcode.com/problems/maximum-product-after-k-increments/discuss/2302400/python-no-heap-maybe-sweepline-onlogn)
 
@@ -211,6 +222,6 @@ Example: [LC3551. Minimum Swaps to Sort by Digit Sum](https://leetcode.com/probl
 
 ## OOD-related Interview Question
 
-For typical OOD problems in interviews, you can refer to [{opticon}`mark-github` tssovi/grokking-the-object-oriented-design-interview](https://github.com/tssovi/grokking-the-object-oriented-design-interview), which includes many study cases of common problems. The key point is not at the problem itself, but keeping communicating and clarifying what is the requirement and what is the constraint.
+For typical OOD problems in interviews, you can refer to [{octicon}`mark-github` tssovi/grokking-the-object-oriented-design-interview](https://github.com/tssovi/grokking-the-object-oriented-design-interview), which includes many study cases of common problems. The key point is not at the problem itself, but keeping communicating and clarifying what is the requirement and what is the constraint.
 
 Besides, some simple OOD problems may also occur. For example, how to implement linked list, vector, stack, double-ended queue, etc. Usually, we often use the built-in data structures in Python. But in interviews, you may be asked to implement them from scratch. Many issues you may come across after used to the Python built-in data structures, the most serious one (just in my opinion) is there is no bare array (though you can use `array.array`), take care of the memory allocation and deallocation, and the time complexity of operations when you use `list` to simulate it and don't forget to assume it has all features of an array if needed.

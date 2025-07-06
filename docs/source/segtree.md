@@ -1,6 +1,6 @@
 # Segment Tree
 
-{badge}`TODO, badge-danger badge-pill`
+{bdg-danger}`TODO`
 
 ## What is a segment tree?
 

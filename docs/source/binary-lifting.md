@@ -2,7 +2,7 @@
 
 In usual, binary lifting is a technique used to solve problems on trees, especially those involving finding the Lowest Common Ancestor (LCA) of two nodes. The idea is to **preprocess** the tree in such a way that we can answer LCA queries in logarithmic time.
 
-Assuming there is a `parent` array that stores the parent[^1] of each node, we can build a `up` array that stores the 2^i-th ancestor of each node. The `up` array is built using dynamic programming, where `up[i][j]` represents the 2^i-th ancestor of node j.
+Assuming there is a `parent` array that stores the parent[^1] of each node, we can build a `up` array that stores the $2^i$-th ancestor of each node. The `up` array is built using dynamic programming, where `up[i][j]` represents the $2^i$-th ancestor of node j.
 
 [^1]: In the tree structure, *parent* refers to the parent node of a given node. However, we can generalize any surjective function relationship (e.g., `f(x) = y` which means there is a only `y` that maps to `x`) as a parent-child relationship. 
 
@@ -16,7 +16,8 @@ Let's start with a simple problem: finding the [**lowest common ancestor (LCA)**
 
 The whole implementation template can be found [here](https://github.com/li-xin-yi/lctemplates/blob/main/lctemplates/LCA.py)
 
-````{tabbed} Unweighted Tree
+`````{tab-set}
+````{tab-item} Unweighted Tree
 ```py
 class LCA:
     def __init__(self, graph, root):
@@ -68,7 +69,7 @@ class LCA:
 ```
 ````
 
-````{tabbed} Weighted Tree
+````{tab-item} Weighted Tree
 ```py
 class WeightedLCA:
     def __init__(self, graph, root):
@@ -130,6 +131,7 @@ class WeightedLCA:
         return x
 ```
 ````
+`````
 
 The key idea is to preprocess every $2^i$-th ancestor of each node. After the processing, we can jump to **arbitrary** ancestor by using the binary representation of depth and iterate through the bits to go up. This allows us to answer LCA queries in $O(\log n)$ time. 
 
@@ -141,3 +143,10 @@ Exercises:
 - [LC2846](https://leetcode.com/problems/minimum-edge-weight-equilibrium-queries-in-a-tree/description/): prefix sum on a tree (from root to each node) is also helpful here
 - [LC3553](https://leetcode.com/problems/minimum-weighted-subgraph-with-the-required-paths-ii/description/)
 - [LC3559](https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii/description/)
+
+## Other Applications on Trees
+
+Besides LCA, binary lifting can also be used to solve other problems on trees, such as:
+
+- [LC3534](https://leetcode.com/problems/path-existence-queries-in-a-graph-ii/description/)
+- 

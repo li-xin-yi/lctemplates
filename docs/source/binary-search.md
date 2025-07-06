@@ -138,8 +138,8 @@ See [^1]
 
 ### Challenge: Median Sort (Google Code Jam Qual 2021 Q4) \*
 
-{badge}`TODO,badge-danger badge-pill` 
-{badge}`Advanced,badge-info badge-pill`
+{bdg-danger}`TODO` 
+{bdg-info}`Advanced`
 
 https://codingcompetitions.withgoogle.com/codejam/round/000000000043580a/00000000006d1284
     

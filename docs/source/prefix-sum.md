@@ -1,6 +1,6 @@
 # Prefix Sum
 
-{badge}`Done, badge-success badge-pill`
+{bdg-success}`Done`
 
 ## What is prefix sum
 
@@ -253,9 +253,9 @@ The formula above is not formal at all. I just use it to demonstrate some points
 4. The last step (5) is the most difficult one to handle. But if you view the `presum` as an array (of course, actually it is), you now come across a problem that requires **the sum of subarray** again. Just apply the prefix sum of `presum` array!
 
 In summary:
-- {badge}`A, badge-success`: the raw array
-- {badge}`presum, badge-primary`: the first-order prefix sum: prefix sum array of {badge}`A, badge-success`
-- {badge}`prepresum, badge-danger`: the second-order prefix sum: prefix sum array of {badge}`presum, badge-primary`.
+- {bdg-success}`A`: the raw array
+- {bdg-primary}`presum`: the first-order prefix sum: prefix sum array of {bdg-success}`A`
+- {bdg-danger}`prepresum`: the second-order prefix sum: prefix sum array of {bdg-primary}`presum`.
 
 By accumulating the origin array twice, along with extracting invariables, we eliminate three $\sum$s step by step. For the problem of "sum up all target subarraies for a given index `i`", we reduce the complexity from $O((right[i]-left[i])^3)$ to $O(1)$. Certainly, it first costs $O(n)$ time to build `prepresum` array.
 ```

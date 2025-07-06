@@ -1,14 +1,14 @@
 # Some Tips for Python in LeetCode
 
-{badge}`TODO, badge-danger badge-pill`
+{bdg-danger}`TODO`
 
 Generally speaking, it's very comfortable to write solutions in Python for LeetCode problems. However, sometimes, you may hear someone complaining about this language like:
 
-> {opticon}`comment` This problem is unfair to us Python users! With the **same algorithm idea**, others passed the problem by their solutions in C++ or Java, but I got a **TLE** for my Python solution. It's too slow!
+> {octicon}`comment` This problem is unfair to us Python users! With the **same algorithm idea**, others passed the problem by their solutions in C++ or Java, but I got a **TLE** for my Python solution. It's too slow!
 
 or
 
-> {opticon}`comment` It's hard to write a clean solution in Python (for some problems) because there is no _specific_ built-in data types/functions/libraries/syntax sugar and I have to **code a lot** to implement them in a hurry.
+> {octicon}`comment` It's hard to write a clean solution in Python (for some problems) because there is no _specific_ built-in data types/functions/libraries/syntax sugar and I have to **code a lot** to implement them in a hurry.
 
 To work with Python in LeetCode smoothly, you also have to code in a proper way, which may be **very different** from what you usually do in a productive environment in real-word. Anyway, based on my short experiences in writing _accepted_ solutions for LeetCode problems, I have some notes and tricks to avoid redundant lines of code and suffering runtime.
 
@@ -110,7 +110,7 @@ class Solution:
         return self._res[n]
 ```
 
-{badge}`Warning, badge-danger badge-pill` Usually, it's **not a good practice** to do pre-calculation in competitive programming or hard-code values for numerous variables in real-word developing works. [Python language docs](https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables) also calls for **extreme caution** when using class variables because of their side effects. Please don't break the **clean** and **safe** code style unless you can't find any other way to finish the task.
+{bdg-warning}`Warning` Usually, it's **not a good practice** to do pre-calculation in competitive programming or hard-code values for numerous variables in real-word developing works. [Python language docs](https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables) also calls for **extreme caution** when using class variables because of their side effects. Please don't break the **clean** and **safe** code style unless you can't find any other way to finish the task.
 ````
 
 Alternatively, you can define a variable outside `Solution` class as a global variable, which is also shared among all invocations of methods in `Solution` class. For example, in [LC 3233 Find the Count of Numbers Which Are Not Special](https://leetcode.com/problems/find-the-count-of-numbers-which-are-not-special/), we can maintain the list of primes `primes` and the number of primes <= its index as `nums` globally:
@@ -183,7 +183,7 @@ class Solution:
         return int(res)
 ```
 
-{badge}`Note, badge-info badge-pill` If you're very familiar with those *data science*/ *scientific computing* packages in Python, you can enjoy the quick coding on some LeetCode problems. However, remember that you're at risk of TLE (for some historical implementation problems in those packages) or getting annoyed with type issues (integer *overflow*) if you insist on calling those APIs on a problem with a large scale of inputs. For example, for [LC2203 Minimum Weighted Subgraph With the Required Paths](https://leetcode.com/problems/minimum-weighted-subgraph-with-the-required-paths/), the following solution comes across a TLE error probably due to its inefficient `csgraph` data structure:
+{bdg-info}`Note` If you're very familiar with those *data science*/ *scientific computing* packages in Python, you can enjoy the quick coding on some LeetCode problems. However, remember that you're at risk of TLE (for some historical implementation problems in those packages) or getting annoyed with type issues (integer *overflow*) if you insist on calling those APIs on a problem with a large scale of inputs. For example, for [LC2203 Minimum Weighted Subgraph With the Required Paths](https://leetcode.com/problems/minimum-weighted-subgraph-with-the-required-paths/), the following solution comes across a TLE error probably due to its inefficient `csgraph` data structure:
 
 ```py
 import numpy as np
@@ -240,7 +240,8 @@ class Solution:
 
 Another example, [LC 587](https://leetcode.com/problems/erect-the-fence/) requires you to find the convex hull of a set of points. You can use [`scipy.spatial.ConvexHull`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.ConvexHull.html#scipy.spatial.ConvexHull) or [`scipy.spatial.Delaunay`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.Delaunay.html#scipy.spatial.Delaunay) to solve it in a few lines:
 
-````{tabbed} ConvexHull
+`````{tab-set}
+````{tab-item} ConvexHull
 ```py
 from scipy.spatial import ConvexHull,Delaunay
 import numpy as np
@@ -262,7 +263,7 @@ class Solution:
 ```
 ````
 
-````{tabbed} Delaunay
+````{tab-item} Delaunay
 
 ```py
 from scipy.spatial import Delaunay
@@ -275,6 +276,7 @@ class Solution:
             return trees
 ```
 ````
+`````
 
 I suggest all of you practice more on writing those **simple** and **classic** algorithms, such as Dijkstra's algorithm. Don't rely on 3-rd party package too much, especially if you're not familiar with them. Packages are awesome, but please use them only when necessary as you're preparing for tech interviews!
 
@@ -284,7 +286,7 @@ More examples for exercises:
 
 ## Topological Sorting
 
-{badge}`TODO, badge-danger badge-pill`
+{bdg-danger}`TODO`
 
 For example, a solution to [LC1203 Sort Items by Groups Respecting Dependencies](https://leetcode.com/problems/sort-items-by-groups-respecting-dependencies/) can be written as:
 
@@ -332,7 +334,8 @@ For example, [LC2261 K Divisible Elements Subarrays](https://leetcode.com/proble
 
 As we don't need to modify anything in the list `nums`, after computing prefix sum, we can first convert the whole array to something immutable, kind to slice, and then we can hash them into a set quickly. I post three data types I tested to solve the problem quickly here:
 
-````{tabbed} Tuple
+`````{tab-set}
+````{tab-item} Tuple
 ```py
 from itertools import accumulate
 class Solution:
@@ -351,7 +354,7 @@ class Solution:
 ```
 ````
 
-````{tabbed} String
+````{tab-item} String
 ```py
 from itertools import accumulate
 class Solution:
@@ -374,7 +377,7 @@ class Solution:
 ```
 ````
 
-````{tabbed} Bytes + Memoryview [^3]
+````{tab-item} Bytes + Memoryview [^3]
 ```py
 from itertools import accumulate
 class Solution:
@@ -392,6 +395,7 @@ class Solution:
         return len(res)
 ```
 ````
+`````
 
 All three methods are accepted by LeetCode during its weekly contest 291, and the method using `memoryview` has the shortest runtime, which even beats 97% of submitted Python solutions. Certainly, we take the advantage of the data scale, `nums[i]<=200` so we can use `nums` as bytes without changing the indexes, and `n<=200` lets this $O(n^3)$ brute-force method feasible. Recall that when you **have to** hash a complicated data structure, try your best to do some pre-processing that "simplifies" the objects to hash.
 
@@ -399,7 +403,7 @@ All three methods are accepted by LeetCode during its weekly contest 291, and th
 
 ## Prime Factorization
 
-{badge}`TODO, badge-danger badge-pill`
+{bdg-danger}`TODO`
 
 Usually, based on the idea of [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes), we can quickly write a simple function (**NOT exactly the implentation of the sieve!!**) to generate all prime numbers less than `N` by filtering out all non-prime numbers that can be devided by `i` once you find a prime `i`:
 
@@ -540,7 +544,7 @@ Another example: [LC2818](https://leetcode.com/problems/apply-operations-to-maxi
 
 ## Memoization
 
-{badge}`TODO, badge-danger badge-pill`
+{bdg-danger}`TODO`
 
 In some dynamic programming problems, we can use memoized DFS to do the top-down dynamic programming. In other languages, you may need to pass the reference of `unordered_map` (C++) or `HashMap` (Java) to the recursive DFS function and maintain the memoization table for each new arguments. However, in Python, you can simply use the decorator `lru_cache` or `cache` to make the function memoized.
 
@@ -554,7 +558,7 @@ Don't forget to clear the cache if necessary:
 
 ## Balanced Tree
 
-{badge}`TODO, badge-danger badge-pill`
+{bdg-danger}`TODO`
 
 In some problems, you may need to maintain a sorted container to search for some specific elements quickly and insert/delete elements efficiently. In LC, we can import `sortedcontainers` module, which includes `SortedList` and `SortedDict` classes. For example, [LC3187 Peaks in Array](https://leetcode.com/problems/peaks-in-array/) can be solved by `SortedList`:
 

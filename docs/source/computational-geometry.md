@@ -1,6 +1,6 @@
 # Computational Geometry
 
-{badge}`TODO,badge-danger badge-pill`
+{bdg-danger}`TODO`
 
 > This section collects some computational geometry problems on LeetCode （roughly, you can search the tag {bdg-link-primary-line}`geometry <https://leetcode.com/tag/geometry/>` on LC). I also enroll in a course on computational geometry in this semester, so this section is also built to help me review the course content. Problems are added gradually, and there might not be a detailed explanation for each problem.
 

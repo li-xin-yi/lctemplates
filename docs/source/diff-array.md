@@ -1,6 +1,6 @@
 # Diff Array
 
-{badge}`Done, badge-success badge-pill`
+{bdg-success}`Done`
 
 Opposite to the idea of [prefix sum](prefix-sum.md), which is aimed to evaluate the **changes** on the overall sum through one interval(subarray), a difference array is used to reconstruct the **accumulated sum** at each moment (index) from the **changes** contributed by each **discrete** interval.
 
