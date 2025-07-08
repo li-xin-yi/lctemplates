@@ -22,3 +22,12 @@ Check https://oeis.org/ and take a brave guess.
 ## Round-up
 
 $\lceil \frac{a}{b} \rceil = $ `(a + b - 1) // b`
+
+## Bit Manipulation
+
+| Objective | Expression |
+| --------- | ---------- |
+| How many bits are needed to represent a number $n$? | `x.bit_length()` |
+| Numbers of ones in binary representation of $n$ | `x.bit_count()` |
+| The lowest one-bit of $n$ | `x & -x` |
+| The lowest zero-bit of $n$ | `~x & (x + 1)` |
