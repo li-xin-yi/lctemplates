@@ -16,6 +16,54 @@ If we want get the line equation in the form of $ax + by + c = 0$, we can use th
 
 $$ a = y_2 - y_1, b = x_1 - x_2, c = x_2y_1 - x_1y_2 $$
 
+### Parallel
+
+To check if a segment constructed by two points $(x_1, y_1)$ and $(x_2, y_2)$ is parallel to another segment constructed by two points $(x_3, y_3)$ and $(x_4, y_4)$, we can check if the following condition holds:
+
+$$ (y_2 - y_1)(x_4 - x_3) = (y_4 - y_3)(x_2 - x_1) $$
+
+More straightforwardly, we can check if the slopes of the two segments are equal (if they are not vertical):
+
+$$ \frac{y_2 - y_1}{x_2 - x_1} = \frac{y_4 - y_3}{x_4 - x_3} $$
+
+In some problems, we may need to enumerate all slopes of any two points in a set, if we use the above formula, we may encounter the following issues:
+
+1. Division by zero, if the two points are vertical, we cannot use the slope formula.
+2. Floating-point precision issues, if we use the slope formula, we may encounter precision issues when comparing two floating-point numbers.
+
+But we still have to use the slope as a hashable key for enumeration or other purposes. So we can use the following trick to normalize the slope:
+
+```python
+def normalize(dx, dy):
+    if dx == 0:
+        return (0, 1)  # vertical line
+    if dy == 0:
+        return (1, 0)  # horizontal line
+    g = math.gcd(abs(dx), abs(dy))
+    dx, dy = dx // g, dy // g
+    if dx < 0:  # make sure dx is non-negative
+        dx, dy = -dx, -dy
+    return (dx, dy)  # normalized slope
+```
+
+We keep the slope as a tuple of two integers `(dx, dy)`, which is hashable and can be used as a key in a dictionary or a set. The normalization ensures that we can compare slopes without worrying about floating-point precision issues.
+
+```{dropdown}(Collinear Segments)
+In the following section, we can get the formula to check if three points $(x_1, y_1)$, $(x_2, y_2)$, and $(x_3, y_3)$ are collinear:
+$$ (y_2 - y_1)(x_3 - x_2) = (y_3 - y_2)(x_2 - x_1) $$
+
+Sometimes, we may need to enumerate all possible collinear segments in a set of points, in which we can use hash table to store not only the slope but also an intercept (or a point on the line) to distinguish different lines. For example, if we know a point $(x_0, y_0)$ on the line with normalized slope $(dx, dy)$, any $(x, y)$ on the line must satisfy the following condition:
+$$ \begin{align*}
+\frac{y - y_0}{x - x_0} &= \frac{dy}{dx} \\
+(y - y_0) \cdot dx &= (x - x_0) \cdot dy \\
+y \cdot dx - x \cdot dy &= y_0 \cdot dx - x_0 \cdot dy
+\end{align*} $$
+
+Thus, after we hash the slope, the value `y_0 * dx - x_0 * dy` can be used as the intercept to determine the line uniquely. In the exercise, you can see how we use it to eliminate all collinear segments in a set of points.
+```
+Exercise: [LC 3625](https://leetcode.com/problems/count-number-of-trapezoids-ii/description/)
+
+
 ### Cross Product
 
 The cross product of two vectors $\vec{u} = (x_1, y_1)$ and $\vec{v} = (x_2, y_2)$ is defined as
