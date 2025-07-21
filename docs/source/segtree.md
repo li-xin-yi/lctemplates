@@ -181,3 +181,57 @@ To update a range of elements in the array, we can use the `lazy` propagation te
 See [^1]
 
 [^1]: https://cp-algorithms.com/data_structures/segment_tree.html
+
+## Alternative Templates
+
+Some subtle modifications can be made to the template above to fit different scenarios. 
+
+````{dropdown} with hashmap: query how many times an element appears in a range
+```py
+class SegmentTree:
+    def __init__(self, nums):
+        self.n = len(nums)
+        self.tree = [{} for _ in range(4 * self.n)]
+        self.build(nums, 0, 0, self.n - 1)
+    
+    def build(self, nums, node, l, r):
+        if l == r:
+            self.tree[node] = {nums[l]: 1}
+            return
+        mid = (l + r) // 2
+        self.build(nums, 2*node+1, l, mid)
+        self.build(nums, 2*node+2, mid+1, r)
+        self.tree[node] = self.merge(self.tree[2*node+1], self.tree[2*node+2])
+    
+    def merge(self, left, right):
+        merged = left.copy()
+        for key, val in right.items():
+            merged[key] = merged.get(key, 0) + val
+        return merged
+
+    def update(self, index, old_val, new_val, node=0, l=0, r=None):
+        if r is None:
+            r = self.n - 1
+        if index < l or index > r:
+            return
+        if old_val in self.tree[node]:
+            self.tree[node][old_val] -= 1
+            if self.tree[node][old_val] == 0:
+                del self.tree[node][old_val]
+        self.tree[node][new_val] = self.tree[node].get(new_val, 0) + 1
+        if l != r:
+            mid = (l + r) // 2
+            self.update(index, old_val, new_val, 2*node+1, l, mid)
+            self.update(index, old_val, new_val, 2*node+2, mid+1, r)
+
+    def query(self, ql, qr, k, node=0, l=0, r=None):
+        if r is None:
+            r = self.n - 1
+        if qr < l or ql > r:
+            return 0
+        if ql <= l and r <= qr:
+            return self.tree[node].get(k, 0)
+        mid = (l + r) // 2
+        return self.query(ql, qr, k, 2*node+1, l, mid) + self.query(ql, qr, k, 2*node+2, mid+1, r)
+```
+````
