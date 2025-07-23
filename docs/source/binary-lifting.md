@@ -149,4 +149,12 @@ Exercises:
 Besides LCA, binary lifting can also be used to solve other problems on trees, such as:
 
 - [LC3534](https://leetcode.com/problems/path-existence-queries-in-a-graph-ii/description/)
-- 
+
+## More
+
+The idea behind binary lifting is similar to some other techniques like **fast exponentiation**, in which we can abstract repeated operations:
+
+- **For LCA**, the operation is jumping to the parent node.
+- **For fast exponentiation** (in dynamic programming problems), the operation is state transition.
+
+We can find the $2^i$-th state by iterating through the bits of `i` and applying the operation accordingly.

@@ -172,10 +172,7 @@ Personally, I rarely use this version. Because
 - For example (LC587), we required to give all points on the egdes. We have to be careful on how to sort the points with the same polar angle. Intuitively, we should sort them by their distance to the first point, the points should traverse from the closest to the farthest. However, for the last edge, we first enumerate the farthest point then to the closer ones.
   :::
 
-:::{dropdown} Divide and Conquer
+```{dropdown} Divide and Conquer
 
 This is also an exercise (1.18) in the textbook. See more in [this post](https://algorithmtutor.com/Computational-Geometry/An-efficient-way-of-merging-two-convex-hull/)
-:::
-
-:::{dropdown} Jarvis March
-:::
+```
