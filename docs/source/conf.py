@@ -51,6 +51,15 @@ html_theme = 'alabaster'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+# Custom CSS and JS files
+html_css_files = [
+    'floating-toc.css',
+]
+
+html_js_files = [
+    'floating-toc.js',
+]
+
 extensions = ['myst_parser', 'sphinx.ext.viewcode', 
               'sphinx_copybutton', "sphinx_comments", "sphinxcontrib.mermaid", "sphinx_design"]
 

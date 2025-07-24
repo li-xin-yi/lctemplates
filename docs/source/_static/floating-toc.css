@@ -1,0 +1,201 @@
+/* Floating TOC Styles */
+.floating-toc {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 250px;
+    max-height: 80vh;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    line-height: 1.4;
+    transition: all 0.3s ease;
+}
+
+.floating-toc.collapsed {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.floating-toc-header {
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: #333;
+}
+
+.floating-toc-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.floating-toc-toggle:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.floating-toc-toggle svg {
+    width: 16px;
+    height: 16px;
+}
+
+.floating-toc-content {
+    max-height: calc(80vh - 50px);
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.floating-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.floating-toc li {
+    margin: 0;
+    padding: 0;
+}
+
+.floating-toc a {
+    display: block;
+    padding: 6px 15px;
+    color: #333;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease;
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 700;
+}
+
+.floating-toc a:hover {
+    background: #f8f9fa;
+    color: #2980b9;
+    border-left-color: #2980b9;
+}
+
+.floating-toc a.active {
+    background: #e8f4f8;
+    color: #2980b9;
+    border-left-color: #2980b9;
+    font-weight: 800;
+}
+
+/* Nested levels */
+.floating-toc ul ul a {
+    padding-left: 25px;
+    font-size: 14px;
+    color: #444;
+    font-weight: 600;
+}
+
+.floating-toc ul ul ul a {
+    padding-left: 35px;
+    font-size: 13px;
+    color: #555;
+    font-weight: 600;
+}
+
+/* Scrollbar styling */
+.floating-toc-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.floating-toc-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.floating-toc-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 2px;
+}
+
+.floating-toc-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Collapsed state styles */
+.floating-toc.collapsed .floating-toc-header {
+    padding: 9px;
+    border: none;
+    background: #2980b9;
+    color: white;
+    border-radius: 50%;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    box-sizing: border-box;
+}
+
+.floating-toc.collapsed .floating-toc-content {
+    display: none;
+}
+
+.floating-toc.collapsed .floating-toc-title {
+    display: none;
+}
+
+.floating-toc.collapsed .floating-toc-toggle {
+    color: white;
+    padding: 0;
+}
+
+.floating-toc.collapsed .floating-toc-toggle .hamburger-icon {
+    display: none;
+}
+
+.floating-toc.collapsed .floating-toc-toggle .toc-icon {
+    display: block !important;
+}
+
+.floating-toc.collapsed .floating-toc-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .floating-toc {
+        right: 10px;
+        width: 200px;
+    }
+    
+    .floating-toc.collapsed {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-toc {
+        display: none;
+    }
+}
+
+/* Hide on very small screens */
+@media (max-width: 1024px) {
+    .floating-toc {
+        display: none;
+    }
+}
