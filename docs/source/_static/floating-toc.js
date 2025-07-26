@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function createFloatingTOC() {
     // Find all headings in the main content area, excluding title and sidebar
-    const headings = document.querySelectorAll('.body h1:not(.title), .body h2, .body h3, .body h4, .body h5, .body h6, .document .section h1, .document .section h2, .document .section h3, .document .section h4, .document .section h5, .document .section h6');
+    const headings = document.querySelectorAll('.body h2, .body h3, .body h4, .body h5, .body h6, .document .section h2, .document .section h3, .document .section h4, .document .section h5, .document .section h6');
     
     if (headings.length === 0) {
         return; // No headings found, don't create TOC
@@ -19,7 +19,7 @@ function createFloatingTOC() {
     tocContainer.className = 'floating-toc';
     tocContainer.innerHTML = `
         <div class="floating-toc-header">
-            <span class="floating-toc-title">Contents</span>
+            <span class="floating-toc-title">TOC</span>
             <button class="floating-toc-toggle" aria-label="Toggle TOC">
                 <svg class="hamburger-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                     <path d="M2 4a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1zm0 4a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1zm0 4a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1z"/>

@@ -1,40 +1,42 @@
-/* Floating TOC Styles */
+/* Built-in TOC Styles - Matches Alabaster Theme */
 .floating-toc {
     position: fixed;
-    top: 20px;
+    top: 100px;
     right: 20px;
-    width: 250px;
-    max-height: 80vh;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    overflow: hidden;
-    font-family: Georgia, serif;
-    font-size: 13px;
-    line-height: 1.4;
-    transition: all 0.3s ease;
+    width: 280px;
+    max-height: calc(100vh - 120px);
+    background: transparent;
+    font-family: 'goudy old style', 'minion pro', 'bell mt', Georgia, 'Hiragino Mincho Pro';
+    font-size: 16px;
+    line-height: 1.5;
+    color: #000;
+    z-index: 900;
+    overflow: visible;
 }
 
 .floating-toc.collapsed {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
     overflow: hidden;
 }
 
 .floating-toc-header {
-    background: #f8f9fa;
-    padding: 10px 15px;
-    border-bottom: 1px solid #e9ecef;
-    font-weight: 500;
-    font-size: 14px;
+    background: transparent;
+    padding: 8px 0px;
+    font-weight: normal;
+    font-size: 18px;
+    color: #333;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    color: #333;
+    margin-bottom: 8px;
+}
+
+.floating-toc-title {
+    font-weight: bold;
+    color: #444;
 }
 
 .floating-toc-toggle {
@@ -46,24 +48,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 3px;
-    transition: all 0.2s ease;
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
 }
 
 .floating-toc-toggle:hover {
-    background: rgba(0, 0, 0, 0.1);
-    color: #333;
+    background: rgba(0, 0, 0, 0.05);
+    color: #444;
 }
 
 .floating-toc-toggle svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
 }
 
 .floating-toc-content {
-    max-height: calc(80vh - 50px);
+    max-height: calc(100vh - 160px);
     overflow-y: auto;
-    padding: 8px 0;
+    padding: 0;
+    background: transparent;
 }
 
 .floating-toc ul {
@@ -79,72 +82,75 @@
 
 .floating-toc a {
     display: block;
-    padding: 6px 15px;
-    color: #333;
+    padding: 4px 0px;
+    color: #444;
     text-decoration: none;
     border-left: 3px solid transparent;
-    transition: all 0.2s ease;
-    font-size: 15px;
+    transition: all 0.15s ease;
+    font-size: 16px;
     line-height: 1.4;
-    font-weight: 700;
+    font-weight: normal;
 }
 
 .floating-toc a:hover {
-    background: #f8f9fa;
     color: #2980b9;
-    border-left-color: #2980b9;
+    text-decoration: underline;
 }
 
 .floating-toc a.active {
-    background: #e8f4f8;
     color: #2980b9;
+    font-weight: bold;
     border-left-color: #2980b9;
-    font-weight: 800;
 }
 
-/* Nested levels */
+/* Nested levels - matches Alabaster's nested navigation */
 .floating-toc ul ul a {
-    padding-left: 25px;
-    font-size: 14px;
-    color: #444;
-    font-weight: 600;
+    padding-left: 20px;
+    font-size: 15px;
+    color: #666;
+    font-weight: normal;
 }
 
 .floating-toc ul ul ul a {
-    padding-left: 35px;
-    font-size: 13px;
-    color: #555;
-    font-weight: 600;
+    padding-left: 40px;
+    font-size: 14px;
+    color: #777;
+    font-weight: normal;
 }
 
-/* Scrollbar styling */
+.floating-toc ul ul ul ul a {
+    padding-left: 60px;
+    font-size: 14px;
+    color: #888;
+}
+
+/* Minimal scrollbar styling */
 .floating-toc-content::-webkit-scrollbar {
     width: 4px;
 }
 
 .floating-toc-content::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: transparent;
 }
 
 .floating-toc-content::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
+    background: #ccc;
     border-radius: 2px;
 }
 
 .floating-toc-content::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+    background: #999;
 }
 
 /* Collapsed state styles */
 .floating-toc.collapsed .floating-toc-header {
-    padding: 9px;
+    padding: 8px;
     border: none;
-    background: #2980b9;
+    background: #666;
     color: white;
-    border-radius: 50%;
     justify-content: center;
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     box-sizing: border-box;
 }
 
@@ -175,27 +181,28 @@
 }
 
 /* Mobile responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .floating-toc {
         right: 10px;
-        width: 200px;
-    }
-    
-    .floating-toc.collapsed {
-        width: 35px;
-        height: 35px;
+        width: 250px;
     }
 }
 
-@media (max-width: 480px) {
-    .floating-toc {
-        display: none;
-    }
-}
-
-/* Hide on very small screens */
 @media (max-width: 1024px) {
     .floating-toc {
         display: none;
+    }
+}
+
+/* Integration with Alabaster theme - no shadow for seamless look */
+.floating-toc {
+    box-shadow: none;
+}
+
+/* Make sure TOC doesn't interfere with existing sidebar */
+@media (min-width: 1400px) {
+    .floating-toc {
+        right: 40px;
+        width: 300px;
     }
 }
