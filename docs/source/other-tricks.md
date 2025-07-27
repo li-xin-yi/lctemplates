@@ -31,3 +31,9 @@ $\lceil \frac{a}{b} \rceil = $ `(a + b - 1) // b`
 | Numbers of ones in binary representation of $n$ | `x.bit_count()` |
 | The lowest one-bit of $n$ | `x & -x` |
 | The lowest zero-bit of $n$ | `~x & (x + 1)` |
+
+### Some Conclusions
+
+If we have a set of numbers $S$, we split them into two sets $S_1$ and $S_2$ ($S_1 \cup S_2 = S$ and $S_1 \cap S_2 = \emptyset$), how to maximize $XOR(S_1) + XOR(S_2)$? (Reference to [LC 3630](https://leetcode.com/problems/partition-array-for-maximum-xor-and-and/description/) and [CF  251D](https://codeforces.com/problemset/problem/251/D))
+
+Read more: [Linear Basis](https://en.wikipedia.org/wiki/Linear_basis)
