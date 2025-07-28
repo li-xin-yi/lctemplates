@@ -34,6 +34,14 @@ $\lceil \frac{a}{b} \rceil = $ `(a + b - 1) // b`
 
 ### Some Conclusions
 
+> For any non-negative $a$ and $b$, we have $$a + b = (a \oplus b) + 2 (a \& b)$$
+
 If we have a set of numbers $S$, we split them into two sets $S_1$ and $S_2$ ($S_1 \cup S_2 = S$ and $S_1 \cap S_2 = \emptyset$), how to maximize $XOR(S_1) + XOR(S_2)$? (Reference to [LC 3630](https://leetcode.com/problems/partition-array-for-maximum-xor-and-and/description/) and [CF  251D](https://codeforces.com/problemset/problem/251/D))
+
+````dropdown
+Denote $T = XOR (S)$, then we have $XOR(S_1) + XOR(S_2) = x + (T \oplus x) where $x = XOR(S_1)$.
+
+To check it bit by bit, $x + (T \oplus x) = T + 2 (x \& \not T)$
+````
 
 Read more: [Linear Basis](https://en.wikipedia.org/wiki/Linear_basis)
