@@ -1,0 +1,84 @@
+/* Custom theme adjustments */
+
+/* Lighter code block background */
+div.highlight,
+pre,
+.highlight pre,
+.codehilite pre,
+div.code-block-caption + div.highlight {
+    background-color: #f8f8f8 !important;
+}
+
+/* Code spans (inline code) */
+code,
+tt {
+    background-color: #f8f8f8 !important;
+    color: #333 !important;
+    padding: 2px 4px !important;
+    border-radius: 3px !important;
+}
+
+/* Make quote blocks more obvious */
+blockquote {
+    background-color: #f0f7ff !important;
+    border-left: 4px solid #2980b9 !important;
+    padding: 15px 20px !important;
+    margin: 20px 0 !important;
+    border-radius: 4px !important;
+    position: relative !important;
+}
+
+blockquote::before {
+    content: '"' !important;
+    font-size: 48px !important;
+    color: #2980b9 !important;
+    position: absolute !important;
+    top: -5px !important;
+    left: 10px !important;
+    font-family: Georgia, serif !important;
+    opacity: 0.3 !important;
+}
+
+blockquote p {
+    margin: 0 !important;
+    color: #444 !important;
+    font-style: italic !important;
+    line-height: 1.6 !important;
+}
+
+blockquote p:first-child {
+    margin-left: 25px !important;
+}
+
+/* MyST admonitions (note, warning, etc.) - make them more distinct */
+.admonition {
+    border-radius: 6px !important;
+    border: 1px solid #ddd !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+.admonition.note {
+    border-left: 4px solid #2980b9 !important;
+    background-color: #f0f7ff !important;
+}
+
+.admonition.warning {
+    border-left: 4px solid #f39c12 !important;
+    background-color: #fff8e7 !important;
+}
+
+.admonition.tip {
+    border-left: 4px solid #27ae60 !important;
+    background-color: #f0fff4 !important;
+}
+
+.admonition.danger {
+    border-left: 4px solid #e74c3c !important;
+    background-color: #fdf2f2 !important;
+}
+
+/* Ensure code blocks within quote blocks also have the lighter background */
+blockquote div.highlight,
+blockquote pre {
+    background-color: #f0f0f0 !important;
+}

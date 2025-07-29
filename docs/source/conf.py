@@ -54,6 +54,7 @@ html_static_path = ['_static']
 # Custom CSS and JS files
 html_css_files = [
     'floating-toc.css',
+    'custom-theme.css',
 ]
 
 html_js_files = [
