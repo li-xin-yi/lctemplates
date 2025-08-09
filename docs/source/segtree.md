@@ -235,3 +235,48 @@ class SegmentTree:
         return self.query(ql, qr, k, 2*node+1, l, mid) + self.query(ql, qr, k, 2*node+2, mid+1, r)
 ```
 ````
+
+````{dropdown} + Binary search to find the first occurrence > k
+
+A template question [LC3479](https://leetcode.com/problems/fruits-into-baskets-iii): let the node store the *max* value of a range, first check if the left subtree has a value greater than `k`, if not, then check the right subtree.
+
+```py
+class SegmentTree:
+    def __init__(self, data):
+        self.n = len(data)
+        self.tree = [0] * (4 * self.n)
+        self.build(data, 0, 0, self.n - 1)
+
+    def build(self, data, node, start, end):
+        if start == end:
+            self.tree[node] = data[start]  # Store index directly
+        else:
+            mid = (start + end) // 2
+            self.build(data, 2 * node + 1, start, mid)
+            self.build(data, 2 * node + 2, mid + 1, end)
+            self.tree[node] = max(self.tree[2 * node + 1], self.tree[2 * node + 2])
+
+
+    def find_and_delete(self, node, start, end, l, r, x):
+        # find the lowest index in the range [l, r] that is greater than or equal to x
+        if start > r or end < l:
+            return False
+        if start == end:
+            if self.tree[node] >= x:
+                self.tree[node] = 0
+                return True
+            return False
+        mid = (start + end) // 2
+        if self.tree[node] < x:
+            return False
+        if self.tree[2 * node + 1] >= x:
+            if self.find_and_delete(2 * node + 1, start, mid, l, r, x):
+                self.tree[node] = max(self.tree[2 * node + 1], self.tree[2 * node + 2])
+                return True
+        if self.tree[2 * node + 2] >= x:
+            if self.find_and_delete(2 * node + 2, mid + 1, end, l, r, x):
+                self.tree[node] = max(self.tree[2 * node + 1], self.tree[2 * node + 2])
+                return True
+        return False
+```
+````
