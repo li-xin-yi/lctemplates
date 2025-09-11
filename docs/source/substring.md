@@ -169,3 +169,5 @@ The key idea of the KMP algorithm is to preprocess the `target` string to build 
 The `next` table is built by the following rules:
 
 - `next[0] = -1`
+- For `i > 0`, if `target[i] == target[j]`, then `next[i] = j + 1`
+- If `target[i] != target[j]`, then we need to backtrack `j` to `next[j]` until we find a match or `j` becomes `-1
