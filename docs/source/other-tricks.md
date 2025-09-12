@@ -44,7 +44,7 @@ If we have a set of numbers $S$, we split them into two sets $S_1$ and $S_2$ ($S
 
 **Answer**: Use XOR-basis ([linear basis](https://en.wikipedia.org/wiki/Linear_basis)) to maximize $XOR(S^\prime) \& \neg XOR(S)$ where $S^\prime$ is a subset of $S$. The maximum value is $T + 2 (XOR(S) \& \neg T)$ where $T = XOR(S)$.
 
-````{dropdown} Reasoning
+<!-- ````{dropdown} Reasoning
 
 > For any non-negative $a$ and $b$, we have 
 > 
@@ -60,4 +60,4 @@ To check it bit by bit, $x + (T \oplus x) = T + 2 (x \  \&  \ \neg T)$, the $i$-
 So the maximum value is obtained by choosing every $x_i \ \& \ \neg T_i$ as largest as possible.
 
 
-````
+```` -->
