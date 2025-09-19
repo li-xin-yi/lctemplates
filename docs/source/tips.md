@@ -747,3 +747,25 @@ class Solution:
 More examples for exercises:
 
 - [3428. Maximum and Minimum Sums of at Most Size K Subsequences](https://leetcode.com/problems/maximum-and-minimum-sums-of-at-most-size-k-subsequences/description/) (See [my solution](https://leetcode.com/problems/maximum-and-minimum-sums-of-at-most-size-k-subsequences/solutions/6301536/python-o-nlogn-works-on-any-large-k/))
+
+## `eval` function
+
+Some problems require you to evaluate (symbolic) expressions, which usually practice your skills in parsing strings algorithmatically. However, you can use the built-in [`eval`](https://docs.python.org/3/library/functions.html#eval) function to hack the problem quickly. For example, [LC 3484. Design Spreadsheet](https://leetcode.com/problems/design-spreadsheet/) can be solved by:
+
+```py
+from collections import defaultdict
+class Spreadsheet:
+
+    def __init__(self, rows: int):
+        self.grid = defaultdict(int)
+
+    def setCell(self, cell: str, value: int) -> None:
+        self.grid[cell] = value
+
+    def resetCell(self, cell: str) -> None:
+        self.grid[cell] = 0
+
+    def getValue(self, formula: str) -> int:
+        return eval(formula[1:], {}, self.grid)
+```
+
