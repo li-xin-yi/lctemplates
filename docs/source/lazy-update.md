@@ -68,7 +68,8 @@ class MinHeapWithLazyUpdate:
         return key
 ```
 
+## Exercises
 
-
+- [LC.1912 Design Movie Rental System](https://leetcode.com/problems/design-movie-rental-system/): A system design problem using min-heap with lazy update.
 
 [^1]: https://www.designgurus.io/course-play/grokking-the-advanced-system-design-interview/doc/garbage-collection A system design interview problem.

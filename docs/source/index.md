@@ -21,6 +21,7 @@ Please comment {octicon}`comment` on the corresponding pages, and your comment w
 :caption: Home
 Prefix Sum <prefix-sum.md>
 Diff Array <diff-array.md>
+Lazy Update <lazy-update.md>
 Binary Search <binary-search.md>
 Binary Lifting <binary-lifting.md>
 Substring Problem <substring.md>
