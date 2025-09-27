@@ -74,6 +74,27 @@ $$ \vec{u} \times \vec{v} = x_1y_2 - x_2y_1 $$
 - If $\vec{u} \times \vec{v} < 0$, then $\vec{u}$ is **clockwise** with respect to $\vec{v}$
 - If $\vec{u} \times \vec{v} = 0$, then $\vec{u}$ and $\vec{v}$ are **collinear**
 
+It can also be used to calculate the area of a parallelogram formed by two vectors. The area is given by the absolute value of the cross product:
+
+$$ \text{Area} = |\vec{u} \times \vec{v}| $$
+
+Example, calculate the area of a triangle formed by three points $(x_1, y_1)$, $(x_2, y_2)$, and $(x_3, y_3)$:
+
+````{tab-set}
+```{tab-item} Python Original
+def triangle_area(x1, y1, x2, y2, x3, y3):
+    return abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1)) / 2
+```
+```{tab-item} Python with NumPy
+import numpy as np
+def triangle_area(x1, y1, x2, y2, x3, y3):
+    p1 = np.array([x1, y1])
+    p2 = np.array([x2, y2])
+    p3 = np.array([x3, y3])
+    return abs(np.cross(p2 - p1, p3 - p1)) / 2
+```
+````
+
 ## Convex Hull
 
 The [convex hull](https://en.wikipedia.org/wiki/Convex_hull) problem refers to a classic problem that
