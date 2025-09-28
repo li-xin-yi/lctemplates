@@ -65,6 +65,9 @@ function createFloatingTOC() {
 
     // Add functionality
     addTOCFunctionality(tocContainer, headings);
+    
+    // Add mobile-specific enhancements
+    addMobileSupport(tocContainer);
 }
 
 function buildTOCStructure(container, items) {
@@ -197,14 +200,46 @@ function highlightCurrentSection(headings) {
     }
 }
 
-// Auto-collapse on mobile
+// Auto-collapse on mobile and manage responsive behavior
 function handleResize() {
     const toc = document.querySelector('.floating-toc');
-    if (toc && window.innerWidth <= 1024) {
-        toc.style.display = 'none';
-    } else if (toc) {
-        toc.style.display = 'block';
+    if (toc) {
+        if (window.innerWidth <= 768) {
+            // On small mobile devices, start collapsed by default
+            toc.classList.add('collapsed');
+        } else if (window.innerWidth <= 1024) {
+            // On larger mobile/tablet, show expanded but positioned for mobile
+            toc.classList.remove('collapsed');
+        } else {
+            // Desktop behavior
+            toc.classList.remove('collapsed');
+        }
     }
+}
+
+// Add touch event handling for better mobile interaction
+function addMobileSupport(tocContainer) {
+    // Prevent scrolling of background when scrolling TOC content on mobile
+    const tocContent = tocContainer.querySelector('.floating-toc-content');
+    if (tocContent) {
+        tocContent.addEventListener('touchstart', function(e) {
+            e.stopPropagation();
+        });
+        
+        tocContent.addEventListener('touchmove', function(e) {
+            e.stopPropagation();
+        });
+    }
+    
+    // Add touch-friendly tap handling
+    const links = tocContainer.querySelectorAll('a');
+    links.forEach(link => {
+        link.addEventListener('touchend', function(e) {
+            // Prevent double-tap zoom on mobile
+            e.preventDefault();
+            this.click();
+        });
+    });
 }
 
 window.addEventListener('resize', handleResize);
