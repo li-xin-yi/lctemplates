@@ -249,7 +249,7 @@
 }
 
 @media (max-width: 768px) {
-    .floating-toc {
+    .floating-toc:not(.inline-mode) {
         width: 260px;
         max-width: calc(100vw - 20px);
         right: 10px;
@@ -263,33 +263,243 @@
         top: 15px;
     }
     
-    .floating-toc-header {
+    .floating-toc:not(.inline-mode) .floating-toc-header {
         padding: 10px 12px;
     }
     
-    .floating-toc-content {
+    .floating-toc:not(.inline-mode) .floating-toc-content {
         padding: 6px 12px 12px 12px;
     }
     
-    .floating-toc a {
+    .floating-toc:not(.inline-mode) a {
         font-size: 14px;
         padding: 6px 0;
+    }
+    
+    /* Inline mode styling for regular mobile (481px-768px) - plain style */
+    .floating-toc.inline-mode {
+        position: static !important;
+        width: 100% !important;
+        margin: 1.5em 0 !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        font-family: inherit !important;
+        color: inherit !important;
+    }
+    
+    .floating-toc.inline-mode .floating-toc-header {
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 2px solid #333 !important;
+        border-radius: 0 !important;
+        padding: 0 0 8px 0 !important;
+        margin-bottom: 16px !important;
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        color: #333 !important;
+    }
+    
+    .floating-toc.inline-mode .floating-toc-title {
+        font-size: inherit !important;
+        color: inherit !important;
+        font-weight: inherit !important;
+    }
+    
+    .floating-toc.inline-mode .floating-toc-toggle {
+        display: none !important;
+    }
+    
+    .floating-toc.inline-mode .floating-toc-content {
+        padding: 0 !important;
+        max-height: none !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        overflow: visible !important;
+    }
+    
+    .floating-toc.inline-mode ul {
+        margin: 0 0 1em 0 !important;
+        padding: 0 !important;
+    }
+    
+    .floating-toc.inline-mode li {
+        margin: 0.3em 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+    }
+    
+    .floating-toc.inline-mode a {
+        display: block !important;
+        padding: 4px 0 !important;
+        color: #2980b9 !important;
+        text-decoration: none !important;
+        border: none !important;
+        background: transparent !important;
+        font-size: inherit !important;
+        line-height: 1.5 !important;
+        font-weight: normal !important;
+        transition: color 0.2s ease !important;
+        min-height: auto !important;
+        margin: 0 !important;
+    }
+    
+    .floating-toc.inline-mode a:hover {
+        color: #1f5f8b !important;
+        text-decoration: underline !important;
+        background: transparent !important;
+    }
+    
+    .floating-toc.inline-mode a.active {
+        color: #1f5f8b !important;
+        font-weight: bold !important;
+        border: none !important;
+        background: transparent !important;
+    }
+    
+    .floating-toc.inline-mode ul ul a {
+        padding-left: 20px !important;
+        font-size: 0.95em !important;
+        color: #2980b9 !important;
+    }
+    
+    .floating-toc.inline-mode ul ul ul a {
+        padding-left: 40px !important;
+        font-size: 0.9em !important;
+        color: #2980b9 !important;
+    }
+    
+    .floating-toc.inline-mode ul ul ul ul a {
+        padding-left: 60px !important;
+        font-size: 0.9em !important;
+        color: #2980b9 !important;
     }
 }
 
 @media (max-width: 480px) {
     .floating-toc {
-        width: calc(100vw - 20px);
-        left: 10px;
-        right: 10px;
-        top: 10px;
+        position: static;
+        width: 100%;
+        max-width: none;
+        margin: 20px 0;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        box-shadow: none;
+        backdrop-filter: none;
     }
     
     .floating-toc.collapsed {
+        position: fixed;
         width: 40px;
         height: 40px;
         left: auto;
         right: 10px;
+        top: 10px;
+        background: #666;
+        border-radius: 50%;
+    }
+    
+    .floating-toc.inline-mode {
+        position: static !important;
+        width: 100% !important;
+        margin: 1.5em 0 !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        font-family: inherit !important;
+        color: inherit !important;
+    }
+    
+    .floating-toc.inline-mode .floating-toc-header {
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 2px solid #333 !important;
+        border-radius: 0 !important;
+        padding: 0 0 8px 0 !important;
+        margin-bottom: 16px !important;
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        color: #333 !important;
+    }
+    
+    .floating-toc.inline-mode .floating-toc-title {
+        font-size: inherit !important;
+        color: inherit !important;
+        font-weight: inherit !important;
+    }
+    
+    .floating-toc.inline-mode .floating-toc-toggle {
+        display: none !important;
+    }
+    
+    .floating-toc.inline-mode .floating-toc-content {
+        padding: 0 !important;
+        max-height: none !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        overflow: visible !important;
+    }
+    
+    .floating-toc.inline-mode ul {
+        margin: 0 0 1em 0 !important;
+        padding: 0 !important;
+    }
+    
+    .floating-toc.inline-mode li {
+        margin: 0.3em 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+    }
+    
+    .floating-toc.inline-mode a {
+        display: block !important;
+        padding: 4px 0 !important;
+        color: #2980b9 !important;
+        text-decoration: none !important;
+        border: none !important;
+        background: transparent !important;
+        font-size: inherit !important;
+        line-height: 1.5 !important;
+        font-weight: normal !important;
+        transition: color 0.2s ease !important;
+        min-height: auto !important;
+        margin: 0 !important;
+    }
+    
+    .floating-toc.inline-mode a:hover {
+        color: #1f5f8b !important;
+        text-decoration: underline !important;
+        background: transparent !important;
+    }
+    
+    .floating-toc.inline-mode a.active {
+        color: #1f5f8b !important;
+        font-weight: bold !important;
+        border: none !important;
+        background: transparent !important;
+    }
+    
+    .floating-toc.inline-mode ul ul a {
+        padding-left: 20px !important;
+        font-size: 0.95em !important;
+        color: #2980b9 !important;
+    }
+    
+    .floating-toc.inline-mode ul ul ul a {
+        padding-left: 40px !important;
+        font-size: 0.9em !important;
+        color: #2980b9 !important;
+    }
+    
+    .floating-toc.inline-mode ul ul ul ul a {
+        padding-left: 60px !important;
+        font-size: 0.9em !important;
+        color: #2980b9 !important;
     }
 }
 

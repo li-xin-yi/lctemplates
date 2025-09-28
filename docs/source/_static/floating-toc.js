@@ -68,6 +68,9 @@ function createFloatingTOC() {
     
     // Add mobile-specific enhancements
     addMobileSupport(tocContainer);
+    
+    // Handle initial responsive positioning
+    handleResize();
 }
 
 function buildTOCStructure(container, items) {
@@ -204,15 +207,42 @@ function highlightCurrentSection(headings) {
 function handleResize() {
     const toc = document.querySelector('.floating-toc');
     if (toc) {
-        if (window.innerWidth <= 768) {
-            // On small mobile devices, start collapsed by default
-            toc.classList.add('collapsed');
+        if (window.innerWidth <= 480) {
+            // On very small screens, make it inline (non-floating) with plain styling
+            toc.classList.remove('collapsed');
+            toc.classList.add('inline-mode');
+            positionTOCInline(toc);
+        } else if (window.innerWidth <= 768) {
+            // On regular mobile devices, also make it inline but keep some styling
+            toc.classList.remove('collapsed');
+            toc.classList.add('inline-mode');
+            positionTOCInline(toc);
         } else if (window.innerWidth <= 1024) {
             // On larger mobile/tablet, show expanded but positioned for mobile
-            toc.classList.remove('collapsed');
+            toc.classList.remove('collapsed', 'inline-mode');
         } else {
             // Desktop behavior
-            toc.classList.remove('collapsed');
+            toc.classList.remove('collapsed', 'inline-mode');
+        }
+    }
+}
+
+// Position TOC inline in the content flow for small screens
+function positionTOCInline(toc) {
+    if (toc.classList.contains('inline-mode')) {
+        // Find the main content area
+        const mainContent = document.querySelector('.document') || document.querySelector('.body') || document.querySelector('main');
+        if (mainContent && toc.parentElement === document.body) {
+            // Move TOC to after the first heading in the content
+            const firstHeading = mainContent.querySelector('h1, h2');
+            if (firstHeading && firstHeading.nextElementSibling) {
+                firstHeading.parentNode.insertBefore(toc, firstHeading.nextElementSibling);
+            } else if (firstHeading) {
+                firstHeading.parentNode.insertBefore(toc, firstHeading.nextSibling);
+            } else {
+                // Fallback: insert at the beginning of main content
+                mainContent.insertBefore(toc, mainContent.firstChild);
+            }
         }
     }
 }
