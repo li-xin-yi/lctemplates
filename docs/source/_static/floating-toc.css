@@ -1,4 +1,4 @@
-/* Built-in TOC Styles - Matches Alabaster Theme */
+/* Plain TOC Styles */
 .floating-toc {
     position: fixed;
     top: 100px;
@@ -17,7 +17,6 @@
 .floating-toc.collapsed {
     width: 40px;
     height: 40px;
-    border-radius: 3px;
     overflow: hidden;
 }
 
@@ -48,12 +47,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 2px;
-    transition: background-color 0.2s ease;
 }
 
 .floating-toc-toggle:hover {
-    background: rgba(0, 0, 0, 0.05);
     color: #444;
 }
 
@@ -86,7 +82,6 @@
     color: #444;
     text-decoration: none;
     border-left: 3px solid transparent;
-    transition: all 0.15s ease;
     font-size: 16px;
     line-height: 1.4;
     font-weight: normal;
@@ -190,316 +185,130 @@
 
 @media (max-width: 1024px) {
     .floating-toc {
-        position: fixed;
-        top: 20px;
-        right: 10px;
-        width: 280px;
-        max-width: calc(100vw - 40px);
-        max-height: calc(100vh - 60px);
-        z-index: 1000;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        position: static !important;
+        width: 100% !important;
+        margin: 1.5em 0 !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        font-family: inherit !important;
+        color: inherit !important;
     }
-    
+
     .floating-toc.collapsed {
-        width: 50px;
-        height: 50px;
-        top: 20px;
+        position: fixed;
+        width: 40px;
+        height: 40px;
         right: 10px;
+        top: 10px;
         background: #666;
-        border-radius: 50%;
     }
-    
-    .floating-toc-header {
-        padding: 12px 16px;
-        background: transparent;
-        border-bottom: 1px solid #eee;
-        margin-bottom: 0;
+
+    .floating-toc .floating-toc-header {
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 2px solid #333 !important;
+        border-radius: 0 !important;
+        padding: 0 0 8px 0 !important;
+        margin-bottom: 16px !important;
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        color: #333 !important;
     }
-    
-    .floating-toc-content {
-        padding: 8px 16px 16px 16px;
-        max-height: calc(100vh - 120px);
+
+    .floating-toc .floating-toc-title {
+        font-size: inherit !important;
+        color: inherit !important;
+        font-weight: inherit !important;
     }
-    
+
+    .floating-toc .floating-toc-toggle {
+        display: none !important;
+    }
+
+    .floating-toc .floating-toc-content {
+        padding: 0 !important;
+        max-height: none !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        overflow: visible !important;
+    }
+
+    .floating-toc ul {
+        margin: 0 0 1em 0 !important;
+        padding: 0 !important;
+    }
+
+    .floating-toc li {
+        margin: 0.3em 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+    }
+
     .floating-toc a {
-        padding: 8px 0;
-        font-size: 15px;
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-        border-radius: 4px;
-        margin: 2px 0;
+        display: block !important;
+        padding: 4px 0 !important;
+        color: #2980b9 !important;
+        text-decoration: none !important;
+        border: none !important;
+        background: transparent !important;
+        font-size: inherit !important;
+        line-height: 1.5 !important;
+        font-weight: normal !important;
+        transition: color 0.2s ease !important;
+        min-height: auto !important;
+        margin: 0 !important;
     }
-    
-    .floating-toc a:hover,
-    .floating-toc a:focus {
-        background: rgba(41, 128, 185, 0.1);
-        outline: none;
+
+    .floating-toc a:hover {
+        color: #1f5f8b !important;
+        text-decoration: underline !important;
+        background: transparent !important;
     }
-    
-    .floating-toc-toggle {
-        padding: 8px;
-        min-width: 44px;
-        min-height: 44px;
+
+    .floating-toc a.active {
+        color: #1f5f8b !important;
+        font-weight: bold !important;
+        border: none !important;
+        background: transparent !important;
+    }
+
+    .floating-toc ul ul a {
+        padding-left: 20px !important;
+        font-size: 0.95em !important;
+        color: #2980b9 !important;
+    }
+
+    .floating-toc ul ul ul a {
+        padding-left: 40px !important;
+        font-size: 0.9em !important;
+        color: #2980b9 !important;
+    }
+
+    .floating-toc ul ul ul ul a {
+        padding-left: 60px !important;
+        font-size: 0.9em !important;
+        color: #2980b9 !important;
     }
 }
 
 @media (max-width: 768px) {
-    .floating-toc:not(.inline-mode) {
-        width: 260px;
-        max-width: calc(100vw - 20px);
-        right: 10px;
-        top: 10px;
-    }
-    
     .floating-toc.collapsed {
         width: 45px;
         height: 45px;
         right: 15px;
         top: 15px;
     }
-    
-    .floating-toc:not(.inline-mode) .floating-toc-header {
-        padding: 10px 12px;
-    }
-    
-    .floating-toc:not(.inline-mode) .floating-toc-content {
-        padding: 6px 12px 12px 12px;
-    }
-    
-    .floating-toc:not(.inline-mode) a {
-        font-size: 14px;
-        padding: 6px 0;
-    }
-    
-    /* Inline mode styling for regular mobile (481px-768px) - plain style */
-    .floating-toc.inline-mode {
-        position: static !important;
-        width: 100% !important;
-        margin: 1.5em 0 !important;
-        background: transparent !important;
-        border: none !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        backdrop-filter: none !important;
-        font-family: inherit !important;
-        color: inherit !important;
-    }
-    
-    .floating-toc.inline-mode .floating-toc-header {
-        background: transparent !important;
-        border: none !important;
-        border-bottom: 2px solid #333 !important;
-        border-radius: 0 !important;
-        padding: 0 0 8px 0 !important;
-        margin-bottom: 16px !important;
-        font-size: 1.2em !important;
-        font-weight: bold !important;
-        color: #333 !important;
-    }
-    
-    .floating-toc.inline-mode .floating-toc-title {
-        font-size: inherit !important;
-        color: inherit !important;
-        font-weight: inherit !important;
-    }
-    
-    .floating-toc.inline-mode .floating-toc-toggle {
-        display: none !important;
-    }
-    
-    .floating-toc.inline-mode .floating-toc-content {
-        padding: 0 !important;
-        max-height: none !important;
-        border-radius: 0 !important;
-        background: transparent !important;
-        overflow: visible !important;
-    }
-    
-    .floating-toc.inline-mode ul {
-        margin: 0 0 1em 0 !important;
-        padding: 0 !important;
-    }
-    
-    .floating-toc.inline-mode li {
-        margin: 0.3em 0 !important;
-        padding: 0 !important;
-        list-style: none !important;
-    }
-    
-    .floating-toc.inline-mode a {
-        display: block !important;
-        padding: 4px 0 !important;
-        color: #2980b9 !important;
-        text-decoration: none !important;
-        border: none !important;
-        background: transparent !important;
-        font-size: inherit !important;
-        line-height: 1.5 !important;
-        font-weight: normal !important;
-        transition: color 0.2s ease !important;
-        min-height: auto !important;
-        margin: 0 !important;
-    }
-    
-    .floating-toc.inline-mode a:hover {
-        color: #1f5f8b !important;
-        text-decoration: underline !important;
-        background: transparent !important;
-    }
-    
-    .floating-toc.inline-mode a.active {
-        color: #1f5f8b !important;
-        font-weight: bold !important;
-        border: none !important;
-        background: transparent !important;
-    }
-    
-    .floating-toc.inline-mode ul ul a {
-        padding-left: 20px !important;
-        font-size: 0.95em !important;
-        color: #2980b9 !important;
-    }
-    
-    .floating-toc.inline-mode ul ul ul a {
-        padding-left: 40px !important;
-        font-size: 0.9em !important;
-        color: #2980b9 !important;
-    }
-    
-    .floating-toc.inline-mode ul ul ul ul a {
-        padding-left: 60px !important;
-        font-size: 0.9em !important;
-        color: #2980b9 !important;
-    }
 }
 
 @media (max-width: 480px) {
-    .floating-toc {
-        position: static;
-        width: 100%;
-        max-width: none;
-        margin: 20px 0;
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 6px;
-        box-shadow: none;
-        backdrop-filter: none;
-    }
-    
     .floating-toc.collapsed {
-        position: fixed;
         width: 40px;
         height: 40px;
-        left: auto;
         right: 10px;
         top: 10px;
-        background: #666;
-        border-radius: 50%;
-    }
-    
-    .floating-toc.inline-mode {
-        position: static !important;
-        width: 100% !important;
-        margin: 1.5em 0 !important;
-        background: transparent !important;
-        border: none !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        backdrop-filter: none !important;
-        font-family: inherit !important;
-        color: inherit !important;
-    }
-    
-    .floating-toc.inline-mode .floating-toc-header {
-        background: transparent !important;
-        border: none !important;
-        border-bottom: 2px solid #333 !important;
-        border-radius: 0 !important;
-        padding: 0 0 8px 0 !important;
-        margin-bottom: 16px !important;
-        font-size: 1.2em !important;
-        font-weight: bold !important;
-        color: #333 !important;
-    }
-    
-    .floating-toc.inline-mode .floating-toc-title {
-        font-size: inherit !important;
-        color: inherit !important;
-        font-weight: inherit !important;
-    }
-    
-    .floating-toc.inline-mode .floating-toc-toggle {
-        display: none !important;
-    }
-    
-    .floating-toc.inline-mode .floating-toc-content {
-        padding: 0 !important;
-        max-height: none !important;
-        border-radius: 0 !important;
-        background: transparent !important;
-        overflow: visible !important;
-    }
-    
-    .floating-toc.inline-mode ul {
-        margin: 0 0 1em 0 !important;
-        padding: 0 !important;
-    }
-    
-    .floating-toc.inline-mode li {
-        margin: 0.3em 0 !important;
-        padding: 0 !important;
-        list-style: none !important;
-    }
-    
-    .floating-toc.inline-mode a {
-        display: block !important;
-        padding: 4px 0 !important;
-        color: #2980b9 !important;
-        text-decoration: none !important;
-        border: none !important;
-        background: transparent !important;
-        font-size: inherit !important;
-        line-height: 1.5 !important;
-        font-weight: normal !important;
-        transition: color 0.2s ease !important;
-        min-height: auto !important;
-        margin: 0 !important;
-    }
-    
-    .floating-toc.inline-mode a:hover {
-        color: #1f5f8b !important;
-        text-decoration: underline !important;
-        background: transparent !important;
-    }
-    
-    .floating-toc.inline-mode a.active {
-        color: #1f5f8b !important;
-        font-weight: bold !important;
-        border: none !important;
-        background: transparent !important;
-    }
-    
-    .floating-toc.inline-mode ul ul a {
-        padding-left: 20px !important;
-        font-size: 0.95em !important;
-        color: #2980b9 !important;
-    }
-    
-    .floating-toc.inline-mode ul ul ul a {
-        padding-left: 40px !important;
-        font-size: 0.9em !important;
-        color: #2980b9 !important;
-    }
-    
-    .floating-toc.inline-mode ul ul ul ul a {
-        padding-left: 60px !important;
-        font-size: 0.9em !important;
-        color: #2980b9 !important;
     }
 }
 
