@@ -158,6 +158,10 @@ class Solution:
         return max(check(s, suffix), check(t[::-1], prefix))
 ```
 
+Exercises:
+
+[LC2851. String Transformation](https://leetcode.com/problems/string-transformation/description/): Use a substring matching alorithm (rolling hash or KMP) to determine which indices `i` can let `s[i:] + s[:i]` equal to `t`. (Hint: another point is *fast exponentiation* to quickly count the ways for state transition in a dynamic programming way.)
+
 ## Kunth-Morris-Pratt (KMP) Algorithm
 
 The KMP algorithm is another string-searching algorithm that uses a preprocessed table to avoid the backtracking of the brute-force solution.
