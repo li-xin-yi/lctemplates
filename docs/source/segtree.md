@@ -186,7 +186,7 @@ See [^1]
 
 Some subtle modifications can be made to the template above to fit different scenarios. 
 
-````{dropdown} with hashmap: query how many times an element appears in a range
+````{dropdown} With hashmap: query how many times an element appears in a range
 ```py
 class SegmentTree:
     def __init__(self, nums):
@@ -236,7 +236,9 @@ class SegmentTree:
 ```
 ````
 
-````{dropdown} + Binary search to find the first occurrence > k
+````{dropdown} Binary search on a segment tree
+
+Binary search to find the first occurrence $> k$
 
 A template question [LC3479](https://leetcode.com/problems/fruits-into-baskets-iii): let the node store the *max* value of a range, first check if the left subtree has a value greater than `k`, if not, then check the right subtree.
 
@@ -279,6 +281,8 @@ class SegmentTree:
                 return True
         return False
 ```
+
+Exercise: [LC3721](https://leetcode.com/problems/longest-balanced-subarray-ii/description/)
 ````
 
 ## Exercises
