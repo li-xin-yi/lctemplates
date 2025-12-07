@@ -69,6 +69,9 @@ function createFloatingTOC() {
     // Add mobile-specific enhancements
     addMobileSupport(tocContainer);
     
+    // Initialize TOC state based on screen size and user preference
+    initializeTOCState(tocContainer);
+    
     // Handle initial responsive positioning
     handleResize();
 }
@@ -117,16 +120,61 @@ function addTOCFunctionality(tocContainer, headings) {
     const toggle = tocContainer.querySelector('.floating-toc-toggle');
     const header = tocContainer.querySelector('.floating-toc-header');
     const links = tocContainer.querySelectorAll('a');
+    
+    // Track if user has manually interacted with TOC
+    let userExpanded = false;
+    let userCollapsed = false;
 
     // Toggle functionality
     toggle.addEventListener('click', function(e) {
         e.stopPropagation();
+        const wasCollapsed = tocContainer.classList.contains('collapsed');
         tocContainer.classList.toggle('collapsed');
+        
+        // Track user interaction
+        if (wasCollapsed) {
+            userExpanded = true;
+            userCollapsed = false;
+        } else {
+            userCollapsed = true;
+            userExpanded = false;
+        }
+        
+        // Store preference
+        if (wasCollapsed) {
+            localStorage.setItem('toc-expanded', 'true');
+        } else {
+            localStorage.setItem('toc-expanded', 'false');
+        }
     });
 
     header.addEventListener('click', function() {
+        const wasCollapsed = tocContainer.classList.contains('collapsed');
         tocContainer.classList.toggle('collapsed');
+        
+        // Track user interaction
+        if (wasCollapsed) {
+            userExpanded = true;
+            userCollapsed = false;
+            localStorage.setItem('toc-expanded', 'true');
+        } else {
+            userCollapsed = true;
+            userExpanded = false;
+            localStorage.setItem('toc-expanded', 'false');
+        }
     });
+    
+    // Close TOC when clicking outside on mobile
+    if (window.innerWidth <= 1024) {
+        document.addEventListener('click', function(e) {
+            if (!tocContainer.contains(e.target) && !tocContainer.classList.contains('collapsed')) {
+                // Only auto-close if user hasn't explicitly expanded it
+                if (!userExpanded) {
+                    tocContainer.classList.add('collapsed');
+                }
+            }
+        });
+    }
 
     // Smooth scrolling and active link highlighting
     links.forEach(link => {
@@ -143,6 +191,13 @@ function addTOCFunctionality(tocContainer, headings) {
                 
                 // Update active link
                 updateActiveLink(this);
+                
+                // Auto-collapse TOC on mobile after clicking a link to prevent overlap
+                if (window.innerWidth <= 1024 && !tocContainer.classList.contains('collapsed')) {
+                    setTimeout(() => {
+                        tocContainer.classList.add('collapsed');
+                    }, 300); // Small delay to allow smooth scroll to complete
+                }
             }
         });
     });
@@ -203,46 +258,64 @@ function highlightCurrentSection(headings) {
     }
 }
 
-// Auto-collapse on mobile and manage responsive behavior
-function handleResize() {
-    const toc = document.querySelector('.floating-toc');
-    if (toc) {
-        if (window.innerWidth <= 480) {
-            // On very small screens, make it inline (non-floating) with plain styling
-            toc.classList.remove('collapsed');
-            toc.classList.add('inline-mode');
-            positionTOCInline(toc);
-        } else if (window.innerWidth <= 768) {
-            // On regular mobile devices, also make it inline but keep some styling
-            toc.classList.remove('collapsed');
-            toc.classList.add('inline-mode');
-            positionTOCInline(toc);
-        } else if (window.innerWidth <= 1024) {
-            // On larger mobile/tablet, show expanded but positioned for mobile
-            toc.classList.remove('collapsed', 'inline-mode');
+// Initialize TOC state on page load
+function initializeTOCState(tocContainer) {
+    const windowWidth = window.innerWidth;
+    const userPreference = localStorage.getItem('toc-expanded');
+    
+    // On narrow screens, default to collapsed to prevent overlap
+    if (windowWidth <= 1200) {
+        if (userPreference !== 'true') {
+            tocContainer.classList.add('collapsed');
+        }
+    } else {
+        // On larger screens, respect user preference or default to expanded
+        if (userPreference === 'false') {
+            tocContainer.classList.add('collapsed');
         } else {
-            // Desktop behavior
-            toc.classList.remove('collapsed', 'inline-mode');
+            tocContainer.classList.remove('collapsed');
         }
     }
 }
 
-// Position TOC inline in the content flow for small screens
-function positionTOCInline(toc) {
-    if (toc.classList.contains('inline-mode')) {
-        // Find the main content area
-        const mainContent = document.querySelector('.document') || document.querySelector('.body') || document.querySelector('main');
-        if (mainContent && toc.parentElement === document.body) {
-            // Move TOC to after the first heading in the content
-            const firstHeading = mainContent.querySelector('h1, h2');
-            if (firstHeading && firstHeading.nextElementSibling) {
-                firstHeading.parentNode.insertBefore(toc, firstHeading.nextElementSibling);
-            } else if (firstHeading) {
-                firstHeading.parentNode.insertBefore(toc, firstHeading.nextSibling);
-            } else {
-                // Fallback: insert at the beginning of main content
-                mainContent.insertBefore(toc, mainContent.firstChild);
-            }
+// Auto-collapse on mobile and manage responsive behavior
+function handleResize() {
+    const toc = document.querySelector('.floating-toc');
+    if (!toc) return;
+    
+    // Ensure TOC is always in the body (not moved inline) for floating behavior
+    if (toc.parentElement !== document.body) {
+        document.body.appendChild(toc);
+    }
+    
+    // Remove inline-mode class if it exists
+    toc.classList.remove('inline-mode');
+    
+    const windowWidth = window.innerWidth;
+    const tocWidth = toc.offsetWidth || 280; // Default TOC width
+    const contentArea = document.querySelector('.body') || document.querySelector('.document');
+    const contentWidth = contentArea ? contentArea.offsetWidth : windowWidth;
+    
+    // Check if TOC would overlap content
+    // On smaller screens, auto-collapse to prevent overlap
+    // But respect user preference if they've manually expanded it
+    const userPreference = localStorage.getItem('toc-expanded');
+    const shouldBeCollapsed = windowWidth <= 1200 && 
+                              (contentWidth < windowWidth * 0.7 || windowWidth < 1024);
+    
+    if (shouldBeCollapsed) {
+        // Auto-collapse on narrow screens to prevent overlap
+        // But only if user hasn't explicitly expanded it
+        if (userPreference !== 'true') {
+            toc.classList.add('collapsed');
+        }
+    } else if (windowWidth > 1200) {
+        // On larger screens, respect user preference or default to expanded
+        if (userPreference === 'false') {
+            toc.classList.add('collapsed');
+        } else if (userPreference !== 'true') {
+            // Default to expanded on desktop
+            toc.classList.remove('collapsed');
         }
     }
 }
