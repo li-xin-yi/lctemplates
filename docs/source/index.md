@@ -59,7 +59,7 @@ Miscellaneous <miscellaneous.md>
 - [Test Case Generator](https://test-case-generator.herokuapp.com/), generating test cases with some given constraints.
 - [{octicon}`people` Cruel Coding Group](http://board.cruelcoding.com/) {bdg-primary}`youxiu is our habit`
 - [Chrome Codeium Extension](https://github.com/Exafunction/codeium-chrome), an in-line code auto completion extension <del>that can be used in LeetCode editor<del>, which is also what I contributed to. (now can't be used on LeetCode, but may help in other coding environments)
-
+- [Curated LeetCode Solutions](https://github.com/EndlessCheng/codeforces-go/blob/master/leetcode/SOLUTIONS.md), author [@0x3f](http://space.bilibili.com/206214) collected and organized by topic, various difficulty levels
 
 ## Indices and tables
 
