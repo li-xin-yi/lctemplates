@@ -33,6 +33,7 @@ $\lceil \frac{a}{b} \rceil = $ `(a + b - 1) // b`
 | The lowest zero-bit of $n$ | `~x & (x + 1)` |
 | The highest one-bit of $n$ | `1 << (x.bit_length() - 1)` |
 | The highest zero-bit of $n$ | `~x & ((1 << x.bit_length()) - 1)` |
+| Remove the lowest one-bit of $n$ | `x & (x - 1)` |
 | The masked number of the lowest $k$ bits | `(1 << k) - 1` |
 | Every bit of $n$ is flipped (but not the sign bit) | `~x & ((1 << x.bit_length()) - 1)` |
 
