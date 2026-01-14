@@ -136,6 +136,57 @@ Some other LC prblems applicable for this template (left as exercises):
 
 See [^1]
 
+## Discrete vs. Continuous Binary Search
+
+If the problem is **continuous** (i.e., the candidate result values are real numbers), you can still use binary search to solve it. Because of [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754), floating-point numbers have limited precision, a coding problem with continous domain usually only requires an approximate result within some error range $\epsilon$ (`EPSILON` in code). In this case, you can modify the while loop condition to `while right - left > EPSILON:` and return `left` or `(left+right)/2` as the final result. The rest of the template remains unchanged.
+
+For example, [LC3453 Separate Squares I](https://leetcode.com/problems/separate-squares-i/) requires us to find a line parallel to x-axis separating all square areas. Here we need two parts:
+
+**Discrete part**: check all `y=y_i` and `y=y_i + l_i` as candidate separating lines, if there is a minimal `y` that can separate all squares, return it. If there are two adjacent `y1` and `y2` values that one make `area_upper > area_lower` while the other makes `area_upper < area_lower`, we will find a separating line in the interval `(y1,y2)`.
+
+**Continuous part**: use binary search to find a `y` in `(y1,y2)` such that the difference between `area_upper` and `area_lower` is within `EPSILON`.
+
+```py
+EPSILON = 1e-6
+class Solution:
+    def separateSquares(self, squares: List[List[int]]) -> float:
+        sqs = [(y, l) for x,y,l in squares]
+        cands = sorted(set([y for y,l in sqs] + [y+l for y,l in sqs]))
+
+        def check(x):
+            upper = lower = 0
+            for y, l in sqs:
+                upper += min(l, max(0, y + l - x)) * l
+                lower += min(l, max(0, x - y)) * l
+            return upper, lower
+        
+        last_neg = None
+        left, right = 0, len(cands) - 1
+        while left < right:
+            mid = (left + right) // 2
+            upper, lower = check(cands[mid])
+            if lower < upper:
+                # last_neg = mid
+                left = mid + 1
+            else:
+                right = mid
+        
+        last_neg = left - 1
+        upper, lower = check(cands[last_neg])
+        if abs(upper - lower) < EPSILON:
+            return cands[last_neg]
+        
+        left, right = cands[last_neg], cands[last_neg + 1]
+        while right - left > EPSILON:
+            mid = (left + right) / 2
+            upper, lower = check(mid)
+            if lower < upper:
+                left = mid
+            else:
+                right = mid
+        return (left + right) / 2
+```
+
 ### Challenge: Median Sort (Google Code Jam Qual 2021 Q4) \*
 
 {bdg-danger}`TODO` 
