@@ -26,6 +26,7 @@ Binary Search <binary-search.md>
 Binary Lifting <binary-lifting.md>
 Substring Problem <substring.md>
 Segment Tree <segtree.md>
+Union Find <union-find.md>
 Computational Geometry <computational-geometry.md>
 Some Tips for Python in LeetCode <tips.md>
 Other Tricks <other-tricks.md>
