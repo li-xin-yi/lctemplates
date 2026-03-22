@@ -458,6 +458,13 @@ hr {
 /* ── Utterances ─────────────────────────────────────────────── */
 .utterances-comments { margin-top: 3rem !important; padding-top: 1.75rem !important; border-top: 1px solid var(--c-border) !important; }
 
+/* Scale the iframe to enlarge the comment text.
+   zoom enlarges content; max-width compensates so it doesn't overflow. */
+.utterances {
+    zoom: 1.25 !important;
+    max-width: 80% !important;  /* 100% / 1.25 = 80% keeps it within the column */
+}
+
 /* ── Scrollbars ─────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
