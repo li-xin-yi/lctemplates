@@ -1,3 +1,5 @@
+from textwrap import dedent
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -62,18 +64,68 @@ html_js_files = [
 ]
 
 extensions = ['myst_parser', 'sphinx.ext.viewcode', 
-              'sphinx_copybutton', "sphinx_comments", "sphinxcontrib.mermaid", "sphinx_design"]
+              'sphinx_copybutton', "sphinxcontrib.mermaid", "sphinx_design"]
 
 myst_enable_extensions = ["linkify", "dollarmath", "amsmath", "colon_fence"]
 
 master_doc = 'index'
 
-comments_config = {
-    "utterances": {
-        "repo": "li-xin-yi/lctemplates",
-        "optional": "config",
-        "issue-term": "pathname",
-        "label": "comment",
-        "theme": "github-light",
-    }
+utterances_config = {
+    "repo": "li-xin-yi/lctemplates",
+    "issue-term": "pathname",
+    "label": "comment",
+    "theme": "github-light",
+    "crossorigin": "anonymous",
 }
+
+
+def setup(app):
+    utterances_js = dedent(
+        f"""
+        var commentsRunWhenDOMLoaded = cb => {{
+            if (document.readyState !== "loading") {{
+                cb();
+            }} else if (document.addEventListener) {{
+                document.addEventListener("DOMContentLoaded", cb);
+            }} else {{
+                document.attachEvent("onreadystatechange", function() {{
+                    if (document.readyState === "complete") cb();
+                }});
+            }}
+        }};
+
+        var addUtterances = () => {{
+            if (document.querySelector(".utterances")) {{
+                return;
+            }}
+
+            var host = document.querySelector("main .body section")
+                || document.querySelector("main .body")
+                || document.querySelector("div.body")
+                || document.querySelector("article[role='main']")
+                || document.querySelector("main");
+
+            if (!host) {{
+                return;
+            }}
+
+            var container = document.createElement("div");
+            container.className = "utterances-comments";
+
+            var script = document.createElement("script");
+            script.src = "https://utteranc.es/client.js";
+            script.async = true;
+            script.crossOrigin = "{utterances_config['crossorigin']}";
+            script.setAttribute("repo", "{utterances_config['repo']}");
+            script.setAttribute("issue-term", "{utterances_config['issue-term']}");
+            script.setAttribute("label", "{utterances_config['label']}");
+            script.setAttribute("theme", "{utterances_config['theme']}");
+
+            container.appendChild(script);
+            host.appendChild(container);
+        }};
+
+        commentsRunWhenDOMLoaded(addUtterances);
+        """
+    )
+    app.add_js_file(None, body=utterances_js)
