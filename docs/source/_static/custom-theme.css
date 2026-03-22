@@ -1,84 +1,465 @@
-/* Custom theme adjustments */
+/* ============================================================
+   LCtemplates — flat, airy, large type
+   ============================================================ */
 
-/* Lighter code block background */
-div.highlight,
-pre,
-.highlight pre,
-.codehilite pre,
-div.code-block-caption + div.highlight {
-    background-color: #f8f8f8 !important;
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Design tokens ─────────────────────────────────────────── */
+:root {
+    --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono:  'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --font-sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Lighter palette — airy, near-white surfaces */
+    --c-bg:       #ffffff;
+    --c-surface:  #fafafa;
+    --c-surface2: #f3f3f3;
+    --c-border:   #eeeeee;
+    --c-border2:  #d8d8d8;
+
+    --c-text:     #2c2c2c;   /* soft dark — not pure black */
+    --c-text2:    #717171;
+    --c-text3:    #b0b0b0;
+
+    --c-accent:   #2563eb;   /* Tailwind blue-600 — vibrant but light */
+    --c-accent2:  #1d4ed8;
+
+    --c-code-bg:  #f8f8f8;
+    --c-inline:   #d1242f;   /* muted red */
+
+    --toc-width:  220px;
+    --toc-gap:    48px;
+    --sidebar-w:  270px;
+
+    --r: 4px;
 }
 
-/* Code spans (inline code) */
-code,
-tt {
-    background-color: #f8f8f8 !important;
-    color: #333 !important;
-    padding: 2px 4px !important;
-    border-radius: 3px !important;
+/* ── Base ──────────────────────────────────────────────────── */
+body {
+    font-family: var(--font-serif) !important;
+    font-weight: 500 !important;
+    -webkit-font-smoothing: antialiased;
+    background: var(--c-bg) !important;
+    color: var(--c-text) !important;
 }
 
-/* Make quote blocks more obvious */
-blockquote {
-    background-color: #f0f7ff !important;
-    border-left: 4px solid #2980b9 !important;
-    padding: 15px 20px !important;
-    margin: 20px 0 !important;
-    border-radius: 4px !important;
-    position: relative !important;
-}
-
-blockquote::before {
-    content: '"' !important;
-    font-size: 48px !important;
-    color: #2980b9 !important;
-    position: absolute !important;
-    top: -5px !important;
-    left: 10px !important;
-    font-family: Georgia, serif !important;
-    opacity: 0.3 !important;
-}
-
-blockquote p {
+/* ── Fluid layout ──────────────────────────────────────────── */
+div.document {
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 !important;
-    color: #444 !important;
-    font-style: italic !important;
+    box-sizing: border-box !important;
+}
+
+div.documentwrapper {
+    float: none !important;
+    margin-left: var(--sidebar-w) !important;
+    width: auto !important;
+}
+
+div.bodywrapper { margin: 0 !important; }
+
+div.body {
+    padding: 2.5rem calc(var(--toc-width) + var(--toc-gap)) 4rem 3.5rem !important;
+    font-size: 20px !important;
+    line-height: 1.62 !important;
+    color: var(--c-text) !important;
+    max-width: none !important;
+    min-width: 0 !important;
+}
+
+@media (max-width: 1200px) {
+    div.body { padding-right: 3.5rem !important; }
+}
+
+/* ── Typography ────────────────────────────────────────────── */
+div.body p {
+    margin: 0 0 0.6em 0 !important;
+    font-size: 20px !important;
+}
+
+div.body h1, div.body h2, div.body h3,
+div.body h4, div.body h5, div.body h6 {
+    font-family: var(--font-serif) !important;
+    color: var(--c-text) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em !important;
+    line-height: 1.2 !important;
+}
+
+div.body h1 {
+    font-size: 2.6rem !important;
+    margin: 0 0 1.2rem 0 !important;
+    padding-bottom: 0.5rem !important;
+    border-bottom: 1px solid var(--c-border) !important;
+}
+
+div.body h2 {
+    font-size: 1.95rem !important;
+    margin: 2.75rem 0 0.8rem 0 !important;
+    padding-bottom: 0.35rem !important;
+    border-bottom: 1px solid var(--c-border) !important;
+}
+
+div.body h3 {
+    font-size: 1.55rem !important;
+    margin: 2.25rem 0 0.5rem 0 !important;
+    font-weight: 600 !important;
+}
+
+div.body h4, div.body h5, div.body h6 {
+    font-family: var(--font-serif) !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    color: var(--c-text3) !important;
+    margin: 2rem 0 0.5rem 0 !important;
+}
+
+div.body ul, div.body ol {
+    padding-left: 1.7rem !important;
+    margin: 0 0 0.85em 0 !important;
+}
+
+div.body li { margin-bottom: 0.2em !important; }
+
+/* ── Links ─────────────────────────────────────────────────── */
+div.body a       { color: var(--c-accent)  !important; text-decoration: none      !important; }
+div.body a:hover { color: var(--c-accent2) !important; text-decoration: underline !important; }
+
+/* ── Code blocks ───────────────────────────────────────────── */
+div.highlight,
+.highlight pre,
+.codehilite pre {
+    background: var(--c-code-bg) !important;
+    border: none !important;
+    border-radius: var(--r) !important;
+    box-shadow: none !important;
+}
+
+div.highlight { margin: 0.9rem 0 !important; }
+
+div.highlight pre {
+    font-family: var(--font-mono) !important;
+    font-size: 16px !important;
+    line-height: 1.55 !important;
+    padding: 0.85rem 1.25rem !important;
+    color: var(--c-text) !important;
+    margin: 0 !important;
+    overflow-x: auto !important;
+}
+
+div.code-block-caption {
+    background: var(--c-surface2) !important;
+    border-radius: var(--r) var(--r) 0 0 !important;
+    color: var(--c-text2) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 13px !important;
+    padding: 0.35rem 1.25rem !important;
+    border: none !important;
+}
+
+div.code-block-caption + div.highlight {
+    border-radius: 0 0 var(--r) var(--r) !important;
+    margin-top: 0 !important;
+}
+
+/* ── Inline code ───────────────────────────────────────────── */
+code, tt {
+    font-family: var(--font-mono) !important;
+    font-size: 0.8em !important;
+    background: var(--c-surface2) !important;
+    color: var(--c-inline) !important;
+    padding: 0.1em 0.38em !important;
+    border-radius: var(--r) !important;
+    border: none !important;
+    font-weight: 400 !important;
+}
+
+pre code, pre tt {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    color: inherit !important;
+    font-size: inherit !important;
+}
+
+/* ── Copy button ───────────────────────────────────────────── */
+.copybtn {
+    background: var(--c-surface2) !important;
+    border: none !important;
+    border-radius: var(--r) !important;
+    color: var(--c-text3) !important;
+    opacity: 0 !important;
+    transition: opacity 0.15s !important;
+    box-shadow: none !important;
+}
+div.highlight:hover .copybtn { opacity: 1 !important; }
+.copybtn:hover { background: var(--c-border2) !important; color: var(--c-text) !important; }
+
+/* ── Admonitions ── ultra-flat, light tints ────────────────── */
+.admonition {
+    border: none !important;
+    border-left: 2px solid var(--c-border2) !important;
+    border-radius: 0 !important;
+    background: var(--c-surface) !important;
+    padding: 0.7rem 1.1rem !important;
+    margin: 1.4rem 0 !important;
+    box-shadow: none !important;
+}
+
+p.admonition-title {
+    font-family: var(--font-serif) !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    margin: 0 0 0.3rem 0 !important;
+}
+
+.admonition p:last-child { margin-bottom: 0 !important; }
+
+.admonition.note    { background: #f0f6ff !important; border-left-color: #93bbfd !important; }
+.admonition.note    .admonition-title { color: #2563eb !important; }
+
+.admonition.tip,
+.admonition.hint    { background: #f0faf4 !important; border-left-color: #86efac !important; }
+.admonition.tip     .admonition-title,
+.admonition.hint    .admonition-title { color: #16a34a !important; }
+
+.admonition.warning,
+.admonition.caution { background: #fffdf0 !important; border-left-color: #fcd34d !important; }
+.admonition.warning .admonition-title,
+.admonition.caution .admonition-title { color: #ca8a04 !important; }
+
+.admonition.danger,
+.admonition.error   { background: #fff5f5 !important; border-left-color: #fca5a5 !important; }
+.admonition.danger  .admonition-title,
+.admonition.error   .admonition-title { color: #dc2626 !important; }
+
+.admonition.important { background: #faf5ff !important; border-left-color: #d8b4fe !important; }
+.admonition.important .admonition-title { color: #9333ea !important; }
+
+/* ── Blockquotes ───────────────────────────────────────────── */
+blockquote {
+    border: none !important;
+    border-left: 2px solid var(--c-border2) !important;
+    background: none !important;
+    padding: 0.2rem 1.1rem !important;
+    margin: 1rem 0 !important;
+    border-radius: 0 !important;
+    position: static !important;
+}
+blockquote::before { display: none !important; content: none !important; }
+blockquote p { font-style: italic !important; color: var(--c-text2) !important; margin: 0 !important; }
+blockquote p:first-child { margin-left: 0 !important; }
+
+/* ── Tables ────────────────────────────────────────────────── */
+table.docutils {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1.4rem 0 !important;
+    font-size: 0.88em !important;
+    font-family: var(--font-serif) !important;
+    border: 1px solid var(--c-border) !important;
+    border-radius: 0 !important;
+}
+
+table.docutils th {
+    background: var(--c-surface) !important;
+    font-family: var(--font-serif) !important;
+    font-weight: 700 !important;
+    font-size: 0.65rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.09em !important;
+    padding: 0.55rem 0.9rem !important;
+    border: none !important;
+    border-bottom: 1px solid var(--c-border2) !important;
+    text-align: left !important;
+    color: var(--c-text2) !important;
+}
+
+table.docutils td {
+    padding: 0.55rem 0.9rem !important;
+    border: none !important;
+    border-bottom: 1px solid var(--c-border) !important;
+    vertical-align: top !important;
+    color: var(--c-text) !important;
+}
+
+table.docutils tr:last-child td { border-bottom: none !important; }
+table.docutils tr:nth-child(even) td { background: var(--c-surface) !important; }
+
+/* ── Sidebar ───────────────────────────────────────────────── */
+.sphinxsidebar {
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; bottom: 0 !important;
+    width: var(--sidebar-w) !important;
+    background: var(--c-bg) !important;
+    border-right: 1px solid var(--c-border) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-shadow: none !important;
+}
+
+.sphinxsidebarwrapper { padding: 1.75rem 1.25rem !important; }
+
+.sphinxsidebar h1,
+.sphinxsidebar p.logo {
+    font-family: var(--font-serif) !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: var(--c-text) !important;
+    margin-bottom: 0.2rem !important;
+}
+
+.sphinxsidebar h3, .sphinxsidebar h4 {
+    font-family: var(--font-serif) !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    color: var(--c-text3) !important;
+    margin: 1.75rem 0 0.5rem 0 !important;
+    border: none !important;
+}
+
+.sphinxsidebar ul  { margin: 0 !important; padding: 0 !important; }
+.sphinxsidebar li  { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+
+.sphinxsidebar ul li a {
+    display: block !important;
+    padding: 0.3rem 0.6rem !important;
+    font-family: var(--font-serif) !important;
+    font-size: 17px !important;
+    color: var(--c-text2) !important;
+    text-decoration: none !important;
+    border-radius: var(--r) !important;
+    transition: background 0.1s, color 0.1s !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.sphinxsidebar ul li a:hover {
+    color: var(--c-accent) !important;
+    background: rgba(37, 99, 235, 0.05) !important;
+    text-decoration: none !important;
+}
+
+.sphinxsidebar ul li.current > a {
+    color: var(--c-accent) !important;
+    background: rgba(37, 99, 235, 0.07) !important;
+    font-weight: 600 !important;
+}
+
+.sphinxsidebar p {
+    font-family: var(--font-serif) !important;
+    font-size: 16px !important;
+    color: var(--c-text2) !important;
     line-height: 1.6 !important;
 }
 
-blockquote p:first-child {
-    margin-left: 25px !important;
+/* ── Search ─────────────────────────────────────────────────── */
+#searchbox { margin-top: 1.75rem !important; }
+
+.searchformwrapper form.search {
+    display: flex !important;
+    gap: 8px !important;
+    align-items: center !important;
 }
 
-/* MyST admonitions (note, warning, etc.) - make them more distinct */
-.admonition {
-    border-radius: 6px !important;
-    border: 1px solid #ddd !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+#searchbox input[type="text"] {
+    flex: 1 !important;
+    min-width: 0 !important;
+    padding: 0.42rem 0.7rem !important;
+    border: 1px solid var(--c-border2) !important;
+    border-radius: var(--r) !important;
+    font-family: var(--font-serif) !important;
+    font-size: 16px !important;
+    background: var(--c-bg) !important;
+    color: var(--c-text) !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    width: auto !important;
+    transition: border-color 0.15s !important;
 }
 
-.admonition.note {
-    border-left: 4px solid #2980b9 !important;
-    background-color: #f0f7ff !important;
+#searchbox input[type="text"]:focus {
+    border-color: var(--c-accent) !important;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
 }
 
-.admonition.warning {
-    border-left: 4px solid #f39c12 !important;
-    background-color: #fff8e7 !important;
+#searchbox input[type="submit"] {
+    flex-shrink: 0 !important;
+    padding: 0.42rem 0.85rem !important;
+    background: var(--c-accent) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: var(--r) !important;
+    font-family: var(--font-serif) !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: background 0.15s !important;
 }
 
-.admonition.tip {
-    border-left: 4px solid #27ae60 !important;
-    background-color: #f0fff4 !important;
+#searchbox input[type="submit"]:hover { background: var(--c-accent2) !important; }
+
+.sphinxsidebar::-webkit-scrollbar { width: 4px; }
+.sphinxsidebar::-webkit-scrollbar-track { background: transparent; }
+.sphinxsidebar::-webkit-scrollbar-thumb { background: var(--c-border2); border-radius: 2px; }
+
+/* ── Chrome ─────────────────────────────────────────────────── */
+div.related { display: none !important; }
+
+div.footer {
+    margin-left: var(--sidebar-w) !important;
+    background: var(--c-surface) !important;
+    border-top: 1px solid var(--c-border) !important;
+    padding: 1.25rem 3.5rem !important;
+    font-family: var(--font-serif) !important;
+    font-size: 14px !important;
+    color: var(--c-text2) !important;
+    display: block !important;
 }
 
-.admonition.danger {
-    border-left: 4px solid #e74c3c !important;
-    background-color: #fdf2f2 !important;
+div.footer a { color: var(--c-text2) !important; text-decoration: none !important; }
+div.footer a:hover { color: var(--c-accent) !important; }
+
+.headerlink {
+    color: var(--c-border2) !important;
+    font-size: 0.75em !important;
+    margin-left: 0.3rem !important;
+    text-decoration: none !important;
+    font-family: var(--font-serif) !important;
+}
+.headerlink:hover { color: var(--c-accent) !important; }
+
+hr {
+    border: none !important;
+    border-top: 1px solid var(--c-border) !important;
+    margin: 2.5rem 0 !important;
 }
 
-/* Ensure code blocks within quote blocks also have the lighter background */
-blockquote div.highlight,
-blockquote pre {
-    background-color: #f0f0f0 !important;
+/* ── sphinx-design ─────────────────────────────────────────── */
+.sd-tab-set > label {
+    font-family: var(--font-serif) !important;
+    font-size: 17px !important;
+    font-weight: 500 !important;
 }
+.sd-tab-set > input:checked + label { border-bottom-color: var(--c-accent) !important; color: var(--c-accent) !important; }
+.sd-tab-set > label:hover { color: var(--c-accent) !important; }
+
+.sd-card { border: 1px solid var(--c-border) !important; border-radius: var(--r) !important; box-shadow: none !important; }
+.sd-card-header { background: var(--c-surface) !important; border-bottom: 1px solid var(--c-border) !important; font-weight: 600 !important; font-family: var(--font-serif) !important; }
+
+/* ── Utterances ─────────────────────────────────────────────── */
+.utterances-comments { margin-top: 3rem !important; padding-top: 1.75rem !important; border-top: 1px solid var(--c-border) !important; }
+
+/* ── Scrollbars ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--c-border2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--c-text3); }
