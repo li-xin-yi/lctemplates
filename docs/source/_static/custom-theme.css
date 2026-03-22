@@ -61,7 +61,7 @@ div.bodywrapper { margin: 0 !important; }
 
 div.body {
     padding: 2.5rem calc(var(--toc-width) + var(--toc-gap)) 4rem 3.5rem !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
     line-height: 1.62 !important;
     color: var(--c-text) !important;
     max-width: none !important;
@@ -75,7 +75,7 @@ div.body {
 /* ── Typography ────────────────────────────────────────────── */
 div.body p {
     margin: 0 0 0.6em 0 !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
 }
 
 div.body h1, div.body h2, div.body h3,
@@ -88,21 +88,21 @@ div.body h4, div.body h5, div.body h6 {
 }
 
 div.body h1 {
-    font-size: 2.6rem !important;
+    font-size: 2.35rem !important;
     margin: 0 0 1.2rem 0 !important;
     padding-bottom: 0.5rem !important;
     border-bottom: 1px solid var(--c-border) !important;
 }
 
 div.body h2 {
-    font-size: 1.95rem !important;
+    font-size: 1.75rem !important;
     margin: 2.75rem 0 0.8rem 0 !important;
     padding-bottom: 0.35rem !important;
     border-bottom: 1px solid var(--c-border) !important;
 }
 
 div.body h3 {
-    font-size: 1.55rem !important;
+    font-size: 1.4rem !important;
     margin: 2.25rem 0 0.5rem 0 !important;
     font-weight: 600 !important;
 }
@@ -142,9 +142,9 @@ div.highlight { margin: 0.9rem 0 !important; }
 
 div.highlight pre {
     font-family: var(--font-mono) !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     line-height: 1.55 !important;
-    padding: 0.85rem 1.25rem !important;
+    padding: 0.75rem 1.1rem !important;
     color: var(--c-text) !important;
     margin: 0 !important;
     overflow-x: auto !important;
@@ -155,8 +155,8 @@ div.code-block-caption {
     border-radius: var(--r) var(--r) 0 0 !important;
     color: var(--c-text2) !important;
     font-family: var(--font-mono) !important;
-    font-size: 13px !important;
-    padding: 0.35rem 1.25rem !important;
+    font-size: 12px !important;
+    padding: 0.3rem 1.1rem !important;
     border: none !important;
 }
 
@@ -212,7 +212,7 @@ div.highlight:hover .copybtn { opacity: 1 !important; }
 p.admonition-title {
     font-family: var(--font-serif) !important;
     font-weight: 700 !important;
-    font-size: 0.85rem !important;
+    font-size: 0.77rem !important;
     text-transform: none !important;
     letter-spacing: normal !important;
     margin: 0 0 0.3rem 0 !important;
@@ -308,7 +308,7 @@ table.docutils tr:nth-child(even) td { background: var(--c-surface) !important; 
 .sphinxsidebar h1,
 .sphinxsidebar p.logo {
     font-family: var(--font-serif) !important;
-    font-size: 15px !important;
+    font-size: 13px !important;
     font-weight: 700 !important;
     color: var(--c-text) !important;
     margin-bottom: 0.2rem !important;
@@ -332,7 +332,7 @@ table.docutils tr:nth-child(even) td { background: var(--c-surface) !important; 
     display: block !important;
     padding: 0.3rem 0.6rem !important;
     font-family: var(--font-serif) !important;
-    font-size: 17px !important;
+    font-size: 15px !important;
     color: var(--c-text2) !important;
     text-decoration: none !important;
     border-radius: var(--r) !important;
@@ -356,7 +356,7 @@ table.docutils tr:nth-child(even) td { background: var(--c-surface) !important; 
 
 .sphinxsidebar p {
     font-family: var(--font-serif) !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     color: var(--c-text2) !important;
     line-height: 1.6 !important;
 }
@@ -377,7 +377,7 @@ table.docutils tr:nth-child(even) td { background: var(--c-surface) !important; 
     border: 1px solid var(--c-border2) !important;
     border-radius: var(--r) !important;
     font-family: var(--font-serif) !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     background: var(--c-bg) !important;
     color: var(--c-text) !important;
     outline: none !important;
@@ -399,7 +399,7 @@ table.docutils tr:nth-child(even) td { background: var(--c-surface) !important; 
     border: none !important;
     border-radius: var(--r) !important;
     font-family: var(--font-serif) !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     font-weight: 500 !important;
     cursor: pointer !important;
     transition: background 0.15s !important;
@@ -446,7 +446,7 @@ hr {
 /* ── sphinx-design ─────────────────────────────────────────── */
 .sd-tab-set > label {
     font-family: var(--font-serif) !important;
-    font-size: 17px !important;
+    font-size: 15px !important;
     font-weight: 500 !important;
 }
 .sd-tab-set > input:checked + label { border-bottom-color: var(--c-accent) !important; color: var(--c-accent) !important; }
