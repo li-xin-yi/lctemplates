@@ -2,6 +2,8 @@
 
 **Disjoint Set Union (DSU)** (or **Union Find** in some contexts) is a data structure that keeps track of a set of elements partitioned into a number of disjoint (non-overlapping) subsets. It provides two main operations: `find` and `union`.
 
+## Basic Implementation
+
 The very basic implementation of Union Find can be done using a list to represent the parent of each element. Initially, each element is its own parent (i.e., each element is in its own set, I use `root` to represent the parent of each element). The `find` function is used to find the representative (or "root") of the set that an element belongs to, while the `union` function is used to merge two sets together.
 
 Notice that in the `find` function, we perform **path compression** by setting the parent of each visited node directly to the root.
@@ -19,7 +21,10 @@ def union(x,y):
     root[y] = x
 ```
 
-This basic implementation has a time complexity of O(n) for the `find` operation in the worst case, which can happen when the tree becomes very deep.
+This basic implementation has a time complexity of $O(n)$ for the `find` operation in the worst case, which can happen when the tree becomes very deep.
+
+
+## Optimization:Heuristical Union
 
 To optimize the time complexity, we can use **union by rank** (or **union by size**), which can help keep the tree flat. By the trick of union by rank, we always attach the smaller tree under the root of the larger tree. This way, we can ensure that the depth of the tree remains logarithmic.
 
@@ -58,5 +63,15 @@ def union(x,y):
 ```
 ````
 `````
+
+Sometimes, we feel hard to understand the concept of rank, so we usually use size instead of rank to achieve the same effect. 
+
+**Time Complexity**: $O(\alpha(n))$ for both `find` and `union`, where $\alpha(n)$ is the [inverse Ackermann function](https://en.wikipedia.org/wiki/Ackermann_function#Inverse), which grows very slowly and is practically constant for all reasonable values of $n$. By using both path compression and union by rank/size, we can achieve almost constant time complexity for both operations.
+
+## Variant: Weighted DSU
+
+We can also maintain some additional information related to the parent/root of each element, not only the parent itself. 
+
+
 
 
