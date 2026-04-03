@@ -70,7 +70,26 @@ Sometimes, we feel hard to understand the concept of rank, so we usually use siz
 
 ## Variant: Weighted DSU
 
-We can also maintain some additional information related to the parent/root of each element, not only the parent itself. 
+We can also maintain some additional information for nodes that related to the parent/root of each element, not only the parent itself. For example, we can maintain the *distance* from each node to its parent, and then we can easily calculate the distance between any two nodes in the same set by using the distance to their common ancestor (the root of the set). This is called **Weighted DSU**.
+
+```py
+root = list(range(n))
+dist = [0] * n
+
+def find(x):
+    if x != root[x]:
+        # path compression
+        origin = root[x]
+        root[x] = find(root[x])
+        dist[x] += dist[origin]
+    return root[x]
+
+def union(x, y, w):
+    x, y = find(x), find(y)
+    if x == y: return
+    root[y] = x
+    dist[y] = dist[x] + w - dist[y]
+```
 
 
 
