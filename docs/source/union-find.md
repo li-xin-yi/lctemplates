@@ -91,6 +91,46 @@ def union(x, y, w):
     dist[y] = dist[x] + w - dist[y]
 ```
 
+For example, in [LC 3887. Incremental Even Weighted Cycle Queries](https://leetcode.com/problems/incremental-even-weighted-cycle-queries/), for every connected component, we can maintain the distance from each node to the root of the component. More specifically, only the parity of the distance matters in this problem, so we can maintain the distance modulo 2. Once we are about to union two nodes in the same component, we need to check if the parity of the distance from these two nodes to their common ancestor (the root of the component) plus the weight of the edge between them is even or not. If it is even, we can add this edge without creating an odd cycle, otherwise, we cannot add this edge.
+
+```py
+class Solution:
+    def numberOfEdgesAdded(self, n: int, edges: List[List[int]]) -> int:
+        res = 0
+        parent = list(range(n))
+        dist = [0] * n
+        size = [1] * n
+
+        def find(x: int) -> int:
+            if parent[x] != x:
+                p, d = find(parent[x])
+                parent[x] = p
+                dist[x] += d
+            return parent[x], dist[x]
+        
+        def union(x: int, y: int, w: int) -> bool:
+            px, dx = find(x)
+            py, dy = find(y)
+            if px == py:
+                return False
+            if size[px] < size[py]:
+                px, py, dx, dy = py, px, dy, dx
+            parent[py] = px
+            dist[py] = w + dx - dy
+            size[px] += size[py]
+            return True
+
+        for u, v, w in edges:
+            pu, du = find(u)
+            pv, dv = find(v)
+            if pu != pv:
+                union(u, v, w)
+                res += 1
+            elif (du + dv + w) % 2 == 0:
+                res += 1
+        return res
+```
+
 
 
 
