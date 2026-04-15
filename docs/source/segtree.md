@@ -285,6 +285,94 @@ class SegmentTree:
 Exercise: [LC3721](https://leetcode.com/problems/longest-balanced-subarray-ii/description/)
 ````
 
+````{dropdown} Segment tree on sets
+
+[LC.3901 Good Subsequence Queries](https://leetcode.com/problems/good-subsequence-queries/)
+
+```py
+from math import gcd
+
+class Solution:
+    def countGoodSubseq(self, nums: list[int], p: int, queries: list[list[int]]) -> int:
+        n = len(nums)
+
+        def trans(x):
+            return x // p if x % p == 0 else 0
+
+        size = 1
+        while size < n:
+            size <<= 1
+
+        tree_g = [0] * (size << 1)
+        tree_rem = [() for _ in range(size << 1)]
+
+        def pull(i):
+            l = i << 1
+            r = l | 1
+            gl, gr = tree_g[l], tree_g[r]
+            tree_g[i] = gcd(gl, gr)
+
+            tmp = set()
+            for x in tree_rem[l]:
+                tmp.add(gcd(x, gr))
+            for x in tree_rem[r]:
+                tmp.add(gcd(gl, x))
+            tree_rem[i] = tuple(tmp)
+
+        cnt_div = 0
+        for i, x in enumerate(nums):
+            v = trans(x)
+            if v > 0:
+                cnt_div += 1
+            idx = size + i
+            tree_g[idx] = v
+            tree_rem[idx] = (0,)
+
+        for i in range(n, size):
+            idx = size + i
+            tree_g[idx] = 0
+            tree_rem[idx] = ()
+
+        for i in range(size - 1, 0, -1):
+            pull(i)
+
+        res = 0
+
+        for idx, val in queries:
+            old_v = trans(nums[idx])
+            new_v = trans(val)
+
+            if old_v == 0 and new_v > 0:
+                cnt_div += 1
+            elif old_v > 0 and new_v == 0:
+                cnt_div -= 1
+
+            nums[idx] = val
+
+            pos = size + idx
+            tree_g[pos] = new_v
+            tree_rem[pos] = (0,)
+
+            pos >>= 1
+            while pos:
+                pull(pos)
+                pos >>= 1
+
+            if cnt_div == 0:
+                continue
+
+            if cnt_div < n:
+                if tree_g[1] == 1:
+                    res += 1
+            else:
+                if 1 in tree_rem[1]:
+                    res += 1
+
+        return res
+```
+
+````
+
 ## Exercises
 
 - [LC.3691 Maximum Total Subarray Value II](https://leetcode.com/problems/maximum-total-subarray-value-ii/): Segment tree for range query (`min` and `max`) + heap for top-k
