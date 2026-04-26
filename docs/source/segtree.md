@@ -182,6 +182,10 @@ See [^1]
 
 [^1]: https://cp-algorithms.com/data_structures/segment_tree.html
 
+### Comparison with Binary Indexed Tree (Fenwick Tree)
+
+BIT is a data structure that can also be used to maintain the prefix sum of an array. It is more space-efficient than a segment tree, as it only requires `n` space to store the prefix sums. However, it can only support point updates and prefix sum queries, while a segment tree can support range updates and range queries. Therefore, if you need to perform range updates or range queries, a segment tree is more suitable.
+
 ## Alternative Templates
 
 Some subtle modifications can be made to the template above to fit different scenarios. 
