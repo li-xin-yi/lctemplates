@@ -8,3 +8,8 @@
 For example,
 
 > How many numbers are there in the range $[L, R]$ such that the sum of their digits is equal to $S$?
+
+## Key Idea
+
+The key idea of digit DP is to use **dynamic programming** to count the numbers that satisfy the given properties. We can define a DP state that represents the number of ways to form a valid number with certain properties up to a certain digit.
+
