@@ -175,3 +175,52 @@ The `next` table is built by the following rules:
 - `next[0] = -1`
 - For `i > 0`, if `target[i] == target[j]`, then `next[i] = j + 1`
 - If `target[i] != target[j]`, then we need to backtrack `j` to `next[j]` until we find a match or `j` becomes `-1
+
+
+### Usages
+
+Determine whether a string `s` is a cyclic shift of another string `t`. The idea is to concatenate `t` with itself and check whether `s` is a substring of the concatenated string.
+
+```python
+def is_cyclic_shift(s: str, t: str) -> bool:
+    if len(s) != len(t):
+        return False
+    return kmp_search(t + t, s) != -1
+```
+
+
+`````{dropdown} Alternatives
+
+Another alternative approach to determine **all** occurrences of cyclic shifts is [Booth's Algorithm](https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation). It finds the lexicographically minimal string rotation in linear time. The idea is to use a two-pointer technique to find the minimal rotation of the string, and then check if the target string is a substring of the concatenated string.
+
+```python
+def canon(s):
+    n = len(s)
+    if n <= 1:
+        return s
+    t = s + s
+    i, j, k = 0, 1, 0
+    while i < n and j < n and k < n:
+        if t[i + k] == t[j + k]:
+            k += 1
+        elif t[i + k] > t[j + k]:
+            i += k + 1
+            if i <= j:
+                i = j + 1
+            k = 0
+        else:
+            j += k + 1
+            if j <= i:
+                j = i + 1
+            k = 0
+    p = min(i, j)
+    return t[p:p + n]
+```
+
+`````
+    
+
+
+
+
+
